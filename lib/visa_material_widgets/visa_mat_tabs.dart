@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -850,10 +850,10 @@ class VMatTabBar extends StatefulWidget implements PreferredSizeWidget {
 
   /// Defines the ink response focus, hover, and splash colors.
   ///
-  /// If non-null, it is resolved against one of [MaterialState.focused],
-  /// [MaterialState.hovered], and [MaterialState.pressed].
+  /// If non-null, it is resolved against one of [WidgetState.focused],
+  /// [WidgetState.hovered], and [WidgetState.pressed].
   ///
-  /// [MaterialState.pressed] triggers a ripple (an ink splash), per
+  /// [WidgetState.pressed] triggers a ripple (an ink splash), per
   /// the current Material Design spec. The [overlayColor] doesn't map
   /// a state to [InkResponse.highlightColor] because a separate highlight
   /// is not used by the current design guidelines. See
@@ -862,7 +862,7 @@ class VMatTabBar extends StatefulWidget implements PreferredSizeWidget {
   /// If the overlay color is null or resolves to null, then the default values
   /// for [InkResponse.focusColor], [InkResponse.hoverColor], [InkResponse.splashColor]
   /// will be used instead.
-  final MaterialStateProperty<Color?>? overlayColor;
+  final WidgetStateProperty<Color?>? overlayColor;
 
   /// {@macro flutter.widgets.scrollable.dragStartBehavior}
   final DragStartBehavior dragStartBehavior;
@@ -969,7 +969,9 @@ class _VMatTabBarState extends State<VMatTabBar> {
     // there's no good way for us to find out what the color is so we don't.
     //
     if (widget.automaticIndicatorColorAdjustment &&
-        color.value == Material.of(context).color?.value) color = Colors.white;
+        color.toARGB32() == Material.of(context).color?.toARGB32()) {
+      color = Colors.white;
+    }
 
     return UnderlineTabIndicator(
       borderSide: BorderSide(

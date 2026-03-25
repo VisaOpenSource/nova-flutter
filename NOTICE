@@ -181,7 +181,7 @@ These changes provide additional functionality, customization options, and impro
 "publisher": "tools.dart.dev",
 "licenseFile": "<https://pub.dev/packages/string_scanner/license>"
 },
-"visa_nova_icons_flutter 4.0.0": {
+"visa_nova_icons_flutter 4.1.0": {
 "licenses": "Apache-2.0",
 "repository": "",
 "publisher": "Visa Inc",

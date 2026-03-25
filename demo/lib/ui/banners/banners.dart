@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
 //
 //
 // Visa Nova Flutter Demo Banner Page
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
 // Demo app imports
@@ -24,6 +23,32 @@ import 'package:demo/main.dart';
 import 'package:demo/ui/show_code_accordion.dart';
 import 'package:demo/utilities.dart';
 
+enum BannerType {
+  none,
+  infoDefault,
+  warningDefault,
+  errorDefault,
+  successDefault,
+  infoWithTitle,
+  warningWithTitle,
+  errorWithTitle,
+  successWithTitle,
+  infoWithButton,
+  warningWithButton,
+  errorWithButton,
+  successWithButton,
+  infoPersistent,
+  warningPersistent,
+  errorPersistent,
+  successPersistent,
+  infoWithCloseIcon,
+  warningWithCloseIcon,
+  errorWithCloseIcon,
+  successWithCloseIcon,
+  custom,
+}
+
+// ignore: must_be_immutable
 class Banners extends StatefulWidget {
   Banners({
     Key? key,
@@ -43,11 +68,16 @@ class Banners extends StatefulWidget {
     this.warningBannerPersistent = false,
     this.errorBannerPersistent = false,
     this.successBannerPersistent = false,
+    this.infoBannerWithCloseIcon = false,
+    this.warningBannerWithCloseIcon = false,
+    this.errorBannerWithCloseIcon = false,
+    this.successBannerWithCloseIcon = false,
     this.customBanner = false,
   }) : super(key: key);
 
   @override
   State<Banners> createState() => _BannersState();
+
   bool infoBannerDefault,
       warningBannerDefault,
       errorBannerDefault,
@@ -64,10 +94,45 @@ class Banners extends StatefulWidget {
       warningBannerPersistent,
       errorBannerPersistent,
       successBannerPersistent,
+      infoBannerWithCloseIcon,
+      warningBannerWithCloseIcon,
+      errorBannerWithCloseIcon,
+      successBannerWithCloseIcon,
       customBanner;
 }
 
 class _BannersState extends State<Banners> {
+  // Helper method to show only one banner at a time
+  void showOnlyBanner(void Function() bannerSetter) {
+    setState(() {
+      // Reset all banners to false
+      widget.infoBannerDefault = false;
+      widget.warningBannerDefault = false;
+      widget.errorBannerDefault = false;
+      widget.successBannerDefault = false;
+      widget.infoBannerWithTitle = false;
+      widget.warningBannerWithTitle = false;
+      widget.errorBannerWithTitle = false;
+      widget.successBannerWithTitle = false;
+      widget.infoBannerWithButton = false;
+      widget.warningBannerWithButton = false;
+      widget.errorBannerWithButton = false;
+      widget.successBannerWithButton = false;
+      widget.infoBannerPersistent = false;
+      widget.warningBannerPersistent = false;
+      widget.errorBannerPersistent = false;
+      widget.successBannerPersistent = false;
+      widget.infoBannerWithCloseIcon = false;
+      widget.warningBannerWithCloseIcon = false;
+      widget.errorBannerWithCloseIcon = false;
+      widget.successBannerWithCloseIcon = false;
+      widget.customBanner = false;
+
+      // Then set the specific banner to true
+      bannerSetter();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _key = GlobalKey();
@@ -154,7 +219,7 @@ class _BannersState extends State<Banners> {
               // ! Banners with Button
               VBannerInfoWithButton(
                 visible: widget.infoBannerWithButton,
-                onClosePressed: () {
+                onLinkPressed: () {
                   setState(() {
                     widget.infoBannerWithButton = false;
                   });
@@ -163,7 +228,7 @@ class _BannersState extends State<Banners> {
               ),
               VBannerWarningWithButton(
                 visible: widget.warningBannerWithButton,
-                onClosePressed: () {
+                onLinkPressed: () {
                   setState(() {
                     widget.warningBannerWithButton = false;
                   });
@@ -172,7 +237,7 @@ class _BannersState extends State<Banners> {
               ),
               VBannerErrorWithButton(
                 visible: widget.errorBannerWithButton,
-                onClosePressed: () {
+                onLinkPressed: () {
                   setState(() {
                     widget.errorBannerWithButton = false;
                   });
@@ -181,7 +246,7 @@ class _BannersState extends State<Banners> {
               ),
               VBannerSuccessWithButton(
                 visible: widget.successBannerWithButton,
-                onClosePressed: () {
+                onLinkPressed: () {
                   setState(() {
                     widget.successBannerWithButton = false;
                   });
@@ -200,6 +265,39 @@ class _BannersState extends State<Banners> {
               ),
               VBannerSuccessPersistent(
                 visible: widget.successBannerPersistent,
+              ),
+              // ! Close Icon Banners
+              VBannerInfoWithCloseIcon(
+                visible: widget.infoBannerWithCloseIcon,
+                onClosePressed: () {
+                  setState(() {
+                    widget.infoBannerWithCloseIcon = false;
+                  });
+                },
+              ),
+              VBannerWarningWithCloseIcon(
+                visible: widget.warningBannerWithCloseIcon,
+                onClosePressed: () {
+                  setState(() {
+                    widget.warningBannerWithCloseIcon = false;
+                  });
+                },
+              ),
+              VBannerErrorWithCloseIcon(
+                visible: widget.errorBannerWithCloseIcon,
+                onClosePressed: () {
+                  setState(() {
+                    widget.errorBannerWithCloseIcon = false;
+                  });
+                },
+              ),
+              VBannerSuccessWithCloseIcon(
+                visible: widget.successBannerWithCloseIcon,
+                onClosePressed: () {
+                  setState(() {
+                    widget.successBannerWithCloseIcon = false;
+                  });
+                },
               ),
               // ! Custom Banners
               VBannerCustom(
@@ -259,25 +357,8 @@ class _BannersState extends State<Banners> {
                                   ),
                                   "Show default informational banner"),
                               onPressed: () {
-                                setState(() {
-                                  widget.warningBannerDefault = false;
-                                  widget.errorBannerDefault = false;
-                                  widget.successBannerDefault = false;
-                                  widget.infoBannerWithTitle = false;
-                                  widget.warningBannerWithTitle = false;
-                                  widget.errorBannerWithTitle = false;
-                                  widget.successBannerWithTitle = false;
-                                  widget.infoBannerWithButton = false;
-                                  widget.warningBannerWithButton = false;
-                                  widget.errorBannerWithButton = false;
-                                  widget.successBannerWithButton = false;
-                                  widget.infoBannerPersistent = false;
-                                  widget.warningBannerPersistent = false;
-                                  widget.errorBannerPersistent = false;
-                                  widget.successBannerPersistent = false;
-                                  widget.infoBannerDefault = true;
-                                  widget.customBanner = false;
-                                });
+                                showOnlyBanner(
+                                    () => widget.infoBannerDefault = true);
                               },
                             ),
                             smallHeight(),
@@ -317,25 +398,8 @@ class _BannersState extends State<Banners> {
                                   ),
                                   "Show informational banner with title"),
                               onPressed: () {
-                                setState(() {
-                                  widget.warningBannerDefault = false;
-                                  widget.errorBannerDefault = false;
-                                  widget.successBannerDefault = false;
-                                  widget.warningBannerWithTitle = false;
-                                  widget.errorBannerWithTitle = false;
-                                  widget.successBannerWithTitle = false;
-                                  widget.infoBannerWithButton = false;
-                                  widget.warningBannerWithButton = false;
-                                  widget.errorBannerWithButton = false;
-                                  widget.successBannerWithButton = false;
-                                  widget.infoBannerPersistent = false;
-                                  widget.warningBannerPersistent = false;
-                                  widget.errorBannerPersistent = false;
-                                  widget.successBannerPersistent = false;
-                                  widget.infoBannerDefault = false;
-                                  widget.infoBannerWithTitle = true;
-                                  widget.customBanner = false;
-                                });
+                                showOnlyBanner(
+                                    () => widget.infoBannerWithTitle = true);
                               },
                             ),
                             smallHeight(),
@@ -375,25 +439,8 @@ class _BannersState extends State<Banners> {
                                   ),
                                   "Show informational banner with button"),
                               onPressed: () {
-                                setState(() {
-                                  widget.warningBannerDefault = false;
-                                  widget.errorBannerDefault = false;
-                                  widget.successBannerDefault = false;
-                                  widget.warningBannerWithTitle = false;
-                                  widget.errorBannerWithTitle = false;
-                                  widget.successBannerWithTitle = false;
-                                  widget.warningBannerWithButton = false;
-                                  widget.errorBannerWithButton = false;
-                                  widget.successBannerWithButton = false;
-                                  widget.infoBannerPersistent = false;
-                                  widget.warningBannerPersistent = false;
-                                  widget.errorBannerPersistent = false;
-                                  widget.successBannerPersistent = false;
-                                  widget.infoBannerDefault = false;
-                                  widget.infoBannerWithTitle = false;
-                                  widget.infoBannerWithButton = true;
-                                  widget.customBanner = false;
-                                });
+                                showOnlyBanner(
+                                    () => widget.infoBannerWithButton = true);
                               },
                             ),
                             smallHeight(),
@@ -402,6 +449,49 @@ class _BannersState extends State<Banners> {
                               componentName: 'Banner',
                               exampleName: 'Informational_Banner_With_Button',
                               copyLabel: "Banners with button",
+                            ),
+                            smallHeight(),
+                            const SemanticHeader(
+                                title:
+                                    "Informational banner with close icon button"),
+                            smallHeight(),
+                            VButton(
+                                style: VButtonStyle(
+                                  backgroundColorActive: VColors.transparent,
+                                  backgroundColorDisabled: VColors.transparent,
+                                  foregroundColorActive: VColors.defaultActive,
+                                  foregroundColorDisabled: VColors.disabled,
+                                  overlayColorFocused:
+                                      VColors.defaultSurfaceLowlight,
+                                  overlayColorPressed:
+                                      VColors.defaultSurfaceLowlight,
+                                  borderSideActive: const BorderSide(
+                                    color: VColors.defaultActive,
+                                    style: BorderStyle.solid,
+                                  ),
+                                  borderSideDisabled: BorderSide(
+                                    color: VColors.defaultDisabled,
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                                child: Text(
+                                    style: defaultVTheme.textStyles.buttonMedium
+                                        .copyWith(
+                                      color: VColors.defaultActive,
+                                    ),
+                                    "Show informational banner with close icon"),
+                                onPressed: () {
+                                  showOnlyBanner(() =>
+                                      widget.infoBannerWithCloseIcon = true);
+                                }),
+                            smallHeight(),
+                            const ShowCodeAccordion(
+                              codeSegment:
+                                  CodeSegments.VBannerInfoWithCloseIcon,
+                              componentName: 'Banner',
+                              exampleName:
+                                  'Informational_Banner_With_Close_Icon',
+                              copyLabel: "Banners with close icon",
                             ),
                             smallHeight(),
                             const SemanticHeader(
@@ -434,25 +524,8 @@ class _BannersState extends State<Banners> {
                                   ),
                                   "Show informational banner without close link"),
                               onPressed: () {
-                                setState(() {
-                                  widget.warningBannerDefault = false;
-                                  widget.errorBannerDefault = false;
-                                  widget.successBannerDefault = false;
-                                  widget.warningBannerWithTitle = false;
-                                  widget.errorBannerWithTitle = false;
-                                  widget.successBannerWithTitle = false;
-                                  widget.warningBannerWithButton = false;
-                                  widget.errorBannerWithButton = false;
-                                  widget.successBannerWithButton = false;
-                                  widget.warningBannerPersistent = false;
-                                  widget.errorBannerPersistent = false;
-                                  widget.successBannerPersistent = false;
-                                  widget.infoBannerDefault = false;
-                                  widget.infoBannerWithTitle = false;
-                                  widget.infoBannerWithButton = false;
-                                  widget.infoBannerPersistent = true;
-                                  widget.customBanner = false;
-                                });
+                                showOnlyBanner(
+                                    () => widget.infoBannerPersistent = true);
                               },
                             ),
                             smallHeight(),
@@ -503,25 +576,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show default success banner"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.warningBannerWithTitle = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.successBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.successBannerDefault = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(
+                                      () => widget.successBannerDefault = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -561,25 +617,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show success banner with title"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.warningBannerWithTitle = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.successBannerDefault = false;
-                                    widget.successBannerWithTitle = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(() =>
+                                      widget.successBannerWithTitle = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -618,25 +657,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show success banner with button"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.warningBannerWithTitle = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.successBannerDefault = false;
-                                    widget.successBannerWithTitle = false;
-                                    widget.successBannerWithButton = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(() =>
+                                      widget.successBannerWithButton = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -645,6 +667,47 @@ class _BannersState extends State<Banners> {
                               componentName: 'Banner',
                               exampleName: 'Success_Banner_With_Button',
                               copyLabel: "Banners with button",
+                            ),
+                            smallHeight(),
+                            const SemanticHeader(
+                                title: "Success banner with close icon button"),
+                            smallHeight(),
+                            VButton(
+                                style: VButtonStyle(
+                                  backgroundColorActive: VColors.transparent,
+                                  backgroundColorDisabled: VColors.transparent,
+                                  foregroundColorActive: VColors.defaultActive,
+                                  foregroundColorDisabled: VColors.disabled,
+                                  overlayColorFocused:
+                                      VColors.defaultSurfaceLowlight,
+                                  overlayColorPressed:
+                                      VColors.defaultSurfaceLowlight,
+                                  borderSideActive: const BorderSide(
+                                    color: VColors.defaultActive,
+                                    style: BorderStyle.solid,
+                                  ),
+                                  borderSideDisabled: BorderSide(
+                                    color: VColors.defaultDisabled,
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                                child: Text(
+                                    style: defaultVTheme.textStyles.buttonMedium
+                                        .copyWith(
+                                      color: VColors.defaultActive,
+                                    ),
+                                    "Show success banner with close icon"),
+                                onPressed: () {
+                                  showOnlyBanner(() =>
+                                      widget.successBannerWithCloseIcon = true);
+                                }),
+                            smallHeight(),
+                            const ShowCodeAccordion(
+                              codeSegment:
+                                  CodeSegments.VBannerSuccessWithCloseIcon,
+                              componentName: 'Banner',
+                              exampleName: 'Success_Banner_With_Close_Icon',
+                              copyLabel: "Banners with close icon",
                             ),
                             smallHeight(),
                             const SemanticHeader(
@@ -676,25 +739,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show success banner without close link"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.warningBannerWithTitle = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.successBannerDefault = false;
-                                    widget.successBannerWithTitle = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.successBannerPersistent = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(() =>
+                                      widget.successBannerPersistent = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -745,25 +791,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show default warning banner"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.successBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.warningBannerWithTitle = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.successBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.warningBannerDefault = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(
+                                      () => widget.warningBannerDefault = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -802,25 +831,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show warning banner with title"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.successBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.successBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.warningBannerWithTitle = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(() =>
+                                      widget.warningBannerWithTitle = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -860,25 +872,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show warning banner with button"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.successBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.successBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.warningBannerWithTitle = false;
-                                    widget.warningBannerWithButton = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(() =>
+                                      widget.warningBannerWithButton = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -887,6 +882,47 @@ class _BannersState extends State<Banners> {
                               componentName: 'Banner',
                               exampleName: 'Warning_Banner_With_Button',
                               copyLabel: "Banners with button",
+                            ),
+                            smallHeight(),
+                            const SemanticHeader(
+                                title: "Warning banner with close icon button"),
+                            smallHeight(),
+                            VButton(
+                                style: VButtonStyle(
+                                  backgroundColorActive: VColors.transparent,
+                                  backgroundColorDisabled: VColors.transparent,
+                                  foregroundColorActive: VColors.defaultActive,
+                                  foregroundColorDisabled: VColors.disabled,
+                                  overlayColorFocused:
+                                      VColors.defaultSurfaceLowlight,
+                                  overlayColorPressed:
+                                      VColors.defaultSurfaceLowlight,
+                                  borderSideActive: const BorderSide(
+                                    color: VColors.defaultActive,
+                                    style: BorderStyle.solid,
+                                  ),
+                                  borderSideDisabled: BorderSide(
+                                    color: VColors.defaultDisabled,
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                                child: Text(
+                                    style: defaultVTheme.textStyles.buttonMedium
+                                        .copyWith(
+                                      color: VColors.defaultActive,
+                                    ),
+                                    "Show warning banner with close icon"),
+                                onPressed: () {
+                                  showOnlyBanner(() =>
+                                      widget.warningBannerWithCloseIcon = true);
+                                }),
+                            smallHeight(),
+                            const ShowCodeAccordion(
+                              codeSegment:
+                                  CodeSegments.VBannerWarningWithCloseIcon,
+                              componentName: 'Banner',
+                              exampleName: 'Warning_Banner_With_Close_Icon',
+                              copyLabel: "Banners with close icon",
                             ),
                             smallHeight(),
                             const SemanticHeader(
@@ -918,25 +954,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show warning banner without close link"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.successBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.successBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.warningBannerWithTitle = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.warningBannerPersistent = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(() =>
+                                      widget.warningBannerPersistent = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -986,25 +1005,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show default error banner"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.successBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.warningBannerWithTitle = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.successBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.errorBannerDefault = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(
+                                      () => widget.errorBannerDefault = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -1043,26 +1045,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show error banner with title"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.successBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.warningBannerWithTitle = false;
-
-                                    widget.successBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.errorBannerWithTitle = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(
+                                      () => widget.errorBannerWithTitle = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -1101,25 +1085,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show error banner with button"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.successBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.warningBannerWithTitle = false;
-                                    widget.successBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.errorBannerWithButton = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(() =>
+                                      widget.errorBannerWithButton = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -1127,6 +1094,58 @@ class _BannersState extends State<Banners> {
                               componentName: 'Banner',
                               exampleName: 'Error_Banner_With_Button',
                               copyLabel: "Banners with button",
+                            ),
+                            smallHeight(),
+                            const SemanticHeader(
+                                title: "Error banner with close icon button"),
+                            smallHeight(),
+                            // ! Error banner with close icon example
+                            if (widget.errorBannerWithCloseIcon) ...[
+                              VBannerErrorWithCloseIcon(
+                                onClosePressed: () {
+                                  setState(() {
+                                    widget.errorBannerWithCloseIcon = false;
+                                  });
+                                },
+                              ),
+                              smallHeight(),
+                            ],
+                            VButton(
+                                style: VButtonStyle(
+                                  backgroundColorActive: VColors.transparent,
+                                  backgroundColorDisabled: VColors.transparent,
+                                  foregroundColorActive: VColors.defaultActive,
+                                  foregroundColorDisabled: VColors.disabled,
+                                  overlayColorFocused:
+                                      VColors.defaultSurfaceLowlight,
+                                  overlayColorPressed:
+                                      VColors.defaultSurfaceLowlight,
+                                  borderSideActive: const BorderSide(
+                                    color: VColors.defaultActive,
+                                    style: BorderStyle.solid,
+                                  ),
+                                  borderSideDisabled: BorderSide(
+                                    color: VColors.defaultDisabled,
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                                child: Text(
+                                    style: defaultVTheme.textStyles.buttonMedium
+                                        .copyWith(
+                                      color: VColors.defaultActive,
+                                    ),
+                                    "Show error banner with close icon"),
+                                onPressed: () {
+                                  showOnlyBanner(() =>
+                                      widget.errorBannerWithCloseIcon = true);
+                                }),
+                            smallHeight(),
+                            const ShowCodeAccordion(
+                              codeSegment:
+                                  CodeSegments.VBannerErrorWithCloseIcon,
+                              componentName: 'Banner',
+                              exampleName: 'Error_Banner_With_Close_Icon',
+                              copyLabel: "Banners with close icon",
                             ),
                             smallHeight(),
 
@@ -1159,25 +1178,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show error banner without close link"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.successBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.warningBannerWithTitle = false;
-                                    widget.successBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.errorBannerPersistent = true;
-                                    widget.customBanner = false;
-                                  });
+                                  showOnlyBanner(() =>
+                                      widget.errorBannerPersistent = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -1228,25 +1230,8 @@ class _BannersState extends State<Banners> {
                                     ),
                                     "Show custom banner"),
                                 onPressed: () {
-                                  setState(() {
-                                    widget.infoBannerDefault = false;
-                                    widget.warningBannerDefault = false;
-                                    widget.successBannerDefault = false;
-                                    widget.infoBannerWithTitle = false;
-                                    widget.warningBannerWithTitle = false;
-                                    widget.successBannerWithTitle = false;
-                                    widget.infoBannerWithButton = false;
-                                    widget.warningBannerWithButton = false;
-                                    widget.successBannerWithButton = false;
-                                    widget.infoBannerPersistent = false;
-                                    widget.warningBannerPersistent = false;
-                                    widget.successBannerPersistent = false;
-                                    widget.errorBannerDefault = false;
-                                    widget.errorBannerWithTitle = false;
-                                    widget.errorBannerWithButton = false;
-                                    widget.errorBannerPersistent = false;
-                                    widget.customBanner = true;
-                                  });
+                                  showOnlyBanner(
+                                      () => widget.customBanner = true);
                                 }),
                             smallHeight(),
                             const ShowCodeAccordion(
@@ -1408,9 +1393,11 @@ class VBannerSuccessWithButton extends StatelessWidget {
       hasAction: true,
       action: "Primary action",
       onClosePressed: onClosePressed,
+      hasLink: true,
+      link: "Close",
+      onLinkPressed: onLinkPressed,
       visible: visible,
       onActionPressed: onActionPressed,
-      hasClose: true,
     );
   }
 }
@@ -1436,9 +1423,11 @@ class VBannerErrorWithButton extends StatelessWidget {
       hasAction: true,
       action: "Primary action",
       onClosePressed: onClosePressed,
+      hasLink: true,
+      link: "Close",
+      onLinkPressed: onLinkPressed,
       visible: visible,
       onActionPressed: onActionPressed,
-      hasClose: true,
     );
   }
 }
@@ -1464,9 +1453,11 @@ class VBannerWarningWithButton extends StatelessWidget {
       hasAction: true,
       action: "Primary action",
       onClosePressed: onClosePressed,
+      hasLink: true,
+      link: "Close",
+      onLinkPressed: onLinkPressed,
       visible: visible,
       onActionPressed: onActionPressed,
-      hasClose: true,
     );
   }
 }
@@ -1492,9 +1483,11 @@ class VBannerInfoWithButton extends StatelessWidget {
       hasAction: true,
       action: "Primary action",
       onClosePressed: onClosePressed,
+      hasLink: true,
+      link: "Close",
+      onLinkPressed: onLinkPressed,
       visible: visible,
       onActionPressed: onActionPressed,
-      hasClose: true,
     );
   }
 }
@@ -1710,6 +1703,99 @@ class VBannerInfoDefault extends StatelessWidget {
       hasLink: true,
       link: "Close",
       onLinkPressed: onLinkPressed,
+      visible: visible,
+    );
+  }
+}
+// END
+
+// ! Banner widgets with close icon
+// BEGIN VBannerInfoWithCloseIcon
+class VBannerInfoWithCloseIcon extends StatelessWidget {
+  const VBannerInfoWithCloseIcon({
+    Key? key,
+    this.visible = true,
+    this.onClosePressed,
+  }) : super(key: key);
+  final bool visible;
+  final Function()? onClosePressed;
+  @override
+  Widget build(BuildContext context) {
+    return VBanner(
+      bannerState: BannerState.informational,
+      description:
+          "This is required text that describes the banner in more detail.",
+      hasClose: true,
+      onClosePressed: onClosePressed,
+      visible: visible,
+    );
+  }
+}
+// END
+
+// BEGIN VBannerSuccessWithCloseIcon
+class VBannerSuccessWithCloseIcon extends StatelessWidget {
+  const VBannerSuccessWithCloseIcon({
+    Key? key,
+    this.visible = true,
+    this.onClosePressed,
+  }) : super(key: key);
+  final bool visible;
+  final Function()? onClosePressed;
+  @override
+  Widget build(BuildContext context) {
+    return VBanner(
+      bannerState: BannerState.success,
+      description:
+          "This is required text that describes the banner in more detail.",
+      hasClose: true,
+      onClosePressed: onClosePressed,
+      visible: visible,
+    );
+  }
+}
+// END
+
+// BEGIN VBannerWarningWithCloseIcon
+class VBannerWarningWithCloseIcon extends StatelessWidget {
+  const VBannerWarningWithCloseIcon({
+    Key? key,
+    this.visible = true,
+    this.onClosePressed,
+  }) : super(key: key);
+  final bool visible;
+  final Function()? onClosePressed;
+  @override
+  Widget build(BuildContext context) {
+    return VBanner(
+      bannerState: BannerState.warning,
+      description:
+          "This is required text that describes the banner in more detail.",
+      hasClose: true,
+      onClosePressed: onClosePressed,
+      visible: visible,
+    );
+  }
+}
+// END
+
+// BEGIN VBannerErrorWithCloseIcon
+class VBannerErrorWithCloseIcon extends StatelessWidget {
+  const VBannerErrorWithCloseIcon({
+    Key? key,
+    this.visible = true,
+    this.onClosePressed,
+  }) : super(key: key);
+  final bool visible;
+  final Function()? onClosePressed;
+  @override
+  Widget build(BuildContext context) {
+    return VBanner(
+      bannerState: BannerState.error,
+      description:
+          "This is required text that describes the banner in more detail.",
+      hasClose: true,
+      onClosePressed: onClosePressed,
       visible: visible,
     );
   }

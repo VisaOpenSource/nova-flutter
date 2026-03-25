@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ class VDividerStyle extends ThemeExtension<VDividerStyle> {
     endIndent,
   }) =>
       VDividerStyle(
-        dividerColor: backgroundColor ?? this.dividerColor,
+        dividerColor: backgroundColor ?? dividerColor,
         thickness: thickness ?? this.thickness,
         height: height ?? this.height,
         indent: indent ?? this.indent,
@@ -92,13 +92,18 @@ class VDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     final dynamic defaultStyle;
     if (vExt == null || vExt is VDef) {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark ? getDefaultColorSchemeDark()! : getDefaultColorScheme()!;
+      defaultStyle = Theme.of(context).brightness == Brightness.dark
+          ? getDefaultColorSchemeDark()!
+          : getDefaultColorScheme()!;
     } else {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark ? getAltColorSchemeDark()! : getAltColorScheme()!;
+      defaultStyle = Theme.of(context).brightness == Brightness.dark
+          ? getAltColorSchemeDark()!
+          : getAltColorScheme()!;
     }
     final height = style?.height ?? defaultStyle.vDividerProperties?.height;
     final indent = style?.indent ?? defaultStyle.vDividerProperties?.indent;
-    final endIndent = style?.endIndent ?? defaultStyle.vDividerProperties?.endIndent;
+    final endIndent =
+        style?.endIndent ?? defaultStyle.vDividerProperties?.endIndent;
     Color getDividerColor() {
       switch (dividerType) {
         case VDividerType.section:
@@ -106,13 +111,15 @@ class VDivider extends StatelessWidget {
         case VDividerType.decorative:
           return style?.dividerColor ?? defaultStyle.border;
         default:
-          return style?.dividerColor ?? defaultStyle.activeSubtle.withOpacity(0.5);
+          return style?.dividerColor ??
+              defaultStyle.activeSubtle.withValues(alpha: 0.5);
       }
     }
 
     double getDividerThickness(dividerType) {
       if (dividerType == VDividerType.section) {
-        return style?.thickness ?? (defaultStyle.vDividerProperties?.thickness + 1.0);
+        return style?.thickness ??
+            (defaultStyle.vDividerProperties?.thickness + 1.0);
       } else {
         return style?.thickness ?? defaultStyle.vDividerProperties?.thickness;
       }

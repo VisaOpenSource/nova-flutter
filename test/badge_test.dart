@@ -1,3 +1,20 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
@@ -304,6 +321,7 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: VBadgeLabel(
+            hasLabel: true,
             hasBG: false,
             backgroundColor: Colors.red,
             hasIcon: false,
@@ -323,5 +341,215 @@ void main() {
               widget is Container && widget.color == Colors.green,
         ),
         findsOneWidget);
+  });
+
+  // Coverage: VBadge warning state
+  testWidgets("Badge warning state renders correctly",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: VBadge(
+              badgeState: BadgeState.warning,
+              label: "Warning",
+            ),
+          ),
+        ),
+      ),
+    );
+    expect(find.text("Warning"), findsOneWidget);
+  });
+
+  // Coverage: VBadge number state with label
+  testWidgets("Badge number state with label renders VBadgeNumber",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: VBadge(
+              badgeState: BadgeState.number,
+              label: "5",
+              hasLabel: true,
+              child: const Icon(Icons.mail),
+            ),
+          ),
+        ),
+      ),
+    );
+    expect(find.text("5"), findsOneWidget);
+    expect(find.byIcon(Icons.mail), findsOneWidget);
+  });
+
+  // Coverage: VBadge number state without label
+  testWidgets("Badge number state without label renders dot",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: VBadge(
+              badgeState: BadgeState.number,
+              label: "3",
+              hasLabel: false,
+              child: const Icon(Icons.mail),
+            ),
+          ),
+        ),
+      ),
+    );
+    expect(find.byIcon(Icons.mail), findsOneWidget);
+  });
+
+  // Coverage: VBadgeLabel with hasBG false
+  testWidgets("Badge renders without background", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: VBadge(
+              badgeState: BadgeState.critical,
+              label: "Critical",
+              hasBG: false,
+            ),
+          ),
+        ),
+      ),
+    );
+    expect(find.text("Critical"), findsOneWidget);
+  });
+
+  // Coverage: VBadgeLabel with hasIcon false, hasEllipse true
+  testWidgets("Badge with ellipse and no icon", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: VBadge(
+              badgeState: BadgeState.stable,
+              label: "Stable",
+              hasIcon: false,
+              hasEllipse: true,
+            ),
+          ),
+        ),
+      ),
+    );
+    expect(find.text("Stable"), findsOneWidget);
+  });
+
+  // Coverage: VBadgeStyle lerp
+  test('VBadgeStyle lerp', () {
+    const a = VBadgeStyle(
+      criticalBGColor: Colors.red,
+      neutralBGColor: Colors.blue,
+    );
+    const b = VBadgeStyle(
+      criticalBGColor: Colors.green,
+      neutralBGColor: Colors.yellow,
+    );
+    final result = a.lerp(b, 0.5);
+    expect(result, isA<VBadgeStyle>());
+  });
+
+  test('VBadgeStyle lerp with null returns this', () {
+    const a = VBadgeStyle(criticalBGColor: Colors.red);
+    final result = a.lerp(null, 0.5);
+    expect(identical(result, a), isTrue);
+  });
+
+  // Coverage: neutral badge state
+  testWidgets("Badge neutral state renders", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: VBadge(
+          badgeState: BadgeState.neutral,
+        ),
+      ),
+    );
+    expect(find.byType(VBadge), findsOneWidget);
+  });
+
+  // Coverage: stable badge state
+  testWidgets("Badge stable state renders", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: VBadge(
+          badgeState: BadgeState.stable,
+        ),
+      ),
+    );
+    expect(find.byType(VBadge), findsOneWidget);
+  });
+
+  // Coverage: critical state without label (lines 160-176)
+  testWidgets("VBadge critical no label renders icon",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: VBadge(
+          badgeState: BadgeState.critical,
+          hasLabel: false,
+          hasBG: true,
+        ),
+      ),
+    );
+    expect(find.byType(VBadge), findsOneWidget);
+  });
+
+  // Coverage: critical no label, no bg (lines 165-176 hasBG false branch)
+  testWidgets("VBadge critical no label no bg", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: VBadge(
+          badgeState: BadgeState.critical,
+          hasLabel: false,
+          hasBG: false,
+        ),
+      ),
+    );
+    expect(find.byType(VBadge), findsOneWidget);
+  });
+
+  // Coverage: warning state without label (lines 270-286)
+  testWidgets("VBadge warning no label renders icon",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: VBadge(
+          badgeState: BadgeState.warning,
+          hasLabel: false,
+          hasBG: true,
+        ),
+      ),
+    );
+    expect(find.byType(VBadge), findsOneWidget);
+  });
+
+  // Coverage: warning no label, no bg
+  testWidgets("VBadge warning no label no bg", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: VBadge(
+          badgeState: BadgeState.warning,
+          hasLabel: false,
+          hasBG: false,
+        ),
+      ),
+    );
+    expect(find.byType(VBadge), findsOneWidget);
+  });
+
+  // Coverage: subtle state
+  testWidgets("VBadge subtle state renders", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: VBadge(
+          badgeState: BadgeState.subtle,
+        ),
+      ),
+    );
+    expect(find.byType(VBadge), findsOneWidget);
   });
 }

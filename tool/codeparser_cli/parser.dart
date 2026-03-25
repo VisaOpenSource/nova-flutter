@@ -1,3 +1,19 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
 import 'dart:convert';
 import 'dart:io';
 import 'models/models.dart';
@@ -17,6 +33,16 @@ Future<String> getCodeSnippets({
   final codeSnippetsAndProperties =
       await _getProperties(libSourcePath, codeSnippets);
   return VPDSLibrary.encode(codeSnippetsAndProperties);
+}
+
+/// Removes the license header from Dart file content
+String removeLicenseHeader(String content) {
+  final licenseHeaderPattern = RegExp(
+    r'^//[\s\S]*?limitations under the License\.[\s\S]*?\n+',
+    multiLine: true,
+    dotAll: true,
+  );
+  return content.replaceFirst(licenseHeaderPattern, '');
 }
 
 /// [_getPubspecInfo] walks through the file specified by
@@ -73,7 +99,8 @@ Future<VPDSLibrary> _createSnippets(String sourceDirectoryPath) async {
     /// Skip .DS_Store files.
     if (file.path.contains('DS_Store')) continue;
 
-    final content = file.readAsStringSync();
+    final rawContent = file.readAsStringSync();
+    final content = removeLicenseHeader(rawContent);
     final lines = const LineSplitter().convert(content);
     final prologue = StringBuffer(); // captures imports
     final activeSegments = <String>{};

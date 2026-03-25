@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -33,6 +33,62 @@ class TabBarPage extends StatefulWidget {
 
 class _TabBarPageState extends State<TabBarPage> {
   int _selectedIndex = 0;
+  bool _useAlternateStyle = false;
+
+  Widget _buildTabBarExamples() {
+    return Padding(
+      padding: const EdgeInsets.all(17.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Default tab bar",
+            style: defaultVTheme.textStyles.headline2
+                .copyWith(fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(height: 16.0),
+          VButton(
+            onPressed: _useAlternateStyle
+                ? () {
+                    setState(() {
+                      _useAlternateStyle = false;
+                    });
+                  }
+                : null,
+            child: Text(
+              "View example",
+              style: defaultVTheme.textStyles.buttonMedium.copyWith(
+                color: VColors.defaultSurface1,
+              ),
+            ),
+          ),
+          const SizedBox(height: 30.0),
+          Text(
+            "Alternate tab bar",
+            style: defaultVTheme.textStyles.headline2
+                .copyWith(fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(height: 16.0),
+          VButton(
+            onPressed: !_useAlternateStyle
+                ? () {
+                    setState(() {
+                      _useAlternateStyle = true;
+                    });
+                  }
+                : null,
+            child: Text(
+              "View example",
+              style: defaultVTheme.textStyles.buttonMedium.copyWith(
+                color: VColors.defaultSurface1,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   static final List<Widget> _widgetOptions = <Widget>[
     const ShowCodeAccordion(
       copyLabel: "Tab bar",
@@ -59,7 +115,8 @@ class _TabBarPageState extends State<TabBarPage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      print("Tab $index tapped. Updated _selectedIndex to $_selectedIndex");
+      debugPrint(
+          "Tab $index tapped. Updated _selectedIndex to $_selectedIndex");
     });
   }
 
@@ -75,25 +132,49 @@ class _TabBarPageState extends State<TabBarPage> {
         appBar: CustomAppBar(globalKey: _key, title: "Tab bar"),
         drawer: const MyDrawer(pageTitle: "Tab bar"),
         body: SingleChildScrollView(
-          child: _widgetOptions.elementAt(_selectedIndex),
+          child: _selectedIndex == 0
+              ? _buildTabBarExamples()
+              : _widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: VBottomNavBar(
+          style: _useAlternateStyle
+              ? VBottomNavBarStyle(
+                  backgroundColor: VColors.defaultActive,
+                  unselectedItemColor: VColors.defaultActiveSubtleDark,
+                  unselectedTextColor: VColors.defaultTextSubtleDark,
+                  selectedItemColor: VColors.defaultSurface1,
+                  selectedTextColor: VColors.defaultSurface1,
+                  indicatorColor: VColors.alternateActive,
+                  borderColor: VColors.defaultBorder,
+                )
+              : null,
           visaBottomNavBarItems: [
             VBottomBarItems(
-              icon: VIcons.homeLow,
+              icon:
+                  _useAlternateStyle ? VIcons.homeLowAlternate : VIcons.homeLow,
               label: 'Label 1',
+              preserveIconColors: _useAlternateStyle && _selectedIndex == 0,
             ),
             VBottomBarItems(
-              icon: VIcons.historyLow,
+              icon: _useAlternateStyle
+                  ? VIcons.historyLowAlternate
+                  : VIcons.historyLow,
               label: 'Label 2',
+              preserveIconColors: _useAlternateStyle && _selectedIndex == 1,
             ),
             VBottomBarItems(
-              icon: VIcons.settingsLow,
+              icon: _useAlternateStyle
+                  ? VIcons.settingsLowAlternate
+                  : VIcons.settingsLow,
               label: 'Label 3',
+              preserveIconColors: _useAlternateStyle && _selectedIndex == 2,
             ),
             VBottomBarItems(
-              icon: VIcons.reportLow,
+              icon: _useAlternateStyle
+                  ? VIcons.reportLowAlternate
+                  : VIcons.reportLow,
               label: 'Label 4',
+              preserveIconColors: _useAlternateStyle && _selectedIndex == 3,
             ),
           ],
           currentIndex: _selectedIndex,

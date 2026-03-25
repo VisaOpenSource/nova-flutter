@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ const iconPath = "packages/visa_nova_flutter/assets/icons/";
 const checkboxError =
     "This is required text that describes the error in more detail.";
 const checkboxLabel = "Label";
-const versionNumber = "8.2.0";
+const versionNumber = "8.3.1";
 const close = "close";
 const visaDialectFont = "VisaDialectUI";
 

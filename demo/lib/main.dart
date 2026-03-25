@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -37,7 +37,6 @@ import 'package:demo/ui/switch/switch.dart';
 import 'package:demo/ui/toggle/toggle.dart';
 import 'package:demo/utilities.dart';
 import 'package:demo/ui/typography/typography.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:demo/ui/checkboxes/checkbox.dart';
@@ -47,7 +46,6 @@ import 'package:demo/ui/buttons/buttons.dart';
 import 'package:demo/ui/links/links.dart';
 import 'package:demo/ui/banners/banners.dart';
 import 'package:demo/ui/dialogs/dialogs.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
 import 'package:visa_nova_icons_flutter/visa_nova_icons_flutter.dart';
@@ -171,6 +169,11 @@ class ThemeProvider with ChangeNotifier {
 
   ThemeMode themeMode = ThemeMode.system;
 
+  void setThemeMode(ThemeMode mode) {
+    themeMode = mode;
+    notifyListeners();
+  }
+
   void toggleTheme(BuildContext context) {
     if (themeMode == ThemeMode.system &&
         Theme.of(context).brightness == Brightness.dark) {
@@ -193,14 +196,15 @@ void setPageTitle(String title, BuildContext context) {
         ? "Flutter | Visa Product Design System"
         : " $title | Flutter | Visa Product Design System",
 
-    primaryColor: Theme.of(context).primaryColor.value, // This line is required
+    primaryColor:
+        Theme.of(context).primaryColor.toARGB32(), // This line is required
   ));
 }
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  List<Page> pages = [
+  final List<Page> pages = [
     Page(
       'Getting Started',
       '/',
@@ -214,124 +218,10 @@ class MyApp extends StatelessWidget {
       "Typography is the visual component of the written word.",
     ),
     Page(
-      "Buttons",
-      "buttons",
-      const Buttons(),
-      "Buttons trigger an action/event on press.",
-    ),
-    Page(
-      "Links",
-      "link",
-      const Links(),
-      "Link is a text-based element that navigates the user to another page within the application or site, either to a different section within the same page or to a new page.",
-    ),
-    Page(
-      "Select",
-      "select",
-      const Select(),
-      "Select allows users to select one option from a list in the form of a dropdown menu.",
-    ),
-    Page(
-      "Tab Horizontal",
-      "tabhorizontal",
-      const TabHorizontal(),
-      "Tabs enable content organization at a high level, such as switching between views or data sets.",
-    ),
-    Page(
-      "Tab Stacked",
-      "tabstacked",
-      const TabStacked(),
-      "Tabs enable content organization at a high level, such as switching between views or data sets.",
-    ),
-    Page(
-      "Checkbox",
-      "checkbox",
-      const Checkboxes(),
-      "Checkbox gives the user a binary choice for selecting several choices in a short list.",
-    ),
-    Page(
-      "Radio",
-      "radio",
-      const Radios(),
-      "A radio lets users select one option from two or more mutually exclusive options.",
-    ),
-    Page(
-      "Input",
-      "input",
-      const Input(),
-      "Input field allows users to input text and edit data in a form.",
-    ),
-    Page(
-      "Banner",
-      "banners",
-      Banners(),
-      "Banners provide global medium-priority messaging on the state of the application or site.",
-    ),
-    Page(
-      "Section Message",
-      "section-message",
-      SectionMessage(),
-      "Section messages provide contextual messaging on the state of a page, or feedback on a user action that was just taken.",
-    ),
-    Page(
-      "Dialog",
-      "dialog",
-      const Dialogs(),
-      "A dialog is a modal interface that appears in the middle of the user's main workflow, and often displays critical information and requires immediate action from the user.",
-    ),
-    Page(
-      "Flag",
-      "flag",
-      const Flags(),
-      "Flags are used to provide contextual, low priority messages to the user.",
-    ),
-    Page(
-      "Switch",
-      "switch",
-      const SwitchPage(),
-      "A switch is used as a binary on/off control.",
-    ),
-    Page(
       "Accordion",
       "accordion",
       const Accordion(),
       "Accordion is a set of vertical headers that can reveal or hide additional sections of content.",
-    ),
-    Page(
-      "Divider",
-      "divider",
-      const DividerPage(),
-      "Divider is a thin visual element used to help organize information within a page.",
-    ),
-    Page(
-      "Dropdown Menu",
-      "dropdown-menu",
-      const DropDownScreen(),
-      "Dropdown menu allows the user to select a single action from a list of choices.",
-    ),
-    Page(
-      "Tab Bar",
-      "tabbar",
-      const TabBarPage(),
-      "A table is a static component that presents data to the user using columns and rows (tabular data).",
-    ),
-    Page(
-      "App Bar",
-      "appbar",
-      const AppBarPage(),
-      "The top app bar is one of the the most important parts of any mobile application.",
-    ),
-    Page(
-      "Content Card",
-      "content-card",
-      const ContentCard(),
-      "Content card is a layout bundle utilized when it's helpful to the user to see a preview of the content available in the item's details.",
-    ),
-    Page(
-      "List Item",
-      "listitem",
-      const ListItem(),
-      "A list item is a component for mobile applications used to display list items.",
     ),
     Page(
       "Avatar",
@@ -340,34 +230,94 @@ class MyApp extends StatelessWidget {
       "Avatars are visual and/or textual representation elements of users and entities within a product",
     ),
     Page(
-      "Chips",
-      "chip",
-      const ChipsPage(),
-      "Chips are compact elements that represent an input or attribute tag. They usually appear dynamically as a group of multiple interactive elements.",
-    ),
-    Page(
-      "Navigation Drawer",
-      "navigation-drawer",
-      const NavDrawerPage(),
-      "The navigation drawer is accessible from a hamburger menu in the top app bar.",
-    ),
-    Page(
       "Badge",
       "badge",
       const BadgePage(),
       "A badge is a supplementary component that calls attention to the user about the status of an element.",
     ),
     Page(
-      "Toggle",
-      "toggle",
-      const TogglePage(),
-      "Toggle buttons are a horizontally-oriented selection device. Toggle button choices should be closely-related and affect an object, state, or view.",
+      "Banner",
+      "banners",
+      Banners(),
+      "Banners provide global medium-priority messaging on the state of the application or site.",
+    ),
+    Page(
+      "Buttons",
+      "buttons",
+      const Buttons(),
+      "Buttons trigger an action/event on press.",
+    ),
+    Page(
+      "Checkbox",
+      "checkbox",
+      const Checkboxes(),
+      "Checkbox gives the user a binary choice for selecting several choices in a short list.",
+    ),
+    Page(
+      "Chips",
+      "chip",
+      const ChipsPage(),
+      "Chips are compact elements that represent an input or attribute tag. They usually appear dynamically as a group of multiple interactive elements.",
     ),
     Page(
       "Combobox",
       "combobox",
       const Combobox(),
       "Combobox is an input component that allows the user to make a selection by typing into the field. The component is composed of a text box and a menu that appears, allowing users to set the value of the text field.",
+    ),
+    Page(
+      "Content card",
+      "content-card",
+      const ContentCard(),
+      "Content card is a layout bundle utilized when it's helpful to the user to see a preview of the content available in the item's details.",
+    ),
+    Page(
+      "Dialog",
+      "dialog",
+      const Dialogs(),
+      "A dialog is a modal interface that appears in the middle of the user's main workflow, and often displays critical information and requires immediate action from the user.",
+    ),
+    Page(
+      "Divider",
+      "divider",
+      const DividerPage(),
+      "Divider is a thin visual element used to help organize information within a page.",
+    ),
+    Page(
+      "Dropdown menu",
+      "dropdown-menu",
+      const DropDownScreen(),
+      "Dropdown menu allows the user to select a single action from a list of choices.",
+    ),
+    Page(
+      "Flag",
+      "flag",
+      const Flags(),
+      "Flags are used to provide contextual, low priority messages to the user.",
+    ),
+    Page(
+      "Input",
+      "input",
+      const Input(),
+      "Input field allows users to input text and edit data in a form.",
+    ),
+    Page(
+      "Link",
+      "link",
+      const Link(),
+      "Link is a text-based element that navigates the user to another page within the application or site, either to a different section within the same page or to a new page.",
+    ),
+    Page(
+      "List item",
+      "listitem",
+      const ListItem(),
+      "A list item is a component for mobile applications used to display list items.",
+    ),
+    Page(
+      "Navigation drawer",
+      "navigation-drawer",
+      const NavDrawerPage(),
+      "The navigation drawer is accessible from a hamburger menu in the top app bar.",
     ),
     Page(
       "Panel",
@@ -381,11 +331,65 @@ class MyApp extends StatelessWidget {
       const ProgressPage(),
       "Progress components communicate the completion status of a task or workflow.",
     ),
+    Page(
+      "Radio",
+      "radio",
+      const Radios(),
+      "A radio lets users select one option from two or more mutually exclusive options.",
+    ),
+    Page(
+      "Section message",
+      "section-message",
+      SectionMessage(),
+      "Section messages provide contextual messaging on the state of a page, or feedback on a user action that was just taken.",
+    ),
+    Page(
+      "Select",
+      "select",
+      const Select(),
+      "Select allows users to select one option from a list in the form of a dropdown menu.",
+    ),
+    Page(
+      "Switch",
+      "switch",
+      const SwitchPage(),
+      "A switch is used as a binary on/off control.",
+    ),
+    Page(
+      "Tab bar",
+      "tabbar",
+      const TabBarPage(),
+      "A table is a static component that presents data to the user using columns and rows (tabular data).",
+    ),
+    Page(
+      "Tab horizontal",
+      "tabhorizontal",
+      const TabHorizontal(),
+      "Tabs enable content organization at a high level, such as switching between views or data sets.",
+    ),
+    Page(
+      "Tab stacked",
+      "tabstacked",
+      const TabStacked(),
+      "Tabs enable content organization at a high level, such as switching between views or data sets.",
+    ),
+    Page(
+      "Toggle",
+      "toggle",
+      const TogglePage(),
+      "Toggle buttons are a horizontally-oriented selection device. Toggle button choices should be closely-related and affect an object, state, or view.",
+    ),
+    Page(
+      "App bar",
+      "appbar",
+      const AppBarPage(),
+      "The top app bar is one of the the most important parts of any mobile application.",
+    ),
   ];
 
-  List<Page> patternPages = [
+  final List<Page> patternPages = [
     Page(
-      "Application Layout",
+      "Application layouts",
       "application-layout",
       const ApplicationLayoutPage(),
       "Application layouts are the basic building blocks of a mobile application.",
@@ -397,7 +401,7 @@ class MyApp extends StatelessWidget {
       "Chat is a real-time communication tool that allows users to send and receive messages instantly.",
     ),
     Page(
-      "File Upload",
+      "File upload",
       "file-upload",
       const FileUploadPage(),
       "The file upload pattern combines File uploader, File card, and Button components with other context-dependent components to enable users to upload files from their device to a platform, server, or Form.",
@@ -446,124 +450,10 @@ class MyDrawer extends StatefulWidget {
 class _MyDrawerState extends State<MyDrawer> {
   List<Page> pages = [
     Page(
-      "Buttons",
-      "buttons",
-      const Buttons(),
-      "Buttons trigger an action/event on press.",
-    ),
-    Page(
-      "Links",
-      "link",
-      const Links(),
-      "Link is a text-based element that navigates the user to another page within the application or site, either to a different section within the same page or to a new page.",
-    ),
-    Page(
-      "Select",
-      "select",
-      const Select(),
-      "Select allows users to select one option from a list in the form of a dropdown menu.",
-    ),
-    Page(
-      "Tab Horizontal",
-      "tabhorizontal",
-      const TabHorizontal(),
-      "Tabs enable content organization at a high level, such as switching between views or data sets.",
-    ),
-    Page(
-      "Tab Stacked",
-      "tabstacked",
-      const TabStacked(),
-      "Tabs enable content organization at a high level, such as switching between views or data sets.",
-    ),
-    Page(
-      "Checkbox",
-      "checkbox",
-      const Checkboxes(),
-      "Checkbox gives the user a binary choice for selecting several choices in a short list.",
-    ),
-    Page(
-      "Radio",
-      "radio",
-      const Radios(),
-      "A radio lets users select one option from two or more mutually exclusive options.",
-    ),
-    Page(
-      "Input",
-      "input",
-      const Input(),
-      "Input field allows users to input text and edit data in a form.",
-    ),
-    Page(
-      "Banner",
-      "banners",
-      Banners(),
-      "Banners provide global medium-priority messaging on the state of the application or site.",
-    ),
-    Page(
-      "Section Message",
-      "section-message",
-      SectionMessage(),
-      "Section messages provide contextual messaging on the state of a page, or feedback on a user action that was just taken.",
-    ),
-    Page(
-      "Dialog",
-      "dialog",
-      const Dialogs(),
-      "A dialog is a modal interface that appears in the middle of the user's main workflow, and often displays critical information and requires immediate action from the user.",
-    ),
-    Page(
-      "Flag",
-      "flag",
-      const Flags(),
-      "Flags are used to provide contextual, low priority messages to the user.",
-    ),
-    Page(
-      "Switch",
-      "switch",
-      const SwitchPage(),
-      "A switch is used as a binary on/off control.",
-    ),
-    Page(
       "Accordion",
       "accordion",
       const Accordion(),
       "Accordion is a set of vertical headers that can reveal or hide additional sections of content.",
-    ),
-    Page(
-      "Divider",
-      "divider",
-      const DividerPage(),
-      "Divider is a thin visual element used to help organize information within a page.",
-    ),
-    Page(
-      "Dropdown Menu",
-      "dropdown-menu",
-      const DropDownScreen(),
-      "Dropdown menu allows the user to select a single action from a list of choices.",
-    ),
-    Page(
-      "Tab Bar",
-      "tabbar",
-      const TabBarPage(),
-      "A table is a static component that presents data to the user using columns and rows (tabular data).",
-    ),
-    Page(
-      "App Bar",
-      "appbar",
-      const AppBarPage(),
-      "The top app bar is one of the the most important parts of any mobile application.",
-    ),
-    Page(
-      "Content Card",
-      "content-card",
-      const ContentCard(),
-      "Content card is a layout bundle utilized when it's helpful to the user to see a preview of the content available in the item's details.",
-    ),
-    Page(
-      "List Item",
-      "listitem",
-      const ListItem(),
-      "A list item is a component for mobile applications used to display list items.",
     ),
     Page(
       "Avatar",
@@ -572,34 +462,94 @@ class _MyDrawerState extends State<MyDrawer> {
       "Avatars are visual and/or textual representation elements of users and entities within a product",
     ),
     Page(
-      "Chips",
-      "chip",
-      const ChipsPage(),
-      "Chips are compact elements that represent an input or attribute tag. They usually appear dynamically as a group of multiple interactive elements.",
-    ),
-    Page(
-      "Navigation Drawer",
-      "navigation-drawer",
-      const NavDrawerPage(),
-      "The navigation drawer is accessible from a hamburger menu in the top app bar.",
-    ),
-    Page(
       "Badge",
       "badge",
       const BadgePage(),
       "A badge is a supplementary component that calls attention to the user about the status of an element.",
     ),
     Page(
-      "Toggle",
-      "toggle",
-      const TogglePage(),
-      "Toggle buttons are a horizontally-oriented selection device. Toggle button choices should be closely-related and affect an object, state, or view.",
+      "Banner",
+      "banners",
+      Banners(),
+      "Banners provide global medium-priority messaging on the state of the application or site.",
+    ),
+    Page(
+      "Buttons",
+      "buttons",
+      const Buttons(),
+      "Buttons trigger an action/event on press.",
+    ),
+    Page(
+      "Checkbox",
+      "checkbox",
+      const Checkboxes(),
+      "Checkbox gives the user a binary choice for selecting several choices in a short list.",
+    ),
+    Page(
+      "Chips",
+      "chip",
+      const ChipsPage(),
+      "Chips are compact elements that represent an input or attribute tag. They usually appear dynamically as a group of multiple interactive elements.",
     ),
     Page(
       "Combobox",
       "combobox",
       const Combobox(),
       "Combobox is an input component that allows the user to make a selection by typing into the field. The component is composed of a text box and a menu that appears, allowing users to set the value of the text field.",
+    ),
+    Page(
+      "Content card",
+      "content-card",
+      const ContentCard(),
+      "Content card is a layout bundle utilized when it's helpful to the user to see a preview of the content available in the item's details.",
+    ),
+    Page(
+      "Dialog",
+      "dialog",
+      const Dialogs(),
+      "A dialog is a modal interface that appears in the middle of the user's main workflow, and often displays critical information and requires immediate action from the user.",
+    ),
+    Page(
+      "Divider",
+      "divider",
+      const DividerPage(),
+      "Divider is a thin visual element used to help organize information within a page.",
+    ),
+    Page(
+      "Dropdown menu",
+      "dropdown-menu",
+      const DropDownScreen(),
+      "Dropdown menu allows the user to select a single action from a list of choices.",
+    ),
+    Page(
+      "Flag",
+      "flag",
+      const Flags(),
+      "Flags are used to provide contextual, low priority messages to the user.",
+    ),
+    Page(
+      "Input",
+      "input",
+      const Input(),
+      "Input field allows users to input text and edit data in a form.",
+    ),
+    Page(
+      "Link",
+      "link",
+      const Link(),
+      "Link is a text-based element that navigates the user to another page within the application or site, either to a different section within the same page or to a new page.",
+    ),
+    Page(
+      "List item",
+      "listitem",
+      const ListItem(),
+      "A list item is a component for mobile applications used to display list items.",
+    ),
+    Page(
+      "Navigation drawer",
+      "navigation-drawer",
+      const NavDrawerPage(),
+      "The navigation drawer is accessible from a hamburger menu in the top app bar.",
     ),
     Page(
       "Panel",
@@ -613,11 +563,65 @@ class _MyDrawerState extends State<MyDrawer> {
       const ProgressPage(),
       "Progress components communicate the completion status of a task or workflow.",
     ),
+    Page(
+      "Radio",
+      "radio",
+      const Radios(),
+      "A radio lets users select one option from two or more mutually exclusive options.",
+    ),
+    Page(
+      "Section message",
+      "section-message",
+      SectionMessage(),
+      "Section messages provide contextual messaging on the state of a page, or feedback on a user action that was just taken.",
+    ),
+    Page(
+      "Select",
+      "select",
+      const Select(),
+      "Select allows users to select one option from a list in the form of a dropdown menu.",
+    ),
+    Page(
+      "Switch",
+      "switch",
+      const SwitchPage(),
+      "A switch is used as a binary on/off control.",
+    ),
+    Page(
+      "Tab bar",
+      "tabbar",
+      const TabBarPage(),
+      "A table is a static component that presents data to the user using columns and rows (tabular data).",
+    ),
+    Page(
+      "Tab horizontal",
+      "tabhorizontal",
+      const TabHorizontal(),
+      "Tabs enable content organization at a high level, such as switching between views or data sets.",
+    ),
+    Page(
+      "Tab stacked",
+      "tabstacked",
+      const TabStacked(),
+      "Tabs enable content organization at a high level, such as switching between views or data sets.",
+    ),
+    Page(
+      "Toggle",
+      "toggle",
+      const TogglePage(),
+      "Toggle buttons are a horizontally-oriented selection device. Toggle button choices should be closely-related and affect an object, state, or view.",
+    ),
+    Page(
+      "App bar",
+      "appbar",
+      const AppBarPage(),
+      "The top app bar is one of the the most important parts of any mobile application.",
+    ),
   ];
 
   List<Page> patternPages = [
     Page(
-      "Application Layout",
+      "Application layouts",
       "application-layout",
       const ApplicationLayoutPage(),
       "Application layouts are the basic building blocks of a mobile application.",
@@ -629,7 +633,7 @@ class _MyDrawerState extends State<MyDrawer> {
       "Chat is a real-time communication tool that allows users to send and receive messages instantly.",
     ),
     Page(
-      "File Upload",
+      "File upload",
       "file-upload",
       const FileUploadPage(),
       "The file upload pattern combines File uploader, File card, and Button components with other context-dependent components to enable users to upload files from their device to a platform, server, or Form.",
@@ -978,10 +982,8 @@ class ThemeSelectionDialog extends StatelessWidget {
             title: const Text('Light'),
             trailing: const Icon(Icons.light_mode),
             onTap: () {
-              Provider.of<ThemeProvider>(context, listen: false).themeMode =
-                  ThemeMode.light;
               Provider.of<ThemeProvider>(context, listen: false)
-                  .notifyListeners();
+                  .setThemeMode(ThemeMode.light);
               Navigator.of(context).pop();
             },
           ),
@@ -989,21 +991,17 @@ class ThemeSelectionDialog extends StatelessWidget {
             title: const Text('Dark'),
             trailing: const Icon(Icons.dark_mode),
             onTap: () {
-              Provider.of<ThemeProvider>(context, listen: false).themeMode =
-                  ThemeMode.dark;
               Provider.of<ThemeProvider>(context, listen: false)
-                  .notifyListeners();
+                  .setThemeMode(ThemeMode.dark);
               Navigator.of(context).pop();
             },
           ),
           ListTile(
-            title: Text('System'),
+            title: const Text('System'),
             trailing: const Icon(Icons.brightness_auto),
             onTap: () {
-              Provider.of<ThemeProvider>(context, listen: false).themeMode =
-                  ThemeMode.system;
               Provider.of<ThemeProvider>(context, listen: false)
-                  .notifyListeners();
+                  .setThemeMode(ThemeMode.system);
               Navigator.of(context).pop();
             },
           ),

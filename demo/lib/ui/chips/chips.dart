@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -285,6 +285,63 @@ class _ChipsPageState extends State<ChipsPage> {
                     componentName: 'Chip',
                     exampleName: 'Removable_Compact_Chip_With_Avatar',
                     copyLabel: "Compact chip with avatar ",
+                  ),
+                  smallHeight(),
+                  smallHeight(),
+                  const VDivider(
+                    dividerType: VDividerType.decorative,
+                  ),
+                  smallHeight(),
+                  SemanticHeader(
+                    title: "Chip groups",
+                    style: defaultVTheme.textStyles.headline2.copyWith(
+                      fontWeight: VFontWeight.semiBold,
+                    ),
+                  ),
+                  smallHeight(),
+                  smallHeight(),
+                  SemanticHeader(
+                    title: "Selection chip group",
+                    style: defaultVTheme.textStyles.headline3.copyWith(),
+                  ),
+                  smallHeight(),
+                  const VSelectionChipGroup(),
+                  smallHeight(),
+                  const ShowCodeAccordion(
+                    codeSegment: CodeSegments.VSelectionChipGroup,
+                    componentName: 'Chip',
+                    exampleName: 'Selection_Chip_Group',
+                    copyLabel: "Selection chip group",
+                  ),
+                  smallHeight(),
+                  smallHeight(),
+                  SemanticHeader(
+                    title: "Removable chip group",
+                    style: defaultVTheme.textStyles.headline3.copyWith(),
+                  ),
+                  smallHeight(),
+                  const VRemovableChipGroup(),
+                  smallHeight(),
+                  const ShowCodeAccordion(
+                    codeSegment: CodeSegments.VRemovableChipGroup,
+                    componentName: 'Chip',
+                    exampleName: 'Removable_Chip_Group',
+                    copyLabel: "Removable chip group",
+                  ),
+                  smallHeight(),
+                  smallHeight(),
+                  SemanticHeader(
+                    title: "Compact removable chip group",
+                    style: defaultVTheme.textStyles.headline3.copyWith(),
+                  ),
+                  smallHeight(),
+                  const VCompactRemovableChipGroup(),
+                  smallHeight(),
+                  const ShowCodeAccordion(
+                    codeSegment: CodeSegments.VCompactRemovableChipGroup,
+                    componentName: 'Chip',
+                    exampleName: 'Compact_Removable_Chip_Group',
+                    copyLabel: "Compact removable chip group",
                   ),
                   smallHeight(),
                   const SizedBox(height: 20)
@@ -704,6 +761,129 @@ class VDefaultChipRemovableDisabledCompactWithAvatar extends StatelessWidget {
       chipsRemovableType: ChipsRemovableType.compactRemovable,
       onDeleted: () {},
       onPressed: null,
+    );
+  }
+}
+// END
+
+// BEGIN VSelectionChipGroup
+class VSelectionChipGroup extends StatefulWidget {
+  const VSelectionChipGroup({Key? key}) : super(key: key);
+
+  @override
+  State<VSelectionChipGroup> createState() => _VSelectionChipGroupState();
+}
+
+class _VSelectionChipGroupState extends State<VSelectionChipGroup> {
+  final List<bool> _selections = [false, true, false, false, true];
+  final List<String> _labels = [
+    'Option 1',
+    'Option 2',
+    'Option 3',
+    'Option 4',
+    'Option 5'
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 8.0,
+      runSpacing: 8.0,
+      children: List.generate(
+        _labels.length,
+        (index) => VChipsSelection(
+          chipLabel: _labels[index],
+          isSelected: _selections[index],
+          onSelected: (selected) {
+            setState(() {
+              _selections[index] = selected;
+            });
+          },
+        ),
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VRemovableChipGroup
+class VRemovableChipGroup extends StatefulWidget {
+  const VRemovableChipGroup({Key? key}) : super(key: key);
+
+  @override
+  State<VRemovableChipGroup> createState() => _VRemovableChipGroupState();
+}
+
+class _VRemovableChipGroupState extends State<VRemovableChipGroup> {
+  final List<String> _chips = [
+    'Chip 1',
+    'Chip 2',
+    'Chip 3',
+    'Chip 4',
+    'Chip 5'
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 8.0,
+      runSpacing: 8.0,
+      children: _chips
+          .map((label) => VChipsRemovable(
+                chipLabel: label,
+                onDeleted: () {
+                  setState(() {
+                    _chips.remove(label);
+                  });
+                },
+                onPressed: () {},
+              ))
+          .toList(),
+    );
+  }
+}
+// END
+
+// BEGIN VCompactRemovableChipGroup
+class VCompactRemovableChipGroup extends StatefulWidget {
+  const VCompactRemovableChipGroup({Key? key}) : super(key: key);
+
+  @override
+  State<VCompactRemovableChipGroup> createState() =>
+      _VCompactRemovableChipGroupState();
+}
+
+class _VCompactRemovableChipGroupState
+    extends State<VCompactRemovableChipGroup> {
+  final List<String> _chips = [
+    'Tag 1',
+    'Tag 2',
+    'Tag 3',
+    'Tag 4',
+    'Tag 5',
+    'Tag 6'
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 8.0,
+      runSpacing: 8.0,
+      children: _chips
+          .map((label) => VChipsRemovable(
+                chipLabel: label,
+                style: VChipRemovableStyle(
+                  chipLabelTextStyle: defaultVTheme.textStyles.uiLabel,
+                ),
+                chipsRemovableType: ChipsRemovableType.compactRemovable,
+                onDeleted: () {
+                  setState(() {
+                    _chips.remove(label);
+                  });
+                },
+                onPressed: () {},
+              ))
+          .toList(),
     );
   }
 }

@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -64,6 +64,134 @@ class _RadiosState extends State<Radios> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                /// Default radio buttons
+                SemanticHeader(
+                    title: "Default radio buttons",
+                    style: defaultVTheme.textStyles.headline2.copyWith(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? VColors.defaultTextDark
+                            : VColors.defaultText)),
+                smallHeight(),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    "Radio button with label",
+                    style: defaultVTheme.textStyles.headline3,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const VisaRadioButtonWithLabel(),
+                smallHeight(),
+                const ShowCodeAccordion(
+                  codeSegment: CodeSegments.VisaRadioButtonWithLabel,
+                  componentName: 'Radio',
+                  exampleName: 'Radio_Button_With_Label',
+                  copyLabel: "Radio button with label",
+                ),
+                smallHeight(),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    "Radio button without visible label",
+                    style: defaultVTheme.textStyles.headline3,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const VisaRadioButtonWithoutVisibleLabel(),
+                smallHeight(),
+                const ShowCodeAccordion(
+                  codeSegment: CodeSegments.VisaRadioButtonWithoutVisibleLabel,
+                  componentName: 'Radio',
+                  exampleName: 'Radio_Button_Without_Visible_Label',
+                  copyLabel: "Radio button without visible label",
+                ),
+                smallHeight(),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    "Radio button with description",
+                    style: defaultVTheme.textStyles.headline3,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const VisaRadioButtonWithDescription(),
+                smallHeight(),
+                const ShowCodeAccordion(
+                  codeSegment: CodeSegments.VisaRadioButtonWithDescription,
+                  componentName: 'Radio',
+                  exampleName: 'Radio_Button_With_Description',
+                  copyLabel: "Radio button with description",
+                ),
+                smallHeight(),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    "Selected radio button",
+                    style: defaultVTheme.textStyles.headline3,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const VisaSelectedRadioButton(),
+                smallHeight(),
+                const ShowCodeAccordion(
+                  codeSegment: CodeSegments.VisaSelectedRadioButton,
+                  componentName: 'Radio',
+                  exampleName: 'Selected_Radio_Button',
+                  copyLabel: "Selected radio button",
+                ),
+                smallHeight(),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    "Radio button with error",
+                    style: defaultVTheme.textStyles.headline3,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const VisaRadioButtonWithError(),
+                smallHeight(),
+                const ShowCodeAccordion(
+                  codeSegment: CodeSegments.VisaRadioButtonWithError,
+                  componentName: 'Radio',
+                  exampleName: 'Radio_Button_With_Error',
+                  copyLabel: "Radio button with error",
+                ),
+                smallHeight(),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    "Disabled radio button",
+                    style: defaultVTheme.textStyles.headline3,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const VisaDisabledRadioButton(),
+                smallHeight(),
+                const ShowCodeAccordion(
+                  codeSegment: CodeSegments.VisaDisabledRadioButton,
+                  componentName: 'Radio',
+                  exampleName: 'Disabled_Radio_Button',
+                  copyLabel: "Disabled radio button",
+                ),
+                smallHeight(),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    "Disabled and selected radio button",
+                    style: defaultVTheme.textStyles.headline3,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const VisaDisabledAndSelectedRadioButton(),
+                smallHeight(),
+                const ShowCodeAccordion(
+                  codeSegment: CodeSegments.VisaDisabledAndSelectedRadioButton,
+                  componentName: 'Radio',
+                  exampleName: 'Disabled_And_Selected_Radio_Button',
+                  copyLabel: "Disabled and selected radio button",
+                ),
+                smallHeight(),
+
                 /// Primary Radios
                 SemanticHeader(
                     title: "Radio button groups",
@@ -105,6 +233,68 @@ class _RadiosState extends State<Radios> {
                   exampleName: 'Radio_Group_With_Validation',
                   copyLabel: "Radio group with validation",
                 ),
+                smallHeight(),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    "Horizontal radio button group",
+                    style: defaultVTheme.textStyles.headline3,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                visaHorizontalRadioGroup(),
+                smallHeight(),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    "Radio button panel",
+                    style: defaultVTheme.textStyles.headline3,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const VisaRadioButtonPanel(),
+                smallHeight(),
+                const ShowCodeAccordion(
+                  codeSegment: CodeSegments.VisaRadioButtonPanel,
+                  componentName: 'Radio',
+                  exampleName: 'Radio_Button_Panel',
+                  copyLabel: "Radio button panel",
+                ),
+                smallHeight(),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    "Radio button panel without description",
+                    style: defaultVTheme.textStyles.headline3,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const VisaRadioButtonPanelWithoutDescription(),
+                smallHeight(),
+                const ShowCodeAccordion(
+                  codeSegment:
+                      CodeSegments.VisaRadioButtonPanelWithoutDescription,
+                  componentName: 'Radio',
+                  exampleName: 'Radio_Button_Panel_Without_Description',
+                  copyLabel: "Radio button panel without description",
+                ),
+                smallHeight(),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    "Disabled radio button panel",
+                    style: defaultVTheme.textStyles.headline3,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const VisaDisabledRadioButtonPanel(),
+                smallHeight(),
+                const ShowCodeAccordion(
+                  codeSegment: CodeSegments.VisaDisabledRadioButtonPanel,
+                  componentName: 'Radio',
+                  exampleName: 'Disabled_Radio_Button_Panel',
+                  copyLabel: "Disabled radio button panel",
+                )
               ],
             ),
           ),
@@ -265,4 +455,381 @@ class _RadiosState extends State<Radios> {
     );
   }
 // END
+
+// BEGIN visaHorizontalRadioGroup
+  Column visaHorizontalRadioGroup() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 16, 0, 5),
+          child: Text('Group label', style: defaultVTheme.textStyles.uiLabel),
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: VRadio<Group1>(
+                  title: "Label 1",
+                  value: Group1.g1l1,
+                  groupValue: _group1,
+                  onChanged: (Group1? value) {
+                    setState(() {
+                      _group1 = value;
+                    });
+                  }),
+            ),
+            Expanded(
+              child: VRadio<Group1>(
+                  title: "Label 2",
+                  value: Group1.g1l2,
+                  groupValue: _group1,
+                  onChanged: (Group1? value) {
+                    setState(() {
+                      _group1 = value;
+                    });
+                  }),
+            ),
+            Expanded(
+              child: VRadio<Group1>(
+                  title: "Label 3",
+                  value: Group1.g1l3,
+                  groupValue: _group1,
+                  onChanged: (Group1? value) {
+                    setState(() {
+                      _group1 = value;
+                    });
+                  }),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+// END
 }
+
+// BEGIN VisaDisabledAndSelectedRadioButton
+class VisaDisabledAndSelectedRadioButton extends StatelessWidget {
+  const VisaDisabledAndSelectedRadioButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const VRadio<bool>(
+      title: "Label",
+      value: true,
+      groupValue: true,
+      onChanged: null,
+    );
+  }
+}
+// END
+
+// BEGIN VisaDisabledRadioButton
+class VisaDisabledRadioButton extends StatelessWidget {
+  const VisaDisabledRadioButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const VRadio<bool>(
+      title: "Label",
+      value: false,
+      groupValue: true,
+      onChanged: null,
+    );
+  }
+}
+// END
+
+// BEGIN VisaRadioButtonWithError
+class VisaRadioButtonWithError extends StatelessWidget {
+  const VisaRadioButtonWithError({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return VRadio(
+      title: "Label",
+      value: false,
+      groupValue: true,
+      style: const VRadioStyle(fillColor: VColors.negativeGraphics),
+      onChanged: (bool? value) {},
+    );
+  }
+}
+// END
+
+// BEGIN VisaSelectedRadioButton
+class VisaSelectedRadioButton extends StatelessWidget {
+  const VisaSelectedRadioButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return VRadio(
+      title: "Label",
+      value: true,
+      groupValue: true,
+      onChanged: (bool? value) {},
+    );
+  }
+}
+// END
+
+// BEGIN VisaRadioButtonWithDescription
+class VisaRadioButtonWithDescription extends StatelessWidget {
+  const VisaRadioButtonWithDescription({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return VRadio(
+      title: "Label",
+      subtitle: "This is optional text that describes the label in more detail",
+      value: false,
+      groupValue: true,
+      onChanged: (bool? value) {},
+    );
+  }
+}
+// END
+
+// BEGIN VisaRadioButtonWithoutVisibleLabel
+class VisaRadioButtonWithoutVisibleLabel extends StatelessWidget {
+  const VisaRadioButtonWithoutVisibleLabel({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return VRadio(
+      title: "",
+      value: false,
+      groupValue: true,
+      onChanged: (bool? value) {},
+    );
+  }
+}
+// END
+
+// BEGIN VisaRadioButtonWithLabel
+class VisaRadioButtonWithLabel extends StatelessWidget {
+  const VisaRadioButtonWithLabel({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return VRadio(
+      title: "Label",
+      value: false,
+      groupValue: true,
+      onChanged: (bool? value) {},
+    );
+  }
+}
+// END
+
+// BEGIN VisaRadioButtonPanel
+class VisaRadioButtonPanel extends StatefulWidget {
+  const VisaRadioButtonPanel({
+    super.key,
+  });
+
+  @override
+  State<VisaRadioButtonPanel> createState() => _VisaRadioButtonPanelState();
+}
+
+class _VisaRadioButtonPanelState extends State<VisaRadioButtonPanel> {
+  String? _selectedOption;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: VColors.defaultBorder),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Panel Title",
+            style: defaultVTheme.textStyles.headline4,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            "Select one option from the panel below:",
+            style: defaultVTheme.textStyles.uiLabel,
+          ),
+          const SizedBox(height: 16),
+          VRadio<String>(
+            title: "Option 1",
+            subtitle: "Description for option 1",
+            value: "option1",
+            groupValue: _selectedOption,
+            onChanged: (String? value) {
+              setState(() {
+                _selectedOption = value;
+              });
+            },
+          ),
+          VRadio<String>(
+            title: "Option 2",
+            subtitle: "Description for option 2",
+            value: "option2",
+            groupValue: _selectedOption,
+            onChanged: (String? value) {
+              setState(() {
+                _selectedOption = value;
+              });
+            },
+          ),
+          VRadio<String>(
+            title: "Option 3",
+            subtitle: "Description for option 3",
+            value: "option3",
+            groupValue: _selectedOption,
+            onChanged: (String? value) {
+              setState(() {
+                _selectedOption = value;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VisaRadioButtonPanelWithoutDescription
+class VisaRadioButtonPanelWithoutDescription extends StatefulWidget {
+  const VisaRadioButtonPanelWithoutDescription({
+    super.key,
+  });
+
+  @override
+  State<VisaRadioButtonPanelWithoutDescription> createState() =>
+      _VisaRadioButtonPanelWithoutDescriptionState();
+}
+
+class _VisaRadioButtonPanelWithoutDescriptionState
+    extends State<VisaRadioButtonPanelWithoutDescription> {
+  String? _selectedOption;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: VColors.defaultBorder),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Panel Title",
+            style: defaultVTheme.textStyles.headline4,
+          ),
+          const SizedBox(height: 16),
+          VRadio<String>(
+            title: "Option 1",
+            value: "option1",
+            groupValue: _selectedOption,
+            onChanged: (String? value) {
+              setState(() {
+                _selectedOption = value;
+              });
+            },
+          ),
+          VRadio<String>(
+            title: "Option 2",
+            value: "option2",
+            groupValue: _selectedOption,
+            onChanged: (String? value) {
+              setState(() {
+                _selectedOption = value;
+              });
+            },
+          ),
+          VRadio<String>(
+            title: "Option 3",
+            value: "option3",
+            groupValue: _selectedOption,
+            onChanged: (String? value) {
+              setState(() {
+                _selectedOption = value;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VisaDisabledRadioButtonPanel
+class VisaDisabledRadioButtonPanel extends StatelessWidget {
+  const VisaDisabledRadioButtonPanel({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: VColors.defaultBorder),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Panel Title",
+            style: defaultVTheme.textStyles.headline4,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            "This panel is disabled and options cannot be selected:",
+            style: defaultVTheme.textStyles.uiLabel,
+          ),
+          const SizedBox(height: 16),
+          const VRadio<String>(
+            title: "Option 1",
+            subtitle: "Description for option 1",
+            value: "option1",
+            groupValue: "option2", // Option 2 is pre-selected
+            onChanged: null, // Disabled
+          ),
+          const VRadio<String>(
+            title: "Option 2",
+            subtitle: "Description for option 2",
+            value: "option2",
+            groupValue: "option2", // This option is selected
+            onChanged: null, // Disabled
+          ),
+          const VRadio<String>(
+            title: "Option 3",
+            subtitle: "Description for option 3",
+            value: "option3",
+            groupValue: "option2", // Option 2 is pre-selected
+            onChanged: null, // Disabled
+          ),
+        ],
+      ),
+    );
+  }
+}
+// END

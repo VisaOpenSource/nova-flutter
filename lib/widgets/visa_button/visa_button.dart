@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -184,41 +184,41 @@ class VButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        padding: MaterialStateProperty.all(padding),
-        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-          return states.contains(MaterialState.disabled)
+        padding: WidgetStateProperty.all(padding),
+        backgroundColor:
+            WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+          return states.contains(WidgetState.disabled)
               ? backgroundColorDisabled
               : backgroundColorActive;
         }),
         // Foreground color is the color for text and icon
-        foregroundColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-          return states.contains(MaterialState.disabled)
+        foregroundColor:
+            WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+          return states.contains(WidgetState.disabled)
               ? foregroundColorDisabled
               : foregroundColorActive;
         }),
         // Overlay color is the color when having action
-        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.pressed)) {
+        overlayColor:
+            WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+          if (states.contains(WidgetState.pressed)) {
             return overlayColorPressed;
           }
-          if (states.contains(MaterialState.focused)) {
+          if (states.contains(WidgetState.focused)) {
             return overlayColorFocused;
           }
           return null;
         }),
         // Make the button flat
-        elevation: MaterialStateProperty.all(elevation),
+        elevation: WidgetStateProperty.all(elevation),
         // Get rid of shadow
-        shadowColor: MaterialStateProperty.all(shadowColor),
+        shadowColor: WidgetStateProperty.all(shadowColor),
         // Figma size requirement
-        minimumSize: MaterialStateProperty.all(minimumSize),
+        minimumSize: WidgetStateProperty.all(minimumSize),
         // Figma border requirement
-        shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.disabled)) {
+        shape: WidgetStateProperty.resolveWith<OutlinedBorder?>(
+            (Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
             return RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadiusDisabled),
               side: borderSideDisabled,
@@ -285,40 +285,40 @@ class VIconButton extends StatelessWidget {
 
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-          return states.contains(MaterialState.disabled)
+        backgroundColor:
+            WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+          return states.contains(WidgetState.disabled)
               ? backgroundColorDisabled
               : backgroundColorActive;
         }),
         // Foreground color is the color for text and icon
-        foregroundColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-          return states.contains(MaterialState.disabled)
+        foregroundColor:
+            WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+          return states.contains(WidgetState.disabled)
               ? foregroundColorDisabled
               : foregroundColorActive;
         }),
         // Overlay color is the color when having action
-        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.pressed)) {
+        overlayColor:
+            WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+          if (states.contains(WidgetState.pressed)) {
             return overlayColorPressed;
           }
-          if (states.contains(MaterialState.focused)) {
+          if (states.contains(WidgetState.focused)) {
             return overlayColorFocused;
           }
           return null;
         }),
         // Make the button flat
-        elevation: MaterialStateProperty.all(elevation),
+        elevation: WidgetStateProperty.all(elevation),
         // Get rid of shadow
-        shadowColor: MaterialStateProperty.all(shadowColor),
+        shadowColor: WidgetStateProperty.all(shadowColor),
         // Figma size requirement
-        minimumSize: MaterialStateProperty.all(minimumSize),
+        minimumSize: WidgetStateProperty.all(minimumSize),
         // Figma border requirement
-        shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.disabled)) {
+        shape: WidgetStateProperty.resolveWith<OutlinedBorder?>(
+            (Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
             return CircleBorder(
               side: borderSideDisabled,
             );
@@ -328,7 +328,7 @@ class VIconButton extends StatelessWidget {
             );
           }
         }),
-        padding: MaterialStateProperty.all(padding),
+        padding: WidgetStateProperty.all(padding),
       ),
       onPressed: onPressed,
       child: ExcludeSemantics(child: icon),

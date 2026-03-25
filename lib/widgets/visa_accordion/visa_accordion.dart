@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -136,7 +136,7 @@ class VAccordionStyle extends ThemeExtension<VAccordionStyle> {
         iconColorDown: iconColorDown ?? this.iconColorDown,
         iconColorDisabled: iconColorDisabled ?? this.iconColorDisabled,
         iconPressedColor: iconPressedColor ?? this.iconPressedColor,
-        disabledTextColor: disabledTextColor ?? this.disabledTextColor,
+        disabledTextColor: disabledTextColor ?? disabledTextColor,
         borderDisabledColor: borderDisabledColor ?? this.borderDisabledColor,
         borderSubtleColor: borderSubtleColor ?? this.borderSubtleColor,
         subtleHeaderContainerColor:
@@ -227,6 +227,9 @@ class VAccordion extends StatefulWidget {
     required this.body,
     this.isEnabled = true,
     this.isSubtle = true,
+    this.initiallyExpanded = false,
+    this.isExpanded,
+    this.onExpansionChanged,
     this.width,
     this.trailing,
     this.leadingSvgIcon,
@@ -240,6 +243,9 @@ class VAccordion extends StatefulWidget {
   final Widget body;
   final bool isEnabled;
   final bool isSubtle;
+  final bool initiallyExpanded;
+  final bool? isExpanded;
+  final ValueChanged<bool>? onExpansionChanged;
   final double? width;
   final Widget? trailing;
   final String? leadingSvgIcon;
@@ -253,7 +259,31 @@ class VAccordion extends StatefulWidget {
 
 class _VAccordionState extends State<VAccordion> {
   bool isDown = false;
-  bool isOpen = false;
+  late bool isOpen;
+
+  /// Returns true if this accordion is in controlled mode (external state management)
+  bool get isControlled => widget.isExpanded != null;
+
+  /// Returns the current expanded state (either controlled or internal)
+  bool get _isExpanded => isControlled ? widget.isExpanded! : isOpen;
+
+  @override
+  void initState() {
+    super.initState();
+    // Only initialize internal state if not controlled
+    if (!isControlled) {
+      isOpen = widget.initiallyExpanded;
+    }
+  }
+
+  @override
+  void didUpdateWidget(VAccordion oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Update internal state when switching from controlled to uncontrolled
+    if (oldWidget.isExpanded != null && widget.isExpanded == null) {
+      isOpen = oldWidget.isExpanded!;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -316,7 +346,7 @@ class _VAccordionState extends State<VAccordion> {
       }
       if (!widget.isEnabled) {
         return widget.style?.disabledTextColor ??
-            defaultStyle.disabled.withOpacity(0.2);
+            defaultStyle.disabled.withValues(alpha: 0.2);
       }
       if (widget.isSubtle) {
         return borderSubtleColor!;
@@ -332,7 +362,7 @@ class _VAccordionState extends State<VAccordion> {
       if (isDown) {
         return iconPressedColor ?? defaultStyle.activePressed;
       }
-      if (isOpen) {
+      if (_isExpanded) {
         return widget.style?.iconColorDown ?? defaultStyle.activePressed;
       }
       if (!widget.isEnabled) {
@@ -361,7 +391,7 @@ class _VAccordionState extends State<VAccordion> {
             defaultStyle.activePressed;
       }
 
-      if (!isOpen) {
+      if (!_isExpanded) {
         return widget.style?.headerTextColorDefault ?? defaultStyle.text;
       }
 
@@ -398,7 +428,7 @@ class _VAccordionState extends State<VAccordion> {
             width: widget.width ?? MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: widget.isSubtle ? subtleHeaderContainerColor : null,
-              borderRadius: isOpen && widget.isEnabled
+              borderRadius: _isExpanded && widget.isEnabled
                   ? BorderRadius.vertical(
                       top: Radius.circular(
                         subtleBorderRadius!,
@@ -413,7 +443,7 @@ class _VAccordionState extends State<VAccordion> {
                   widget.isSubtle ? bodySubtleColor : boldHeaderContainerColor,
               elevation: 0,
               shape: RoundedRectangleBorder(
-                borderRadius: isOpen && widget.isEnabled
+                borderRadius: _isExpanded && widget.isEnabled
                     ? BorderRadius.vertical(
                         top: Radius.circular(
                           headerBorderRadius!,
@@ -430,7 +460,7 @@ class _VAccordionState extends State<VAccordion> {
                 onDidGainAccessibilityFocus: widget.isEnabled
                     ? () {
                         SemanticsService.announce(
-                          isOpen
+                          _isExpanded
                               ? "${widget.title}. Button. Expanded. ${widget.badgeStatus ?? ""}"
                               : "${widget.title}. Button. Collapsed. ${widget.badgeStatus ?? ""}",
                           TextDirection.ltr,
@@ -438,7 +468,7 @@ class _VAccordionState extends State<VAccordion> {
                       }
                     : null,
                 child: InkWell(
-                  borderRadius: isOpen && widget.isEnabled
+                  borderRadius: _isExpanded && widget.isEnabled
                       ? const BorderRadius.vertical(
                           top: Radius.circular(8),
                         )
@@ -446,7 +476,7 @@ class _VAccordionState extends State<VAccordion> {
                   splashColor: inkWellSplashColor,
                   highlightColor: widget.isSubtle
                       ? subtleHeaderBackgroundSplash
-                      : headerBackgroundSplash?.withOpacity(0.6),
+                      : headerBackgroundSplash?.withValues(alpha: 0.6),
                   onHighlightChanged: ((value) {
                     setState(() {
                       isDown = value;
@@ -454,11 +484,20 @@ class _VAccordionState extends State<VAccordion> {
                   }),
                   onTap: widget.isEnabled
                       ? () {
-                          setState(() {
-                            isOpen = !isOpen;
-                          });
+                          final newExpandedState = !_isExpanded;
+
+                          if (isControlled) {
+                            // In controlled mode, notify parent about the change
+                            widget.onExpansionChanged?.call(newExpandedState);
+                          } else {
+                            // In uncontrolled mode, update internal state
+                            setState(() {
+                              isOpen = newExpandedState;
+                            });
+                          }
+
                           SemanticsService.announce(
-                            isOpen ? "Expanded" : "Collapsed",
+                            newExpandedState ? "Expanded" : "Collapsed",
                             TextDirection.ltr,
                           );
                         }
@@ -479,7 +518,8 @@ class _VAccordionState extends State<VAccordion> {
                               right: 13,
                             ),
                             child: RotatedBox(
-                              quarterTurns: isOpen && widget.isEnabled ? 1 : 0,
+                              quarterTurns:
+                                  _isExpanded && widget.isEnabled ? 1 : 0,
                               child: VIcon(
                                 svgIcon: VIcons.chevronRightTiny,
                                 iconColor: iconColorState(),
@@ -526,7 +566,7 @@ class _VAccordionState extends State<VAccordion> {
             ),
           ),
           Visibility(
-            visible: isOpen && widget.isEnabled,
+            visible: _isExpanded && widget.isEnabled,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

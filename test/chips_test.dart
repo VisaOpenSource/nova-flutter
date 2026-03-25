@@ -1,3 +1,20 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
@@ -51,7 +68,8 @@ void main() {
       expect(updatedStyle.borderRadius, 20.0);
       expect(updatedStyle.elevation, 10.0);
       expect(updatedStyle.pressedElevation, 14.0);
-      expect(updatedStyle.chipLabelTextStyle, TextStyle(color: Colors.blue));
+      expect(
+          updatedStyle.chipLabelTextStyle, const TextStyle(color: Colors.blue));
     });
 
     // test('lerp should interpolate between two styles', () {
@@ -171,7 +189,7 @@ void main() {
       expect(updatedStyle.standardBorderRadius, 10.0);
       expect(updatedStyle.elevation, 5.0);
       expect(updatedStyle.pressedElevation, 7.0);
-      expect(updatedStyle.chipLabelTextStyle, TextStyle(fontSize: 16));
+      expect(updatedStyle.chipLabelTextStyle, const TextStyle(fontSize: 16));
     });
 
     test('lerp should interpolate between two styles', () {
@@ -249,7 +267,7 @@ void main() {
       expect(lerpedStyle.standardBorderRadius, 20.0);
       expect(lerpedStyle.elevation, 5.0);
       expect(lerpedStyle.pressedElevation, 7.0);
-      expect(lerpedStyle.chipLabelTextStyle, TextStyle(fontSize: 16));
+      expect(lerpedStyle.chipLabelTextStyle, const TextStyle(fontSize: 16));
     });
   });
 
@@ -527,5 +545,314 @@ void main() {
 
     final chipLabelFinder = find.text(chipLabel);
     expect(chipLabelFinder, findsOneWidget);
+  });
+
+  // Coverage: VChipSelectionStyle lerp
+  test('VChipSelectionStyle lerp', () {
+    const a = VChipSelectionStyle(
+      backgroundDisabledColor: Colors.red,
+      backgroundReadOnlyColor: Colors.blue,
+      backgroundIsSelectedColor: Colors.green,
+      backgroundPressedColor: Colors.yellow,
+      backgroundDefaultColor: Colors.orange,
+      backgroundSelectedPressed: Colors.purple,
+      chipLabelReadOnlyColor: Colors.grey,
+      chipLabelDisabledColor: Colors.brown,
+      chipLabelSelectedColor: Colors.cyan,
+      chipLabelDefaultColor: Colors.teal,
+      borderReadOnlyColor: Colors.lime,
+      borderDisabledColor: Colors.indigo,
+      borderSelectedColor: Colors.pink,
+      borderDefaultColor: Colors.amber,
+      iconReadOnlyColor: Colors.white,
+      iconDisabledColor: Colors.black,
+      iconDefaultColor: Colors.blueGrey,
+    );
+    const b = VChipSelectionStyle(
+      backgroundDisabledColor: Colors.blue,
+      backgroundReadOnlyColor: Colors.red,
+      backgroundIsSelectedColor: Colors.yellow,
+      backgroundPressedColor: Colors.green,
+      backgroundDefaultColor: Colors.purple,
+      backgroundSelectedPressed: Colors.orange,
+      chipLabelReadOnlyColor: Colors.brown,
+      chipLabelDisabledColor: Colors.grey,
+      chipLabelSelectedColor: Colors.teal,
+      chipLabelDefaultColor: Colors.cyan,
+      borderReadOnlyColor: Colors.indigo,
+      borderDisabledColor: Colors.lime,
+      borderSelectedColor: Colors.amber,
+      borderDefaultColor: Colors.pink,
+      iconReadOnlyColor: Colors.black,
+      iconDisabledColor: Colors.white,
+      iconDefaultColor: Colors.amber,
+    );
+    final result = a.lerp(b, 0.5);
+    expect(result, isA<VChipSelectionStyle>());
+  });
+
+  test('VChipSelectionStyle lerp with null returns this', () {
+    const a = VChipSelectionStyle(backgroundDisabledColor: Colors.red);
+    final result = a.lerp(null, 0.5);
+    expect(identical(result, a), isTrue);
+  });
+
+  // Coverage: VChipsSelection dark alt theme
+  testWidgets("VChipsSelection dark alt theme", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData.dark(useMaterial3: false).copyWith(
+          extensions: <ThemeExtension<dynamic>>{
+            VDef.defaultColorSchemeDark,
+            VAlt.altColorSchemeDark,
+            messageColorScheme,
+          },
+        ),
+        home: Scaffold(
+          body: VChipsSelection(
+            chipLabel: "Dark Alt Chip",
+            onSelected: (_) {},
+            vExt: VAlt(),
+          ),
+        ),
+      ),
+    );
+    expect(find.text("Dark Alt Chip"), findsOneWidget);
+  });
+
+  // Coverage: VChipsSelection pressed state
+  testWidgets("VChipsSelection press and release", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VChipsSelection(
+            chipLabel: "Pressable Chip",
+            onSelected: (_) {},
+          ),
+        ),
+      ),
+    );
+    final gesture = await tester
+        .startGesture(tester.getCenter(find.text("Pressable Chip")));
+    await tester.pump();
+    await gesture.cancel();
+    await tester.pump();
+  });
+
+  // Coverage: VChipsRemovable press and release
+  testWidgets("VChipsRemovable delete button press",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VChipsRemovable(
+            chipLabel: "Removable Chip",
+            onDeleted: () {},
+          ),
+        ),
+      ),
+    );
+    // Find the delete icon area and tap down/up
+    final deleteIcon = find.byType(GestureDetector).last;
+    final gesture = await tester.startGesture(tester.getCenter(deleteIcon));
+    await tester.pump();
+    await gesture.up();
+    await tester.pump();
+  });
+
+  // Coverage: VChipRemovableStyle lerp
+  test('VChipRemovableStyle lerp', () {
+    const a = VChipRemovableStyle(
+      backgroundColor: Colors.red,
+    );
+    const b = VChipRemovableStyle(
+      backgroundColor: Colors.blue,
+    );
+    final result = a.lerp(b, 0.5);
+    expect(result, isA<VChipRemovableStyle>());
+  });
+
+  test('VChipRemovableStyle lerp with null returns this', () {
+    const a = VChipRemovableStyle(backgroundColor: Colors.red);
+    final result = a.lerp(null, 0.5);
+    expect(identical(result, a), isTrue);
+  });
+
+  // Coverage: VChipRemovableStyle copyWith
+  test('VChipRemovableStyle copyWith', () {
+    const style = VChipRemovableStyle(backgroundColor: Colors.red);
+    final copied = style.copyWith(
+      backgroundColor: Colors.blue,
+      chipLabelColor: Colors.green,
+      chipLabelDisabledColor: Colors.grey,
+      borderReadOnlyColor: Colors.orange,
+      borderDisabledColor: Colors.purple,
+      borderDefaultColor: Colors.yellow,
+      borderPressedColor: Colors.cyan,
+      iconPressedColor: Colors.teal,
+      iconDisabledColor: Colors.brown,
+    );
+    expect(copied.backgroundColor, Colors.blue);
+    expect(copied.chipLabelColor, Colors.green);
+    expect(copied.chipLabelDisabledColor, Colors.grey);
+    expect(copied.borderReadOnlyColor, Colors.orange);
+    expect(copied.borderDisabledColor, Colors.purple);
+    expect(copied.borderDefaultColor, Colors.yellow);
+    expect(copied.borderPressedColor, Colors.cyan);
+    expect(copied.iconPressedColor, Colors.teal);
+    expect(copied.iconDisabledColor, Colors.brown);
+  });
+
+  // Coverage: VChipsSelection onTapDown/onTapCancel (lines 315-317, 322-324)
+  testWidgets("VChipsSelection tap down sets pressed state",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VChipsSelection(
+            chipLabel: "Chip1",
+            onSelected: (value) {},
+          ),
+        ),
+      ),
+    );
+    // Start a gesture to trigger onTapDown, then cancel to trigger onTapCancel
+    final gesture =
+        await tester.startGesture(tester.getCenter(find.text("Chip1")));
+    await tester.pump();
+    // Move away to cancel the tap
+    await gesture.moveBy(const Offset(500, 0));
+    await gesture.cancel();
+    await tester.pumpAndSettle();
+    // The chip should still be there
+    expect(find.text("Chip1"), findsOneWidget);
+  });
+
+  // Coverage: VChipsRemovable delete button onTapDown/onTapUp/onTapCancel (lines 649-661)
+  testWidgets("VChipsRemovable delete button tap gesture",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VChipsRemovable(
+            chipLabel: "Removable",
+            onDeleted: () {},
+          ),
+        ),
+      ),
+    );
+    // Find the delete icon button and do a tap down + up
+    final deleteButton = find.byType(GestureDetector).last;
+    final gesture = await tester.startGesture(tester.getCenter(deleteButton));
+    await tester.pump();
+    await gesture.up();
+    await tester.pumpAndSettle();
+    expect(find.text("Removable"), findsOneWidget);
+  });
+
+  // Coverage: VChipsSelection alt theme light (line 211)
+  testWidgets("VChipsSelection alt theme light mode",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData(brightness: Brightness.light),
+        home: Scaffold(
+          body: VChipsSelection(
+            chipLabel: "AltChip",
+            onSelected: (value) {},
+            vExt: VAlt(),
+          ),
+        ),
+      ),
+    );
+    expect(find.text("AltChip"), findsOneWidget);
+  });
+
+  // Coverage: containerColor when pressed && isSelected (lines 315-317)
+  testWidgets(
+      "VChipsSelection pressed and selected shows selectedPressed color",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VChipsSelection(
+            chipLabel: "SelChip",
+            isSelected: true,
+            onSelected: (value) {},
+          ),
+        ),
+      ),
+    );
+    // Start a gesture to set pressed=true while isSelected=true
+    final gesture =
+        await tester.startGesture(tester.getCenter(find.text("SelChip")));
+    await tester.pump();
+    await gesture.up();
+    await tester.pumpAndSettle();
+    expect(find.text("SelChip"), findsOneWidget);
+  });
+
+  // Coverage: containerColor when isSelected but not pressed (lines 322-324)
+  testWidgets("VChipsSelection selected shows selected color",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VChipsSelection(
+            chipLabel: "Selected",
+            isSelected: true,
+            onSelected: (value) {},
+          ),
+        ),
+      ),
+    );
+    expect(find.text("Selected"), findsOneWidget);
+  });
+
+  // Coverage: VChipsRemovable delete button onTapCancel (line 659-661)
+  testWidgets("VChipsRemovable delete button tap cancel gesture",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VChipsRemovable(
+            chipLabel: "CancelChip",
+            onDeleted: () {},
+          ),
+        ),
+      ),
+    );
+    final deleteButton = find.byType(GestureDetector).last;
+    final gesture = await tester.startGesture(tester.getCenter(deleteButton));
+    await tester.pump();
+    await gesture.moveBy(const Offset(500, 0));
+    await gesture.cancel();
+    await tester.pumpAndSettle();
+    expect(find.text("CancelChip"), findsOneWidget);
+  });
+
+  //! This is Chips golden test
+
+  testWidgets('Chips golden(snapshot) testing', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      RepaintBoundary(
+        child: MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: VChipsSelection(
+                chipLabel: 'Chip Label',
+                onSelected: (isSelected) {},
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await expectLater(
+      find.byType(VChipsSelection),
+      matchesGoldenFile('goldens/chips.png'),
+    );
   });
 }

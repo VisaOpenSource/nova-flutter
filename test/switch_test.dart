@@ -1,11 +1,27 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
-import 'dart:ui';
 
 void main() {
   test('VSwitchStyle copyWith test', () {
-    final original = VSwitchStyle(
+    const original = VSwitchStyle(
       switchColor: Colors.red,
       tagColor: Colors.green,
       tagBorderColor: Colors.blue,
@@ -102,7 +118,9 @@ void main() {
     expect(switchValue, isFalse);
   });
 
-  testWidgets('VSwitch applies getAltColorSchemeDark when theme brightness is dark and vExt is not VDef', (WidgetTester tester) async {
+  testWidgets(
+      'VSwitch applies getAltColorSchemeDark when theme brightness is dark and vExt is not VDef',
+      (WidgetTester tester) async {
     // Test with Brightness.dark and vExt is not VDef
     bool switchValue = false;
 
@@ -123,7 +141,9 @@ void main() {
     expect(find.byType(VSwitch), findsOneWidget);
   });
 
-  testWidgets('VSwitch applies getAltColorSchemeDark when theme brightness is dark and VDef is not VExt', (WidgetTester tester) async {
+  testWidgets(
+      'VSwitch applies getAltColorSchemeDark when theme brightness is dark and VDef is not VExt',
+      (WidgetTester tester) async {
     // Test with Brightness.dark and vExt is not VDef
     bool switchValue = false;
 
@@ -144,7 +164,9 @@ void main() {
     expect(find.byType(VSwitch), findsOneWidget);
   });
 
-  testWidgets('VSwitch applies getAltColorSchemeDark when theme brightness is dark and vExt is not VDef', (WidgetTester tester) async {
+  testWidgets(
+      'VSwitch applies getAltColorSchemeDark when theme brightness is dark and vExt is not VDef',
+      (WidgetTester tester) async {
     // Test with Brightness.dark and vExt is not VDef
     bool switchValue = false;
 
@@ -194,7 +216,8 @@ void main() {
     expect(switchValue, isFalse);
   });
 
-  testWidgets('VSwitch border Color when disabled and value is true ', (tester) async {
+  testWidgets('VSwitch border Color when disabled and value is true ',
+      (tester) async {
     // bool switchValue = false;
 
     await tester.pumpWidget(MaterialApp(
@@ -205,15 +228,17 @@ void main() {
           onPressed: () {
             // switchValue = !switchValue;
           },
-          style: VSwitchStyle(borderColor: VColors.disabled.withOpacity(0.2)),
+          style: VSwitchStyle(
+              borderColor: VColors.disabled.withValues(alpha: 0.2)),
         ),
       ),
     ));
 
-    final Color? borderColor = tester.widget<VSwitch>(find.byType(VSwitch)).style?.borderColor;
+    final Color? borderColor =
+        tester.widget<VSwitch>(find.byType(VSwitch)).style?.borderColor;
 
     // Check initial state
-    expect(borderColor, VColors.disabled.withOpacity(0.2));
+    expect(borderColor, VColors.disabled.withValues(alpha: 0.2));
   });
 
   testWidgets('VSwitch tag Color when value is true ', (tester) async {
@@ -226,24 +251,30 @@ void main() {
           onPressed: () {
             // switchValue = !switchValue;
           },
-          style: VSwitchStyle(tagBorderColor: VColors.disabled),
+          style: const VSwitchStyle(tagBorderColor: VColors.disabled),
         ),
       ),
     ));
 
-    final Color? borderColor = tester.widget<VSwitch>(find.byType(VSwitch)).style?.tagBorderColor;
+    final Color? borderColor =
+        tester.widget<VSwitch>(find.byType(VSwitch)).style?.tagBorderColor;
 
     // Check initial state
     expect(borderColor, VColors.disabled);
   });
 
-  testWidgets('VSwitch tag Color when disabled and value is false ', (tester) async {
+  testWidgets('VSwitch tag Color when disabled and value is false ',
+      (tester) async {
     // bool switchValue = false;
 
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: VSwitch(switchValue: true, onPressed: () {}, style: VSwitchStyle(switchColor: VColors.defaultActivePressed)),
+          body: VSwitch(
+              switchValue: true,
+              onPressed: () {},
+              style: const VSwitchStyle(
+                  switchColor: VColors.defaultActivePressed)),
         ),
       ),
     );
@@ -251,12 +282,125 @@ void main() {
     final switchFinder = find.byType(VSwitch);
 
     // Start press
+    // ignore: unused_local_variable
     final gesture = await tester.press(switchFinder);
     await tester.pump();
 
-    final Color? switchColor = tester.widget<VSwitch>(find.byType(VSwitch)).style?.switchColor;
+    final Color? switchColor =
+        tester.widget<VSwitch>(find.byType(VSwitch)).style?.switchColor;
 
     // Check initial state
     expect(switchColor, VColors.defaultActivePressed);
+  });
+
+  testWidgets('VSwitch on, not disabled, not pressed',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VSwitch(
+            switchValue: true,
+            isDisabled: false,
+            onPressed: () {},
+          ),
+        ),
+      ),
+    );
+
+    // Just rendering the switch with switchValue=true, not pressing
+    expect(find.byType(VSwitch), findsOneWidget);
+  });
+
+  testWidgets('VSwitch off, not disabled, not pressed',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VSwitch(
+            switchValue: false,
+            isDisabled: false,
+            onPressed: () {},
+          ),
+        ),
+      ),
+    );
+
+    expect(find.byType(VSwitch), findsOneWidget);
+  });
+
+  testWidgets('VSwitch dark mode', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData(brightness: Brightness.dark),
+        home: Scaffold(
+          body: VSwitch(
+            switchValue: true,
+            isDisabled: false,
+            onPressed: () {},
+          ),
+        ),
+      ),
+    );
+
+    expect(find.byType(VSwitch), findsOneWidget);
+  });
+
+  testWidgets('VSwitch dark mode alt', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData(brightness: Brightness.dark),
+        home: Scaffold(
+          body: VSwitch(
+            switchValue: false,
+            isDisabled: false,
+            onPressed: () {},
+            vExt: VAlt(),
+          ),
+        ),
+      ),
+    );
+
+    expect(find.byType(VSwitch), findsOneWidget);
+  });
+
+  // Coverage: VSwitch disabled + value = true (on)
+  testWidgets("VSwitch disabled on state", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VSwitch(
+            switchValue: true,
+            isDisabled: true,
+            onPressed: () {},
+          ),
+        ),
+      ),
+    );
+    expect(find.byType(VSwitch), findsOneWidget);
+  });
+
+  //! This is Switch golden test
+
+  testWidgets('Switch golden(snapshot) testing', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      RepaintBoundary(
+        child: MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: VSwitch(
+                switchValue: true,
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await expectLater(
+      find.byType(VSwitch),
+      matchesGoldenFile('goldens/switch.png'),
+    );
   });
 }

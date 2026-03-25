@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -94,23 +94,31 @@ class VDropdownIconStyle extends ThemeExtension<VDropdownIconStyle> {
     TextStyle? dropdownTextStyle,
   }) =>
       VDropdownIconStyle(
-        backgroundSplashColor: backgroundSplashColor ?? this.backgroundSplashColor,
+        backgroundSplashColor:
+            backgroundSplashColor ?? this.backgroundSplashColor,
         dropdownBorderColor: dropdownBorderColor ?? this.dropdownBorderColor,
         dropDownColor: dropDownColor ?? this.dropDownColor,
-        isSecDisabledButtonColor: isSecDisabledButtonColor ?? this.isSecDisabledButtonColor,
+        isSecDisabledButtonColor:
+            isSecDisabledButtonColor ?? this.isSecDisabledButtonColor,
         disabledButtonColor: disabledButtonColor ?? this.disabledButtonColor,
-        isSecTappedButtonColor: isSecTappedButtonColor ?? this.isSecTappedButtonColor,
+        isSecTappedButtonColor:
+            isSecTappedButtonColor ?? this.isSecTappedButtonColor,
         tappedButtonColor: tappedButtonColor ?? this.tappedButtonColor,
         buttonDefaultColor: buttonDefaultColor ?? this.buttonDefaultColor,
-        defaultSecButtonColor: defaultSecButtonColor ?? this.defaultSecButtonColor,
-        isSecDisabledBorderColor: isSecDisabledBorderColor ?? this.isSecDisabledBorderColor,
+        defaultSecButtonColor:
+            defaultSecButtonColor ?? this.defaultSecButtonColor,
+        isSecDisabledBorderColor:
+            isSecDisabledBorderColor ?? this.isSecDisabledBorderColor,
         disabledIconColor: disabledIconColor ?? this.disabledIconColor,
         defaultIconColor: defaultIconColor ?? this.defaultIconColor,
-        isSecDefaultBorderColor: isSecDefaultBorderColor ?? this.isSecDefaultBorderColor,
+        isSecDefaultBorderColor:
+            isSecDefaultBorderColor ?? this.isSecDefaultBorderColor,
         disabledBorderColor: disabledBorderColor ?? this.disabledBorderColor,
         defaultBorderColor: defaultBorderColor ?? this.defaultBorderColor,
-        isSecDisabledIconColor: isSecDisabledIconColor ?? this.isSecDisabledIconColor,
-        isSecDefaultIconColor: isSecDefaultIconColor ?? this.isSecDefaultIconColor,
+        isSecDisabledIconColor:
+            isSecDisabledIconColor ?? this.isSecDisabledIconColor,
+        isSecDefaultIconColor:
+            isSecDefaultIconColor ?? this.isSecDefaultIconColor,
         dropdownTextStyle: dropdownTextStyle ?? this.dropdownTextStyle,
         dropdownBorderRadius: dropdownBorderRadius ?? this.dropdownBorderRadius,
         bigIconSize: bigIconSize ?? this.bigIconSize,
@@ -124,24 +132,40 @@ class VDropdownIconStyle extends ThemeExtension<VDropdownIconStyle> {
     }
 
     return VDropdownIconStyle(
-      dropdownBorderColor: Color.lerp(dropdownBorderColor, other.dropdownBorderColor, t),
-      backgroundSplashColor: Color.lerp(backgroundSplashColor, other.backgroundSplashColor, t),
+      dropdownBorderColor:
+          Color.lerp(dropdownBorderColor, other.dropdownBorderColor, t),
+      backgroundSplashColor:
+          Color.lerp(backgroundSplashColor, other.backgroundSplashColor, t),
       dropDownColor: Color.lerp(dropDownColor, other.dropDownColor, t),
-      isSecDisabledButtonColor: Color.lerp(isSecDisabledButtonColor, other.isSecDisabledButtonColor, t),
-      disabledButtonColor: Color.lerp(disabledButtonColor, other.disabledButtonColor, t),
-      isSecTappedButtonColor: Color.lerp(isSecTappedButtonColor, other.isSecTappedButtonColor, t),
-      tappedButtonColor: Color.lerp(tappedButtonColor, other.tappedButtonColor, t),
-      buttonDefaultColor: Color.lerp(buttonDefaultColor, other.buttonDefaultColor, t),
-      isSecDisabledBorderColor: Color.lerp(isSecDisabledBorderColor, other.isSecDisabledBorderColor, t),
-      disabledIconColor: Color.lerp(disabledIconColor, other.disabledIconColor, t),
+      isSecDisabledButtonColor: Color.lerp(
+          isSecDisabledButtonColor, other.isSecDisabledButtonColor, t),
+      disabledButtonColor:
+          Color.lerp(disabledButtonColor, other.disabledButtonColor, t),
+      isSecTappedButtonColor:
+          Color.lerp(isSecTappedButtonColor, other.isSecTappedButtonColor, t),
+      tappedButtonColor:
+          Color.lerp(tappedButtonColor, other.tappedButtonColor, t),
+      buttonDefaultColor:
+          Color.lerp(buttonDefaultColor, other.buttonDefaultColor, t),
+      isSecDisabledBorderColor: Color.lerp(
+          isSecDisabledBorderColor, other.isSecDisabledBorderColor, t),
+      disabledIconColor:
+          Color.lerp(disabledIconColor, other.disabledIconColor, t),
       defaultIconColor: Color.lerp(defaultIconColor, other.defaultIconColor, t),
-      defaultSecButtonColor: Color.lerp(defaultSecButtonColor, other.defaultSecButtonColor, t),
-      isSecDefaultBorderColor: Color.lerp(isSecDefaultBorderColor, other.isSecDefaultBorderColor, t),
-      disabledBorderColor: Color.lerp(disabledBorderColor, other.disabledBorderColor, t),
-      defaultBorderColor: Color.lerp(defaultBorderColor, other.defaultBorderColor, t),
-      isSecDisabledIconColor: Color.lerp(isSecDisabledIconColor, other.isSecDisabledIconColor, t),
-      isSecDefaultIconColor: Color.lerp(isSecDefaultIconColor, other.isSecDefaultIconColor, t),
-      dropdownBorderRadius: lerpDouble(dropdownBorderRadius, other.dropdownBorderRadius, t),
+      defaultSecButtonColor:
+          Color.lerp(defaultSecButtonColor, other.defaultSecButtonColor, t),
+      isSecDefaultBorderColor:
+          Color.lerp(isSecDefaultBorderColor, other.isSecDefaultBorderColor, t),
+      disabledBorderColor:
+          Color.lerp(disabledBorderColor, other.disabledBorderColor, t),
+      defaultBorderColor:
+          Color.lerp(defaultBorderColor, other.defaultBorderColor, t),
+      isSecDisabledIconColor:
+          Color.lerp(isSecDisabledIconColor, other.isSecDisabledIconColor, t),
+      isSecDefaultIconColor:
+          Color.lerp(isSecDefaultIconColor, other.isSecDefaultIconColor, t),
+      dropdownBorderRadius:
+          lerpDouble(dropdownBorderRadius, other.dropdownBorderRadius, t),
       bigIconSize: lerpDouble(bigIconSize, other.bigIconSize, t),
       defaultIconSize: lerpDouble(defaultIconSize, other.defaultIconSize, t),
       dropdownTextStyle: dropdownTextStyle,
@@ -183,44 +207,70 @@ class VDropdownIcon extends StatefulWidget {
 }
 
 class _VDropdownIconState extends State<VDropdownIcon> {
-  final GlobalKey<PopupMenuButtonState> _popUpButtonKey = GlobalKey<PopupMenuButtonState>();
+  final GlobalKey<PopupMenuButtonState> _popUpButtonKey =
+      GlobalKey<PopupMenuButtonState>();
   bool isTapped = false;
 
   @override
   Widget build(BuildContext context) {
     final dynamic defaultStyle;
     if (widget.vExt == null || widget.vExt is VDef) {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark ? getDefaultColorSchemeDark()! : getDefaultColorScheme()!;
+      defaultStyle = Theme.of(context).brightness == Brightness.dark
+          ? getDefaultColorSchemeDark()!
+          : getDefaultColorScheme()!;
     } else {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark ? getAltColorSchemeDark()! : getAltColorScheme()!;
+      defaultStyle = Theme.of(context).brightness == Brightness.dark
+          ? getAltColorSchemeDark()!
+          : getAltColorScheme()!;
     }
-    final backgroundSplashColor = widget.style?.backgroundSplashColor ?? defaultStyle.surfaceLowlight;
-    final dropdownBorderColor = widget.style?.dropdownBorderColor ?? defaultStyle.border;
-    final isSecDisabledButtonColor = widget.style?.isSecDisabledButtonColor ?? defaultStyle.surface1;
-    final disabledButtonColor = widget.style?.disabledButtonColor ?? defaultStyle.disabled;
-    final buttonDefaultColor = widget.style?.buttonDefaultColor ?? defaultStyle.active;
-    final defaultSecButtonColor = widget.style?.defaultSecButtonColor ?? defaultStyle.surface1;
-    final isSecTappedButtonColor = widget.style?.isSecTappedButtonColor ?? defaultStyle.surfaceHighlight;
-    final tappedButtonColor = widget.style?.tappedButtonColor ?? defaultStyle.activePressed;
-    final isSecDisabledBorderColor = widget.style?.isSecDisabledBorderColor ?? defaultStyle.disabled;
-    final disabledBorderColor = widget.style?.disabledBorderColor ?? defaultStyle.transparent;
-    final isSecDefaultBorderColor = widget.style?.isSecDefaultBorderColor ?? defaultStyle.active;
-    final defaultBorderColor = widget.style?.defaultBorderColor ?? defaultStyle.active;
-    final isSecDisabledIconColor = widget.style?.isSecDisabledIconColor ?? defaultStyle.disabled;
-    final disabledIconColor = widget.style?.disabledIconColor ?? defaultStyle.surface1;
-    final isSecDefaultIconColor = widget.style?.isSecDefaultIconColor ?? defaultStyle.disabled;
-    final defaultIconColor = widget.style?.defaultIconColor ?? defaultStyle.surface1;
-    final dropdownBorderRadius = widget.style?.dropdownBorderRadius ?? defaultStyle.vDropdownIconProperties?.dropdownBorderRadius;
-    final bigIconSize = widget.style?.dropdownBorderRadius ?? defaultStyle.vDropdownIconProperties?.bigIconSize;
-    final defaultIconSize = widget.style?.defaultIconSize ?? defaultStyle.vDropdownIconProperties?.defaultIconSize;
-    final dropdownTextStyle = widget.style?.dropdownTextStyle ?? defaultStyle.vDropdownIconProperties?.dropdownTextStyle;
+    // final backgroundSplashColor = widget.style?.backgroundSplashColor ?? defaultStyle.surfaceLowlight;
+    final dropdownBorderColor =
+        widget.style?.dropdownBorderColor ?? defaultStyle.border;
+    final isSecDisabledButtonColor =
+        widget.style?.isSecDisabledButtonColor ?? defaultStyle.surface1;
+    final disabledButtonColor =
+        widget.style?.disabledButtonColor ?? defaultStyle.disabled;
+    final buttonDefaultColor =
+        widget.style?.buttonDefaultColor ?? defaultStyle.active;
+    final defaultSecButtonColor =
+        widget.style?.defaultSecButtonColor ?? defaultStyle.surface1;
+    final isSecTappedButtonColor =
+        widget.style?.isSecTappedButtonColor ?? defaultStyle.surfaceHighlight;
+    final tappedButtonColor =
+        widget.style?.tappedButtonColor ?? defaultStyle.activePressed;
+    final isSecDisabledBorderColor =
+        widget.style?.isSecDisabledBorderColor ?? defaultStyle.disabled;
+    final disabledBorderColor =
+        widget.style?.disabledBorderColor ?? defaultStyle.transparent;
+    final isSecDefaultBorderColor =
+        widget.style?.isSecDefaultBorderColor ?? defaultStyle.active;
+    final defaultBorderColor =
+        widget.style?.defaultBorderColor ?? defaultStyle.active;
+    final isSecDisabledIconColor =
+        widget.style?.isSecDisabledIconColor ?? defaultStyle.disabledIcon;
+    final disabledIconColor =
+        widget.style?.disabledIconColor ?? defaultStyle.disabledIcon;
+    final isSecDefaultIconColor =
+        widget.style?.isSecDefaultIconColor ?? defaultStyle.disabled;
+    final defaultIconColor =
+        widget.style?.defaultIconColor ?? defaultStyle.surface1;
+    final dropdownBorderRadius = widget.style?.dropdownBorderRadius ??
+        defaultStyle.vDropdownIconProperties?.dropdownBorderRadius;
+    final bigIconSize = widget.style?.dropdownBorderRadius ??
+        defaultStyle.vDropdownIconProperties?.bigIconSize;
+    final defaultIconSize = widget.style?.defaultIconSize ??
+        defaultStyle.vDropdownIconProperties?.defaultIconSize;
+    // final dropdownTextStyle = widget.style?.dropdownTextStyle ?? defaultStyle.vDropdownIconProperties?.dropdownTextStyle;
     final dropDownColor = widget.style?.dropDownColor ?? defaultStyle.surface1;
 
-    double? listPosition() => widget.isIconBig ? bigIconSize! : defaultIconSize!;
+    double? listPosition() =>
+        widget.isIconBig ? bigIconSize! : defaultIconSize!;
 
     Color? buttonColor() {
       if (widget.isDisabled) {
-        return widget.isSecTheme ? isSecDisabledButtonColor : disabledButtonColor;
+        return widget.isSecTheme
+            ? isSecDisabledButtonColor
+            : disabledButtonColor;
       }
       if (isTapped) {
         return widget.isSecTheme ? isSecTappedButtonColor : tappedButtonColor;
@@ -230,7 +280,9 @@ class _VDropdownIconState extends State<VDropdownIcon> {
 
     Color? borderColor() {
       if (widget.isDisabled) {
-        return widget.isSecTheme ? isSecDisabledBorderColor : disabledBorderColor;
+        return widget.isSecTheme
+            ? isSecDisabledBorderColor
+            : disabledBorderColor;
       }
       return widget.isSecTheme ? isSecDefaultBorderColor : defaultBorderColor;
     }
@@ -317,7 +369,8 @@ class _VDropdownIconState extends State<VDropdownIcon> {
 }
 
 // VDropdownTextButtonStyle using ThemeExtension
-class VDropdownTextButtonStyle extends ThemeExtension<VDropdownTextButtonStyle> {
+class VDropdownTextButtonStyle
+    extends ThemeExtension<VDropdownTextButtonStyle> {
   const VDropdownTextButtonStyle(
       {this.dropDownColor,
       this.backgroundSplashColor,
@@ -371,7 +424,10 @@ class VDropdownTextButtonStyle extends ThemeExtension<VDropdownTextButtonStyle> 
       disabledFontColor,
       isSecDefaultFontColor,
       isSecDisabledFontColor;
-  final double? borderRadius, dropdownBorderRadius, bigButtonSize, defaultButtonSize;
+  final double? borderRadius,
+      dropdownBorderRadius,
+      bigButtonSize,
+      defaultButtonSize;
   final TextStyle? dropdownTextStyle, bigIconTextStyle, smallIconTextStyle;
 
   @override
@@ -407,28 +463,39 @@ class VDropdownTextButtonStyle extends ThemeExtension<VDropdownTextButtonStyle> 
     smallIconTextStyle,
   }) =>
       VDropdownTextButtonStyle(
-        backgroundSplashColor: backgroundSplashColor ?? this.backgroundSplashColor,
+        backgroundSplashColor:
+            backgroundSplashColor ?? this.backgroundSplashColor,
         dropDownColor: dropDownColor ?? this.dropDownColor,
         dropdownBorderColor: dropdownBorderColor ?? this.dropdownBorderColor,
-        isSecDisabledButtonColor: isSecDisabledButtonColor ?? this.isSecDisabledButtonColor,
+        isSecDisabledButtonColor:
+            isSecDisabledButtonColor ?? this.isSecDisabledButtonColor,
         disabledButtonColor: disabledButtonColor ?? this.disabledButtonColor,
-        isSecTappedButtonColor: isSecTappedButtonColor ?? this.isSecTappedButtonColor,
+        isSecTappedButtonColor:
+            isSecTappedButtonColor ?? this.isSecTappedButtonColor,
         tappedButtonColor: tappedButtonColor ?? this.tappedButtonColor,
         buttonDefaultColor: buttonDefaultColor ?? this.buttonDefaultColor,
-        defaultSecButtonColor: defaultSecButtonColor ?? this.defaultSecButtonColor,
-        isSecDisabledBorderColor: isSecDisabledBorderColor ?? this.isSecDisabledBorderColor,
-        isSecDefaultBorderColor: isSecDefaultBorderColor ?? this.isSecDefaultBorderColor,
+        defaultSecButtonColor:
+            defaultSecButtonColor ?? this.defaultSecButtonColor,
+        isSecDisabledBorderColor:
+            isSecDisabledBorderColor ?? this.isSecDisabledBorderColor,
+        isSecDefaultBorderColor:
+            isSecDefaultBorderColor ?? this.isSecDefaultBorderColor,
         disabledBorderColor: disabledBorderColor ?? this.disabledBorderColor,
         defaultBorderColor: defaultBorderColor ?? this.defaultBorderColor,
         defaultIconColor: defaultIconColor ?? this.defaultIconColor,
-        isSecDefaultIconColor: isSecDefaultIconColor ?? this.isSecDefaultIconColor,
-        isSecDisabledIconColor: isSecDisabledIconColor ?? this.isSecDisabledIconColor,
+        isSecDefaultIconColor:
+            isSecDefaultIconColor ?? this.isSecDefaultIconColor,
+        isSecDisabledIconColor:
+            isSecDisabledIconColor ?? this.isSecDisabledIconColor,
         disabledIconColor: disabledIconColor ?? this.disabledIconColor,
         defaultFontColor: defaultFontColor ?? this.defaultFontColor,
         disabledFontColor: disabledFontColor ?? this.disabledFontColor,
-        isSecDefaultFontColor: isSecDefaultFontColor ?? this.isSecDefaultFontColor,
-        isSecDisabledFontColor: isSecDisabledFontColor ?? this.isSecDisabledFontColor,
-        secBackgroundSplashColor: secBackgroundSplashColor ?? this.secBackgroundSplashColor,
+        isSecDefaultFontColor:
+            isSecDefaultFontColor ?? this.isSecDefaultFontColor,
+        isSecDisabledFontColor:
+            isSecDisabledFontColor ?? this.isSecDisabledFontColor,
+        secBackgroundSplashColor:
+            secBackgroundSplashColor ?? this.secBackgroundSplashColor,
         dropdownTextStyle: dropdownTextStyle ?? this.dropdownTextStyle,
         bigIconTextStyle: bigIconTextStyle ?? this.bigIconTextStyle,
         smallIconTextStyle: smallIconTextStyle ?? this.smallIconTextStyle,
@@ -439,38 +506,60 @@ class VDropdownTextButtonStyle extends ThemeExtension<VDropdownTextButtonStyle> 
       );
 
   @override
-  VDropdownTextButtonStyle lerp(ThemeExtension<VDropdownTextButtonStyle>? other, double t) {
+  VDropdownTextButtonStyle lerp(
+      ThemeExtension<VDropdownTextButtonStyle>? other, double t) {
     if (other is! VDropdownTextButtonStyle) {
       return this;
     }
 
     return VDropdownTextButtonStyle(
       dropDownColor: Color.lerp(dropDownColor, other.dropDownColor, t),
-      backgroundSplashColor: Color.lerp(backgroundSplashColor, other.backgroundSplashColor, t),
-      dropdownBorderColor: Color.lerp(dropdownBorderColor, other.dropdownBorderColor, t),
-      isSecDisabledButtonColor: Color.lerp(isSecDisabledButtonColor, other.isSecDisabledButtonColor, t),
-      disabledButtonColor: Color.lerp(disabledButtonColor, other.disabledButtonColor, t),
-      isSecTappedButtonColor: Color.lerp(isSecTappedButtonColor, other.isSecTappedButtonColor, t),
-      tappedButtonColor: Color.lerp(tappedButtonColor, other.tappedButtonColor, t),
-      buttonDefaultColor: Color.lerp(buttonDefaultColor, other.buttonDefaultColor, t),
-      defaultSecButtonColor: Color.lerp(defaultSecButtonColor, other.defaultSecButtonColor, t),
-      isSecDisabledBorderColor: Color.lerp(isSecDisabledBorderColor, other.isSecDisabledBorderColor, t),
-      isSecDefaultBorderColor: Color.lerp(isSecDefaultBorderColor, other.isSecDefaultBorderColor, t),
-      disabledBorderColor: Color.lerp(disabledBorderColor, other.disabledBorderColor, t),
-      defaultBorderColor: Color.lerp(defaultBorderColor, other.defaultBorderColor, t),
+      backgroundSplashColor:
+          Color.lerp(backgroundSplashColor, other.backgroundSplashColor, t),
+      dropdownBorderColor:
+          Color.lerp(dropdownBorderColor, other.dropdownBorderColor, t),
+      isSecDisabledButtonColor: Color.lerp(
+          isSecDisabledButtonColor, other.isSecDisabledButtonColor, t),
+      disabledButtonColor:
+          Color.lerp(disabledButtonColor, other.disabledButtonColor, t),
+      isSecTappedButtonColor:
+          Color.lerp(isSecTappedButtonColor, other.isSecTappedButtonColor, t),
+      tappedButtonColor:
+          Color.lerp(tappedButtonColor, other.tappedButtonColor, t),
+      buttonDefaultColor:
+          Color.lerp(buttonDefaultColor, other.buttonDefaultColor, t),
+      defaultSecButtonColor:
+          Color.lerp(defaultSecButtonColor, other.defaultSecButtonColor, t),
+      isSecDisabledBorderColor: Color.lerp(
+          isSecDisabledBorderColor, other.isSecDisabledBorderColor, t),
+      isSecDefaultBorderColor:
+          Color.lerp(isSecDefaultBorderColor, other.isSecDefaultBorderColor, t),
+      disabledBorderColor:
+          Color.lerp(disabledBorderColor, other.disabledBorderColor, t),
+      defaultBorderColor:
+          Color.lerp(defaultBorderColor, other.defaultBorderColor, t),
       defaultIconColor: Color.lerp(defaultIconColor, other.defaultIconColor, t),
-      isSecDefaultIconColor: Color.lerp(isSecDefaultIconColor, other.isSecDefaultIconColor, t),
-      isSecDisabledIconColor: Color.lerp(isSecDisabledIconColor, other.isSecDisabledIconColor, t),
-      disabledIconColor: Color.lerp(disabledIconColor, other.disabledIconColor, t),
+      isSecDefaultIconColor:
+          Color.lerp(isSecDefaultIconColor, other.isSecDefaultIconColor, t),
+      isSecDisabledIconColor:
+          Color.lerp(isSecDisabledIconColor, other.isSecDisabledIconColor, t),
+      disabledIconColor:
+          Color.lerp(disabledIconColor, other.disabledIconColor, t),
       defaultFontColor: Color.lerp(defaultFontColor, other.defaultFontColor, t),
-      disabledFontColor: Color.lerp(disabledFontColor, other.disabledFontColor, t),
-      isSecDefaultFontColor: Color.lerp(isSecDefaultFontColor, other.isSecDefaultFontColor, t),
-      isSecDisabledFontColor: Color.lerp(isSecDisabledFontColor, other.isSecDisabledFontColor, t),
-      secBackgroundSplashColor: Color.lerp(secBackgroundSplashColor, other.secBackgroundSplashColor, t),
+      disabledFontColor:
+          Color.lerp(disabledFontColor, other.disabledFontColor, t),
+      isSecDefaultFontColor:
+          Color.lerp(isSecDefaultFontColor, other.isSecDefaultFontColor, t),
+      isSecDisabledFontColor:
+          Color.lerp(isSecDisabledFontColor, other.isSecDisabledFontColor, t),
+      secBackgroundSplashColor: Color.lerp(
+          secBackgroundSplashColor, other.secBackgroundSplashColor, t),
       borderRadius: lerpDouble(borderRadius, other.borderRadius, t),
-      dropdownBorderRadius: lerpDouble(dropdownBorderRadius, other.dropdownBorderRadius, t),
+      dropdownBorderRadius:
+          lerpDouble(dropdownBorderRadius, other.dropdownBorderRadius, t),
       bigButtonSize: lerpDouble(bigButtonSize, other.bigButtonSize, t),
-      defaultButtonSize: lerpDouble(defaultButtonSize, other.defaultButtonSize, t),
+      defaultButtonSize:
+          lerpDouble(defaultButtonSize, other.defaultButtonSize, t),
       dropdownTextStyle: dropdownTextStyle,
       smallIconTextStyle: smallIconTextStyle,
       bigIconTextStyle: bigIconTextStyle,
@@ -516,7 +605,8 @@ class VDropdownTextButton extends StatefulWidget {
 }
 
 class _VDropdownTextButtonState extends State<VDropdownTextButton> {
-  final GlobalKey<PopupMenuButtonState> _popUpButtonKey = GlobalKey<PopupMenuButtonState>();
+  final GlobalKey<PopupMenuButtonState> _popUpButtonKey =
+      GlobalKey<PopupMenuButtonState>();
   bool isTapped = false;
 
   @override
@@ -527,34 +617,63 @@ class _VDropdownTextButtonState extends State<VDropdownTextButton> {
     } else {
       defaultStyle = getAltColorScheme()!;
     }
-    TextStyle? dropdownTextStyle = widget.style?.dropdownTextStyle ?? defaultStyle.vDropdownTextProperties?.dropdownTextStyle;
-    TextStyle? smallIconTextStyle = widget.style?.smallIconTextStyle ?? defaultStyle.vDropdownTextProperties?.smallIconTextStyle;
-    TextStyle? bigIconTextStyle = widget.style?.bigIconTextStyle ?? defaultStyle.vDropdownTextProperties?.bigIconTextStyle;
-    double? borderRadius = widget.style?.borderRadius ?? defaultStyle.vDropdownTextProperties?.borderRadius;
-    double? dropdownBorderRadius = widget.style?.dropdownBorderRadius ?? defaultStyle.vDropdownTextProperties?.dropdownBorderRadius;
-    double? bigButtonSize = widget.style?.bigButtonSize ?? defaultStyle.vDropdownTextProperties?.bigButtonSize;
-    double? defaultButtonSize = widget.style?.defaultButtonSize ?? defaultStyle.vDropdownTextProperties?.defaultButtonSize;
-    Color? backgroundSplashColor = widget.style?.backgroundSplashColor ?? defaultStyle.surfaceLowlight;
-    Color? dropdownBorderColor = widget.style?.dropdownBorderColor ?? defaultStyle.border;
-    Color? isSecDisabledButtonColor = widget.style?.isSecDisabledButtonColor ?? defaultStyle.surface1;
-    Color? disabledButtonColor = widget.style?.disabledButtonColor ?? defaultStyle.disabled;
-    Color? buttonDefaultColor = widget.style?.buttonDefaultColor ?? defaultStyle.active;
-    Color? defaultSecButtonColor = widget.style?.defaultSecButtonColor ?? defaultStyle.surface1;
-    Color? isSecTappedButtonColor = widget.style?.isSecTappedButtonColor ?? defaultStyle.surfaceHighlight;
-    Color? tappedButtonColor = widget.style?.tappedButtonColor ?? defaultStyle.activePressed;
-    Color? isSecDisabledBorderColor = widget.style?.isSecDisabledBorderColor ?? defaultStyle.disabled;
-    Color? disabledBorderColor = widget.style?.disabledBorderColor ?? defaultStyle.transparent;
-    Color? isSecDefaultBorderColor = widget.style?.isSecDefaultBorderColor ?? defaultStyle.active;
-    Color? defaultBorderColor = widget.style?.defaultBorderColor ?? defaultStyle.active;
-    Color? defaultIconColor = widget.style?.defaultIconColor ?? defaultStyle.surface1;
-    Color? isSecDefaultIconColor = widget.style?.isSecDefaultIconColor ?? defaultStyle.active;
-    Color? isSecDisabledIconColor = widget.style?.isSecDisabledIconColor ?? defaultStyle.disabled;
-    Color? disabledIconColor = widget.style?.disabledIconColor ?? defaultStyle.surface1;
-    Color? secBackgroundSplashColor = widget.style?.secBackgroundSplashColor ?? defaultStyle.surfaceHighlight;
-    Color? defaultFontColor = widget.style?.defaultFontColor ?? defaultStyle.surface1;
-    Color? disabledFontColor = widget.style?.disabledFontColor ?? defaultStyle.surface1;
-    Color? isSecDefaultFontColor = widget.style?.isSecDefaultFontColor ?? defaultStyle.active;
-    Color? isSecDisabledFontColor = widget.style?.isSecDisabledFontColor ?? defaultStyle.disabled;
+    // ignore: unused_local_variable
+    TextStyle? dropdownTextStyle = widget.style?.dropdownTextStyle ??
+        defaultStyle.vDropdownTextProperties?.dropdownTextStyle;
+    TextStyle? smallIconTextStyle = widget.style?.smallIconTextStyle ??
+        defaultStyle.vDropdownTextProperties?.smallIconTextStyle;
+    TextStyle? bigIconTextStyle = widget.style?.bigIconTextStyle ??
+        defaultStyle.vDropdownTextProperties?.bigIconTextStyle;
+    double? borderRadius = widget.style?.borderRadius ??
+        defaultStyle.vDropdownTextProperties?.borderRadius;
+    double? dropdownBorderRadius = widget.style?.dropdownBorderRadius ??
+        defaultStyle.vDropdownTextProperties?.dropdownBorderRadius;
+    double? bigButtonSize = widget.style?.bigButtonSize ??
+        defaultStyle.vDropdownTextProperties?.bigButtonSize;
+    double? defaultButtonSize = widget.style?.defaultButtonSize ??
+        defaultStyle.vDropdownTextProperties?.defaultButtonSize;
+    Color? backgroundSplashColor =
+        widget.style?.backgroundSplashColor ?? defaultStyle.surfaceLowlight;
+    Color? dropdownBorderColor =
+        widget.style?.dropdownBorderColor ?? defaultStyle.border;
+    Color? isSecDisabledButtonColor =
+        widget.style?.isSecDisabledButtonColor ?? defaultStyle.surface1;
+    Color? disabledButtonColor =
+        widget.style?.disabledButtonColor ?? defaultStyle.disabled;
+    Color? buttonDefaultColor =
+        widget.style?.buttonDefaultColor ?? defaultStyle.active;
+    Color? defaultSecButtonColor =
+        widget.style?.defaultSecButtonColor ?? defaultStyle.surface1;
+    Color? isSecTappedButtonColor =
+        widget.style?.isSecTappedButtonColor ?? defaultStyle.surfaceHighlight;
+    Color? tappedButtonColor =
+        widget.style?.tappedButtonColor ?? defaultStyle.activePressed;
+    Color? isSecDisabledBorderColor =
+        widget.style?.isSecDisabledBorderColor ?? defaultStyle.disabled;
+    Color? disabledBorderColor =
+        widget.style?.disabledBorderColor ?? defaultStyle.transparent;
+    Color? isSecDefaultBorderColor =
+        widget.style?.isSecDefaultBorderColor ?? defaultStyle.active;
+    Color? defaultBorderColor =
+        widget.style?.defaultBorderColor ?? defaultStyle.active;
+    Color? defaultIconColor =
+        widget.style?.defaultIconColor ?? defaultStyle.surface1;
+    Color? isSecDefaultIconColor =
+        widget.style?.isSecDefaultIconColor ?? defaultStyle.active;
+    Color? isSecDisabledIconColor =
+        widget.style?.isSecDisabledIconColor ?? defaultStyle.disabledIcon;
+    Color? disabledIconColor =
+        widget.style?.disabledIconColor ?? defaultStyle.disabledIcon;
+    Color? secBackgroundSplashColor =
+        widget.style?.secBackgroundSplashColor ?? defaultStyle.surfaceHighlight;
+    Color? defaultFontColor =
+        widget.style?.defaultFontColor ?? defaultStyle.surface1;
+    Color? disabledFontColor =
+        widget.style?.disabledFontColor ?? defaultStyle.surface1;
+    Color? isSecDefaultFontColor =
+        widget.style?.isSecDefaultFontColor ?? defaultStyle.active;
+    Color? isSecDisabledFontColor =
+        widget.style?.isSecDisabledFontColor ?? defaultStyle.disabled;
     Color? dropDownColor = widget.style?.dropDownColor ?? defaultStyle.surface1;
 
     double? buttonHeight() {
@@ -566,7 +685,9 @@ class _VDropdownTextButtonState extends State<VDropdownTextButton> {
 
     Color? buttonColor() {
       if (widget.isDisabled) {
-        return widget.isSecTheme ? isSecDisabledButtonColor : disabledButtonColor;
+        return widget.isSecTheme
+            ? isSecDisabledButtonColor
+            : disabledButtonColor;
       }
       if (isTapped) {
         return widget.isSecTheme ? isSecTappedButtonColor : tappedButtonColor;
@@ -577,7 +698,9 @@ class _VDropdownTextButtonState extends State<VDropdownTextButton> {
 
     Color? borderColor() {
       if (widget.isDisabled) {
-        return widget.isSecTheme ? isSecDisabledBorderColor : disabledBorderColor;
+        return widget.isSecTheme
+            ? isSecDisabledBorderColor
+            : disabledBorderColor;
       }
       return widget.isSecTheme ? isSecDefaultBorderColor : defaultBorderColor;
     }
@@ -597,11 +720,16 @@ class _VDropdownTextButtonState extends State<VDropdownTextButton> {
     }
 
     return Theme(
-      data: ThemeData().copyWith(splashColor: widget.isSecTheme ? secBackgroundSplashColor : backgroundSplashColor),
+      data: ThemeData().copyWith(
+          splashColor: widget.isSecTheme
+              ? secBackgroundSplashColor
+              : backgroundSplashColor),
       child: Semantics(
         onDidGainAccessibilityFocus: () {
           SemanticsService.announce(
-            widget.isDisabled ? "${widget.buttonText}. disabled" : "${widget.buttonText}. button",
+            widget.isDisabled
+                ? "${widget.buttonText}. disabled"
+                : "${widget.buttonText}. button",
             TextDirection.ltr,
           );
         },
@@ -667,7 +795,10 @@ class _VDropdownTextButtonState extends State<VDropdownTextButton> {
                       children: [
                         Text(
                           widget.buttonText,
-                          style: widget.isIconBig ? bigIconTextStyle!.copyWith(color: fontColor()) : smallIconTextStyle!.copyWith(color: fontColor()),
+                          style: widget.isIconBig
+                              ? bigIconTextStyle!.copyWith(color: fontColor())
+                              : smallIconTextStyle!
+                                  .copyWith(color: fontColor()),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),

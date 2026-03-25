@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -184,8 +184,8 @@ class _VTabBarState extends State<VTabBar> {
       vTabs: widget.vTabs,
       indicatorWeight: indicatorWeight!,
       indicatorColor: indicatorColor,
-      overlayColor: MaterialStateColor.resolveWith((Set<MaterialState> states) {
-        if (states.contains(MaterialState.pressed)) {
+      overlayColor: WidgetStateColor.resolveWith((Set<WidgetState> states) {
+        if (states.contains(WidgetState.pressed)) {
           return overlayColorPressed!;
         }
         return overlayColor!;

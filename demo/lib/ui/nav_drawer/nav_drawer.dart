@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ import 'package:demo/ui/show_code_accordion.dart';
 import 'package:demo/ui/getting_started/getting_started.dart';
 
 // BEGIN VNavDrawer
-GlobalKey<ScaffoldState> _key = GlobalKey();
 
 class NavDrawerPage extends StatefulWidget {
   const NavDrawerPage({Key? key}) : super(key: key);
@@ -190,7 +189,7 @@ class _NavDrawerPageState extends State<NavDrawerPage> {
                                     child: VIcon(
                                       svgIcon: VIcons.closeTiny,
                                       iconColor: VColors.defaultActiveSubtle
-                                          .withOpacity(0.5),
+                                          .withValues(alpha: 0.5),
                                     ),
                                   ),
                                 ),

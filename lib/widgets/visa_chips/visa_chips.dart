@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -89,16 +89,26 @@ class VChipSelectionStyle extends ThemeExtension<VChipSelectionStyle> {
     TextStyle? chipLabelTextStyle,
   }) =>
       VChipSelectionStyle(
-        backgroundDisabledColor: backgroundDisabledColor ?? this.backgroundDisabledColor,
-        backgroundReadOnlyColor: backgroundReadOnlyColor ?? this.backgroundReadOnlyColor,
-        backgroundIsSelectedColor: backgroundIsSelectedColor ?? this.backgroundIsSelectedColor,
-        backgroundPressedColor: backgroundPressedColor ?? this.backgroundPressedColor,
-        backgroundDefaultColor: backgroundDefaultColor ?? this.backgroundDefaultColor,
-        backgroundSelectedPressed: backgroundSelectedPressed ?? this.backgroundSelectedPressed,
-        chipLabelReadOnlyColor: chipLabelReadOnlyColor ?? this.chipLabelReadOnlyColor,
-        chipLabelDisabledColor: chipLabelDisabledColor ?? this.chipLabelDisabledColor,
-        chipLabelSelectedColor: chipLabelSelectedColor ?? this.chipLabelSelectedColor,
-        chipLabelDefaultColor: chipLabelDefaultColor ?? this.chipLabelDefaultColor,
+        backgroundDisabledColor:
+            backgroundDisabledColor ?? this.backgroundDisabledColor,
+        backgroundReadOnlyColor:
+            backgroundReadOnlyColor ?? this.backgroundReadOnlyColor,
+        backgroundIsSelectedColor:
+            backgroundIsSelectedColor ?? this.backgroundIsSelectedColor,
+        backgroundPressedColor:
+            backgroundPressedColor ?? this.backgroundPressedColor,
+        backgroundDefaultColor:
+            backgroundDefaultColor ?? this.backgroundDefaultColor,
+        backgroundSelectedPressed:
+            backgroundSelectedPressed ?? this.backgroundSelectedPressed,
+        chipLabelReadOnlyColor:
+            chipLabelReadOnlyColor ?? this.chipLabelReadOnlyColor,
+        chipLabelDisabledColor:
+            chipLabelDisabledColor ?? this.chipLabelDisabledColor,
+        chipLabelSelectedColor:
+            chipLabelSelectedColor ?? this.chipLabelSelectedColor,
+        chipLabelDefaultColor:
+            chipLabelDefaultColor ?? this.chipLabelDefaultColor,
         borderReadOnlyColor: borderReadOnlyColor ?? this.borderReadOnlyColor,
         borderDisabledColor: borderDisabledColor ?? this.borderDisabledColor,
         borderSelectedColor: borderSelectedColor ?? this.borderSelectedColor,
@@ -113,28 +123,45 @@ class VChipSelectionStyle extends ThemeExtension<VChipSelectionStyle> {
       );
 
   @override
-  VChipSelectionStyle lerp(ThemeExtension<VChipSelectionStyle>? other, double t) {
+  VChipSelectionStyle lerp(
+      ThemeExtension<VChipSelectionStyle>? other, double t) {
     if (other is! VChipSelectionStyle) {
       return this;
     }
 
     return VChipSelectionStyle(
-      backgroundDisabledColor: Color.lerp(backgroundDisabledColor, other.backgroundDisabledColor, t),
-      backgroundReadOnlyColor: Color.lerp(backgroundReadOnlyColor, other.backgroundReadOnlyColor, t),
-      backgroundIsSelectedColor: Color.lerp(backgroundIsSelectedColor, other.backgroundIsSelectedColor, t),
-      backgroundPressedColor: Color.lerp(backgroundPressedColor, other.backgroundPressedColor, t),
-      backgroundDefaultColor: Color.lerp(backgroundDefaultColor, other.backgroundDefaultColor, t),
-      backgroundSelectedPressed: Color.lerp(backgroundSelectedPressed, other.backgroundSelectedPressed, t),
-      chipLabelReadOnlyColor: Color.lerp(chipLabelReadOnlyColor, other.chipLabelReadOnlyColor, t),
-      chipLabelDisabledColor: Color.lerp(chipLabelDisabledColor, other.chipLabelDisabledColor, t),
-      chipLabelSelectedColor: Color.lerp(chipLabelSelectedColor, other.chipLabelSelectedColor, t),
-      chipLabelDefaultColor: Color.lerp(chipLabelDefaultColor, other.chipLabelDefaultColor, t),
-      borderReadOnlyColor: Color.lerp(borderReadOnlyColor, other.borderReadOnlyColor, t),
-      borderDisabledColor: Color.lerp(borderDisabledColor, other.borderDisabledColor, t),
-      borderSelectedColor: Color.lerp(borderSelectedColor, other.borderSelectedColor, t),
-      borderDefaultColor: Color.lerp(borderDefaultColor, other.borderDefaultColor, t),
-      iconReadOnlyColor: Color.lerp(iconReadOnlyColor, other.iconReadOnlyColor, t),
-      iconDisabledColor: Color.lerp(iconDisabledColor, other.iconDisabledColor, t),
+      backgroundDisabledColor:
+          Color.lerp(backgroundDisabledColor, other.backgroundDisabledColor, t),
+      backgroundReadOnlyColor:
+          Color.lerp(backgroundReadOnlyColor, other.backgroundReadOnlyColor, t),
+      backgroundIsSelectedColor: Color.lerp(
+          backgroundIsSelectedColor, other.backgroundIsSelectedColor, t),
+      backgroundPressedColor:
+          Color.lerp(backgroundPressedColor, other.backgroundPressedColor, t),
+      backgroundDefaultColor:
+          Color.lerp(backgroundDefaultColor, other.backgroundDefaultColor, t),
+      backgroundSelectedPressed: Color.lerp(
+          backgroundSelectedPressed, other.backgroundSelectedPressed, t),
+      chipLabelReadOnlyColor:
+          Color.lerp(chipLabelReadOnlyColor, other.chipLabelReadOnlyColor, t),
+      chipLabelDisabledColor:
+          Color.lerp(chipLabelDisabledColor, other.chipLabelDisabledColor, t),
+      chipLabelSelectedColor:
+          Color.lerp(chipLabelSelectedColor, other.chipLabelSelectedColor, t),
+      chipLabelDefaultColor:
+          Color.lerp(chipLabelDefaultColor, other.chipLabelDefaultColor, t),
+      borderReadOnlyColor:
+          Color.lerp(borderReadOnlyColor, other.borderReadOnlyColor, t),
+      borderDisabledColor:
+          Color.lerp(borderDisabledColor, other.borderDisabledColor, t),
+      borderSelectedColor:
+          Color.lerp(borderSelectedColor, other.borderSelectedColor, t),
+      borderDefaultColor:
+          Color.lerp(borderDefaultColor, other.borderDefaultColor, t),
+      iconReadOnlyColor:
+          Color.lerp(iconReadOnlyColor, other.iconReadOnlyColor, t),
+      iconDisabledColor:
+          Color.lerp(iconDisabledColor, other.iconDisabledColor, t),
       iconDefaultColor: Color.lerp(iconDefaultColor, other.iconDefaultColor, t),
       borderRadius: borderRadius,
       elevation: elevation,
@@ -175,39 +202,64 @@ class _VChipsSelectionState extends State<VChipsSelection> {
   Widget build(BuildContext context) {
     final dynamic defaultStyle;
     if (widget.vExt == null || widget.vExt is VDef) {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark ? getDefaultColorSchemeDark()! : getDefaultColorScheme()!;
+      defaultStyle = Theme.of(context).brightness == Brightness.dark
+          ? getDefaultColorSchemeDark()!
+          : getDefaultColorScheme()!;
     } else {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark ? getAltColorSchemeDark()! : getAltColorScheme()!;
+      defaultStyle = Theme.of(context).brightness == Brightness.dark
+          ? getAltColorSchemeDark()!
+          : getAltColorScheme()!;
     }
-    final chipLabelTextStyle = widget.style?.chipLabelTextStyle ?? defaultStyle.vChipsSelectionProperties?.chipLabelTextStyle;
+    final chipLabelTextStyle = widget.style?.chipLabelTextStyle ??
+        defaultStyle.vChipsSelectionProperties?.chipLabelTextStyle;
 
-    final borderRadius = widget.style?.borderRadius ?? defaultStyle.vChipsSelectionProperties?.borderRadius;
-    final elevation = widget.style?.elevation ?? defaultStyle.vChipsSelectionProperties?.elevation;
-    final pressedElevation = widget.style?.pressedElevation ?? defaultStyle.vChipsSelectionProperties?.pressedElevation;
-    final backgroundDefaultColor = widget.style?.backgroundDefaultColor ?? defaultStyle.surface1;
-    final backgroundDisabledColor = widget.style?.backgroundDefaultColor ?? defaultStyle.surface1;
-    final backgroundReadOnlyColor = widget.style?.backgroundDefaultColor ?? defaultStyle.surface1;
-    final backgroundIsSelectedColor = widget.style?.backgroundDefaultColor ?? defaultStyle.active;
-    final backgroundPressedColor = widget.style?.backgroundDefaultColor ?? defaultStyle.surfaceLowlight;
-    final iconReadOnlyColor = widget.style?.iconReadOnlyColor ?? defaultStyle.textSubtle;
-    final iconDisabledColor = widget.style?.iconDisabledColor ?? defaultStyle.disabled;
-    final iconDefaultColor = widget.style?.iconDefaultColor ?? defaultStyle.onActive;
-    final chipLabelReadOnlyColor = widget.style?.chipLabelReadOnlyColor ?? defaultStyle.textSubtle;
-    final chipLabelDisabledColor = widget.style?.chipLabelDisabledColor ?? defaultStyle.disabled;
-    final chipLabelSelectedColor = widget.style?.chipLabelSelectedColor ?? defaultStyle.onActive;
-    final chipLabelDefaultColor = widget.style?.chipLabelDefaultColor ?? defaultStyle.active;
-    final borderReadOnlyColor = widget.style?.borderReadOnlyColor ?? defaultStyle.border;
-    final borderDisabledColor = widget.style?.borderDisabledColor ?? defaultStyle.disabled;
-    final borderSelectedColor = widget.style?.borderSelectedColor ?? defaultStyle.active;
-    final borderDefaultColor = widget.style?.borderDefaultColor ?? defaultStyle.active;
-    final backgroundSelectedPressed = widget.style?.backgroundSelectedPressed ?? defaultStyle.activePressed;
+    final borderRadius = widget.style?.borderRadius ??
+        defaultStyle.vChipsSelectionProperties?.borderRadius;
+    final elevation = widget.style?.elevation ??
+        defaultStyle.vChipsSelectionProperties?.elevation;
+    final pressedElevation = widget.style?.pressedElevation ??
+        defaultStyle.vChipsSelectionProperties?.pressedElevation;
+    final backgroundDefaultColor =
+        widget.style?.backgroundDefaultColor ?? defaultStyle.surface1;
+    final backgroundDisabledColor =
+        widget.style?.backgroundDefaultColor ?? defaultStyle.surface1;
+    final backgroundReadOnlyColor =
+        widget.style?.backgroundDefaultColor ?? defaultStyle.surface1;
+    final backgroundIsSelectedColor =
+        widget.style?.backgroundDefaultColor ?? defaultStyle.active;
+    final backgroundPressedColor =
+        widget.style?.backgroundDefaultColor ?? defaultStyle.surfaceLowlight;
+    final iconReadOnlyColor =
+        widget.style?.iconReadOnlyColor ?? defaultStyle.textSubtle;
+    final iconDisabledColor =
+        widget.style?.iconDisabledColor ?? defaultStyle.disabled;
+    final iconDefaultColor =
+        widget.style?.iconDefaultColor ?? defaultStyle.onActive;
+    final chipLabelReadOnlyColor =
+        widget.style?.chipLabelReadOnlyColor ?? defaultStyle.textSubtle;
+    final chipLabelDisabledColor =
+        widget.style?.chipLabelDisabledColor ?? defaultStyle.disabled;
+    final chipLabelSelectedColor =
+        widget.style?.chipLabelSelectedColor ?? defaultStyle.onActive;
+    final chipLabelDefaultColor =
+        widget.style?.chipLabelDefaultColor ?? defaultStyle.active;
+    final borderReadOnlyColor =
+        widget.style?.borderReadOnlyColor ?? defaultStyle.border;
+    final borderDisabledColor =
+        widget.style?.borderDisabledColor ?? defaultStyle.disabled;
+    final borderSelectedColor =
+        widget.style?.borderSelectedColor ?? defaultStyle.active;
+    final borderDefaultColor =
+        widget.style?.borderDefaultColor ?? defaultStyle.active;
+    final backgroundSelectedPressed =
+        widget.style?.backgroundSelectedPressed ?? defaultStyle.activePressed;
 
     Color? chipLabelColor() {
       if (widget.isReadOnly) {
         return chipLabelReadOnlyColor;
       }
       if (widget.isDisabled) {
-        return chipLabelDisabledColor?.withOpacity(0.8);
+        return chipLabelDisabledColor?.withValues(alpha: 0.8);
       }
       if (widget.isSelected) {
         return chipLabelSelectedColor;
@@ -246,10 +298,10 @@ class _VChipsSelectionState extends State<VChipsSelection> {
 
     Color? borderColor() {
       if (widget.isReadOnly) {
-        return borderReadOnlyColor?.withOpacity(0.9);
+        return borderReadOnlyColor?.withValues(alpha: 0.9);
       }
       if (widget.isDisabled) {
-        return borderDisabledColor.withOpacity(0.1);
+        return borderDisabledColor.withValues(alpha: 0.1);
       }
       if (widget.isSelected) {
         return borderSelectedColor;
@@ -373,7 +425,10 @@ class VChipRemovableStyle extends ThemeExtension<VChipRemovableStyle> {
       iconDefaultColor,
       deleteButtonSplashColor,
       deleteButtonBackgroundColor;
-  final double? standardBorderRadius, compactBorderRadius, elevation, pressedElevation;
+  final double? standardBorderRadius,
+      compactBorderRadius,
+      elevation,
+      pressedElevation;
   final TextStyle? chipLabelTextStyle;
 
   @override
@@ -400,7 +455,8 @@ class VChipRemovableStyle extends ThemeExtension<VChipRemovableStyle> {
       VChipRemovableStyle(
         backgroundColor: backgroundColor ?? this.backgroundColor,
         chipLabelColor: chipLabelColor ?? this.chipLabelColor,
-        chipLabelDisabledColor: chipLabelDisabledColor ?? this.chipLabelDisabledColor,
+        chipLabelDisabledColor:
+            chipLabelDisabledColor ?? this.chipLabelDisabledColor,
         borderReadOnlyColor: borderReadOnlyColor ?? this.borderReadOnlyColor,
         borderDisabledColor: borderDisabledColor ?? this.borderDisabledColor,
         borderDefaultColor: borderDefaultColor ?? this.borderDefaultColor,
@@ -408,9 +464,12 @@ class VChipRemovableStyle extends ThemeExtension<VChipRemovableStyle> {
         iconPressedColor: iconPressedColor ?? this.iconPressedColor,
         iconDisabledColor: iconDisabledColor ?? this.iconDisabledColor,
         iconDefaultColor: iconDefaultColor ?? this.iconDefaultColor,
-        deleteButtonSplashColor: deleteButtonSplashColor ?? this.deleteButtonSplashColor,
-        deleteButtonBackgroundColor: deleteButtonBackgroundColor ?? this.deleteButtonBackgroundColor,
-        borderCompactChipColor: borderCompactChipColor ?? this.borderCompactChipColor,
+        deleteButtonSplashColor:
+            deleteButtonSplashColor ?? this.deleteButtonSplashColor,
+        deleteButtonBackgroundColor:
+            deleteButtonBackgroundColor ?? this.deleteButtonBackgroundColor,
+        borderCompactChipColor:
+            borderCompactChipColor ?? this.borderCompactChipColor,
         compactBorderRadius: compactBorderRadius ?? this.compactBorderRadius,
         standardBorderRadius: standardBorderRadius ?? this.compactBorderRadius,
         elevation: elevation ?? this.elevation,
@@ -419,7 +478,8 @@ class VChipRemovableStyle extends ThemeExtension<VChipRemovableStyle> {
       );
 
   @override
-  VChipRemovableStyle lerp(ThemeExtension<VChipRemovableStyle>? other, double t) {
+  VChipRemovableStyle lerp(
+      ThemeExtension<VChipRemovableStyle>? other, double t) {
     if (other is! VChipRemovableStyle) {
       return this;
     }
@@ -427,17 +487,26 @@ class VChipRemovableStyle extends ThemeExtension<VChipRemovableStyle> {
     return VChipRemovableStyle(
       backgroundColor: Color.lerp(backgroundColor, other.backgroundColor, t),
       chipLabelColor: Color.lerp(chipLabelColor, other.chipLabelColor, t),
-      chipLabelDisabledColor: Color.lerp(chipLabelDisabledColor, other.chipLabelDisabledColor, t),
-      borderReadOnlyColor: Color.lerp(borderReadOnlyColor, other.borderReadOnlyColor, t),
-      borderDisabledColor: Color.lerp(borderDisabledColor, other.borderDisabledColor, t),
-      borderDefaultColor: Color.lerp(borderDefaultColor, other.borderDefaultColor, t),
-      borderPressedColor: Color.lerp(borderPressedColor, other.borderPressedColor, t),
+      chipLabelDisabledColor:
+          Color.lerp(chipLabelDisabledColor, other.chipLabelDisabledColor, t),
+      borderReadOnlyColor:
+          Color.lerp(borderReadOnlyColor, other.borderReadOnlyColor, t),
+      borderDisabledColor:
+          Color.lerp(borderDisabledColor, other.borderDisabledColor, t),
+      borderDefaultColor:
+          Color.lerp(borderDefaultColor, other.borderDefaultColor, t),
+      borderPressedColor:
+          Color.lerp(borderPressedColor, other.borderPressedColor, t),
       iconPressedColor: Color.lerp(iconPressedColor, other.iconPressedColor, t),
-      iconDisabledColor: Color.lerp(iconDisabledColor, other.iconDisabledColor, t),
+      iconDisabledColor:
+          Color.lerp(iconDisabledColor, other.iconDisabledColor, t),
       iconDefaultColor: Color.lerp(iconDefaultColor, other.iconDefaultColor, t),
-      deleteButtonBackgroundColor: Color.lerp(deleteButtonBackgroundColor, other.deleteButtonBackgroundColor, t),
-      deleteButtonSplashColor: Color.lerp(deleteButtonSplashColor, other.deleteButtonSplashColor, t),
-      borderCompactChipColor: Color.lerp(borderCompactChipColor, other.borderCompactChipColor, t),
+      deleteButtonBackgroundColor: Color.lerp(
+          deleteButtonBackgroundColor, other.deleteButtonBackgroundColor, t),
+      deleteButtonSplashColor:
+          Color.lerp(deleteButtonSplashColor, other.deleteButtonSplashColor, t),
+      borderCompactChipColor:
+          Color.lerp(borderCompactChipColor, other.borderCompactChipColor, t),
       compactBorderRadius: compactBorderRadius,
       standardBorderRadius: standardBorderRadius,
       elevation: elevation,
@@ -492,28 +561,45 @@ class _VChipsRemovableState extends State<VChipsRemovable> {
     } else {
       defaultStyle = getAltColorScheme()!;
     }
-    final chipLabelTextStyle = widget.style?.chipLabelTextStyle ?? defaultStyle.vChipsRemovableProperties?.chipLabelTextStyle;
-    final elevation = widget.style?.elevation ?? defaultStyle.vChipsRemovableProperties?.elevation;
-    final pressedElevation = widget.style?.pressedElevation ?? defaultStyle.vChipsRemovableProperties?.pressedElevation;
-    final compactBorderRadius = widget.style?.compactBorderRadius ?? defaultStyle.vChipsRemovableProperties?.compactBorderRadius;
-    final standardBorderRadius = widget.style?.standardBorderRadius ?? defaultStyle.vChipsRemovableProperties?.standardBorderRadius;
-    final deleteButtonBackgroundColor = widget.style?.deleteButtonBackgroundColor ?? defaultStyle.transparent;
-    final deleteButtonSplashColor = widget.style?.deleteButtonSplashColor ?? defaultStyle.surfaceLowlight;
-    final backgroundColor = widget.style?.backgroundColor ?? defaultStyle.surface1;
-    final chipLabelDisabledColor = widget.style?.chipLabelDisabledColor ?? defaultStyle.disabled;
+    final chipLabelTextStyle = widget.style?.chipLabelTextStyle ??
+        defaultStyle.vChipsRemovableProperties?.chipLabelTextStyle;
+    final elevation = widget.style?.elevation ??
+        defaultStyle.vChipsRemovableProperties?.elevation;
+    final pressedElevation = widget.style?.pressedElevation ??
+        defaultStyle.vChipsRemovableProperties?.pressedElevation;
+    final compactBorderRadius = widget.style?.compactBorderRadius ??
+        defaultStyle.vChipsRemovableProperties?.compactBorderRadius;
+    final standardBorderRadius = widget.style?.standardBorderRadius ??
+        defaultStyle.vChipsRemovableProperties?.standardBorderRadius;
+    final deleteButtonBackgroundColor =
+        widget.style?.deleteButtonBackgroundColor ?? defaultStyle.transparent;
+    final deleteButtonSplashColor =
+        widget.style?.deleteButtonSplashColor ?? defaultStyle.surfaceLowlight;
+    final backgroundColor =
+        widget.style?.backgroundColor ?? defaultStyle.surface1;
+    final chipLabelDisabledColor =
+        widget.style?.chipLabelDisabledColor ?? defaultStyle.disabled;
     final chipLabelColor = widget.style?.chipLabelColor ?? defaultStyle.text;
-    final borderReadOnlyColor = widget.style?.borderReadOnlyColor ?? defaultStyle.border;
-    final borderDisabledColor = widget.style?.borderDisabledColor ?? defaultStyle.disabled;
-    final borderPressedColor = widget.style?.borderPressedColor ?? defaultStyle.activePressed;
-    final borderDefaultColor = widget.style?.borderDefaultColor ?? defaultStyle.active;
-    final borderCompactChipColor = widget.style?.borderCompactChipColor ?? defaultStyle.subtle;
-    final iconPressedColor = widget.style?.iconPressedColor ?? defaultStyle.activePressed;
-    final iconDisabledColor = widget.style?.iconDisabledColor ?? defaultStyle.disabled;
-    final iconDefaultColor = widget.style?.iconDefaultColor ?? defaultStyle.activeSubtle;
+    final borderReadOnlyColor =
+        widget.style?.borderReadOnlyColor ?? defaultStyle.border;
+    final borderDisabledColor =
+        widget.style?.borderDisabledColor ?? defaultStyle.disabled;
+    final borderPressedColor =
+        widget.style?.borderPressedColor ?? defaultStyle.activePressed;
+    final borderDefaultColor =
+        widget.style?.borderDefaultColor ?? defaultStyle.active;
+    final borderCompactChipColor =
+        widget.style?.borderCompactChipColor ?? defaultStyle.subtle;
+    final iconPressedColor =
+        widget.style?.iconPressedColor ?? defaultStyle.activePressed;
+    final iconDisabledColor =
+        widget.style?.iconDisabledColor ?? defaultStyle.disabled;
+    final iconDefaultColor =
+        widget.style?.iconDefaultColor ?? defaultStyle.activeSubtle;
 
     Color? chiplabelColor() {
       if (widget.isDisabled) {
-        return chipLabelDisabledColor?.withOpacity(0.8);
+        return chipLabelDisabledColor?.withValues(alpha: 0.8);
       }
       return chipLabelColor;
     }
@@ -526,9 +612,11 @@ class _VChipsRemovableState extends State<VChipsRemovable> {
         return borderReadOnlyColor;
       }
       if (widget.isDisabled) {
-        return borderDisabledColor.withOpacity(0.1);
+        return borderDisabledColor.withValues(alpha: 0.1);
       }
-      return widget.chipsRemovableType == ChipsRemovableType.compactRemovable ? borderCompactChipColor : borderDefaultColor?.withOpacity(0.5);
+      return widget.chipsRemovableType == ChipsRemovableType.compactRemovable
+          ? borderCompactChipColor
+          : borderDefaultColor?.withValues(alpha: 0.5);
     }
 
     Color? iconColor() {
@@ -538,7 +626,7 @@ class _VChipsRemovableState extends State<VChipsRemovable> {
       if (widget.isDisabled) {
         return iconDisabledColor;
       }
-      return iconDefaultColor!.withOpacity(0.5);
+      return iconDefaultColor!.withValues(alpha: 0.5);
     }
 
     double leftPadding() {
@@ -546,7 +634,9 @@ class _VChipsRemovableState extends State<VChipsRemovable> {
         return 10;
       }
       if (widget.leading == null) {
-        return widget.chipsRemovableType == ChipsRemovableType.compactRemovable ? 7 : 10;
+        return widget.chipsRemovableType == ChipsRemovableType.compactRemovable
+            ? 7
+            : 10;
       }
       return 5;
     }
@@ -576,13 +666,14 @@ class _VChipsRemovableState extends State<VChipsRemovable> {
           pressElevation: pressedElevation,
           materialTapTargetSize: MaterialTapTargetSize.padded,
           shape: RoundedRectangleBorder(
-            borderRadius: widget.chipsRemovableType == ChipsRemovableType.standard
-                ? BorderRadius.circular(
-                    standardBorderRadius!,
-                  )
-                : BorderRadius.circular(
-                    compactBorderRadius!,
-                  ),
+            borderRadius:
+                widget.chipsRemovableType == ChipsRemovableType.standard
+                    ? BorderRadius.circular(
+                        standardBorderRadius!,
+                      )
+                    : BorderRadius.circular(
+                        compactBorderRadius!,
+                      ),
           ),
           side: BorderSide(
             color: borderColor()!,
@@ -627,7 +718,9 @@ class _VChipsRemovableState extends State<VChipsRemovable> {
               width: 44,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: delButtonPressed ? deleteButtonSplashColor : deleteButtonBackgroundColor,
+                color: delButtonPressed
+                    ? deleteButtonSplashColor
+                    : deleteButtonBackgroundColor,
                 borderRadius: BorderRadius.circular(100),
               ),
               child: VIcon(
@@ -636,9 +729,12 @@ class _VChipsRemovableState extends State<VChipsRemovable> {
               ),
             ),
           ),
-          deleteButtonTooltipMessage: widget.isDisabled || widget.isReadOnly ? null : "Delete ${widget.chipLabel}",
+          deleteButtonTooltipMessage: widget.isDisabled || widget.isReadOnly
+              ? null
+              : "Delete ${widget.chipLabel}",
           deleteIconColor: iconColor(),
-          onPressed: widget.isReadOnly || widget.isDisabled ? null : widget.onPressed,
+          onPressed:
+              widget.isReadOnly || widget.isDisabled ? null : widget.onPressed,
           onDeleted: widget.isReadOnly ? null : widget.onDeleted,
           disabledColor: backgroundColor,
           tapEnabled: !widget.isReadOnly,

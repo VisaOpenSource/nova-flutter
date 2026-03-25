@@ -1,3 +1,20 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
@@ -117,7 +134,7 @@ class _VNestedIndeterminateCheckboxesState
                   style: defaultVTheme.textStyles.buttonMedium
                       .copyWith(color: VColors.defaultSurface1)),
               onPressed: () async {
-                print('${nestedCheckboxController.getAllSelectedItems()}');
+                debugPrint('${nestedCheckboxController.getAllSelectedItems()}');
                 if (selected.isEmpty) {
                   setState(() {
                     isError = true;
@@ -591,6 +608,11 @@ void main() {
   });
 
   testWidgets('Nested checkbox test', (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
     // Build the widget
     await tester.pumpWidget(
       const MaterialApp(
@@ -611,6 +633,11 @@ void main() {
   testWidgets(
       'VNestedIndeterminateCheckboxes allows to select and deselect items',
       (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
@@ -665,5 +692,250 @@ void main() {
     // Verify the child item is selected
     expect(find.text('Selected options: [bell peppers, mushrooms]'),
         findsOneWidget);
+  });
+
+  // Coverage: VCheckboxStyle lerp
+  test('VCheckboxStyle lerp', () {
+    const a = VCheckboxStyle(
+      borderColor: Colors.red,
+    );
+    const b = VCheckboxStyle(
+      borderColor: Colors.blue,
+    );
+    final result = a.lerp(b, 0.5);
+    expect(result, isA<VCheckboxStyle>());
+  });
+
+  test('VCheckboxStyle lerp with null returns this', () {
+    const a = VCheckboxStyle(borderColor: Colors.red);
+    final result = a.lerp(null, 0.5);
+    expect(identical(result, a), isTrue);
+  });
+
+  // Coverage: VCheckboxTile alt theme
+  testWidgets("VCheckboxTile with alt theme renders",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VCheckboxTile(
+            title: "Alt Checkbox",
+            isChecked: false,
+            onChanged: (_) {},
+            vExt: VAlt(),
+          ),
+        ),
+      ),
+    );
+    expect(find.text("Alt Checkbox"), findsOneWidget);
+  });
+
+  // Coverage: VCheckboxTile with onChanged: null and isDisabled: false
+  // triggers the fallback setState path (line 217)
+  testWidgets(
+      'VCheckboxTile with onChanged null and isDisabled false triggers fallback setState',
+      (WidgetTester tester) async {
+    final checkboxTile = VCheckboxTile(
+      title: "Fallback Checkbox",
+      isChecked: false,
+      isDisabled: false,
+      onChanged: null,
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: checkboxTile,
+        ),
+      ),
+    );
+
+    // Verify initial unchecked state
+    expect(checkboxTile.isChecked, false);
+
+    // Tap the checkbox — since onChanged is null and isDisabled is false,
+    // the fallback setState should set isChecked to the new value
+    await tester.tap(find.byType(VMatCheckboxListTile));
+    await tester.pumpAndSettle();
+
+    // After tapping, isChecked should be true via the fallback setState
+    expect(checkboxTile.isChecked, true);
+  });
+
+  // Coverage: NestedCheckbox with 2 leaf children —
+  // select one child (parent becomes indeterminate), then select the other
+  // (parent becomes fully selected). Covers _parentChanged and _childrenChanged.
+  testWidgets(
+      'NestedCheckbox with 2 leaf children: indeterminate then fully selected',
+      (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    List<VNestedCheckboxItem> selectedItems = [];
+
+    final options = [
+      VNestedCheckboxItem(
+        label: 'Fruits',
+        id: 'fruits',
+        children: [
+          VNestedCheckboxItem(label: 'Apple', id: 'apple'),
+          VNestedCheckboxItem(label: 'Banana', id: 'banana'),
+        ],
+      ),
+    ];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Column(
+                children: [
+                  NestedCheckbox(
+                    options: options,
+                    setSelectedValues: (List<VNestedCheckboxItem> newValues) {
+                      setState(() {
+                        selectedItems = newValues;
+                      });
+                    },
+                  ),
+                  Text(
+                      'Selected: ${selectedItems.map((e) => e.label).toList()}'),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+    );
+
+    // Verify initial state
+    expect(find.text('Selected: []'), findsOneWidget);
+
+    // Tap first child — parent should become indeterminate
+    await tester.tap(find.text('Apple'));
+    await tester.pump();
+    expect(find.text('Selected: [Apple]'), findsOneWidget);
+
+    // Tap second child — parent should become fully selected
+    await tester.tap(find.text('Banana'));
+    await tester.pump();
+    expect(find.text('Selected: [Apple, Banana]'), findsOneWidget);
+
+    // Deselect first child — parent should become indeterminate again
+    await tester.tap(find.text('Apple'));
+    await tester.pump();
+    expect(find.text('Selected: [Banana]'), findsOneWidget);
+
+    // Deselect second child — parent should become unselected
+    await tester.tap(find.text('Banana'));
+    await tester.pump();
+    expect(find.text('Selected: []'), findsOneWidget);
+  });
+
+  // Coverage: NestedCheckbox with a sub-parent (grandchild) —
+  // select a grandchild to test recursive _childrenChanged/_parentChanged paths.
+  testWidgets(
+      'NestedCheckbox with sub-parent: grandchild selection triggers recursive paths',
+      (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    List<VNestedCheckboxItem> selectedItems = [];
+    final controller = NestedCheckboxController();
+
+    final options = [
+      VNestedCheckboxItem(
+        label: 'All Animals',
+        id: 'all_animals',
+        children: [
+          VNestedCheckboxItem(
+            label: 'Mammals',
+            id: 'mammals',
+            children: [
+              VNestedCheckboxItem(label: 'Dog', id: 'dog'),
+              VNestedCheckboxItem(label: 'Cat', id: 'cat'),
+            ],
+          ),
+          VNestedCheckboxItem(
+            label: 'Birds',
+            id: 'birds',
+            children: [
+              VNestedCheckboxItem(label: 'Eagle', id: 'eagle'),
+            ],
+          ),
+        ],
+      ),
+    ];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Column(
+                children: [
+                  Expanded(
+                    child: NestedCheckbox(
+                      controller: controller,
+                      options: options,
+                      selectedValues: selectedItems,
+                      setSelectedValues:
+                          (List<VNestedCheckboxItem> newValues) {
+                        setState(() {
+                          selectedItems = newValues;
+                        });
+                      },
+                    ),
+                  ),
+                  Text(
+                      'Selected: ${selectedItems.map((e) => e.label).toList()}'),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+    );
+
+    // Verify initial state
+    expect(find.text('Selected: []'), findsOneWidget);
+
+    // Select a grandchild (Dog) — Mammals becomes indeterminate, All Animals becomes indeterminate
+    await tester.tap(find.text('Dog'));
+    await tester.pump();
+    expect(find.text('Selected: [Dog]'), findsOneWidget);
+
+    // Select the other grandchild under Mammals (Cat) — Mammals becomes fully selected,
+    // All Animals stays indeterminate (Birds still unselected)
+    await tester.tap(find.text('Cat'));
+    await tester.pump();
+    expect(find.text('Selected: [Dog, Cat]'), findsOneWidget);
+
+    // Select the only child under Birds (Eagle) — Birds becomes fully selected,
+    // All Animals becomes fully selected
+    await tester.tap(find.text('Eagle'));
+    await tester.pump();
+    expect(find.text('Selected: [Dog, Cat, Eagle]'), findsOneWidget);
+
+    // Deselect a grandchild (Dog) — Mammals becomes indeterminate,
+    // All Animals becomes indeterminate
+    await tester.tap(find.text('Dog'));
+    await tester.pump();
+    expect(find.text('Selected: [Cat, Eagle]'), findsOneWidget);
+
+    // Select the root parent (All Animals) — should select all descendants
+    await tester.tap(find.text('All Animals'));
+    await tester.pump();
+    expect(find.text('Selected: [Cat, Eagle, Dog]'), findsOneWidget);
+
+    // Deselect the root parent (All Animals) — should deselect all descendants
+    await tester.tap(find.text('All Animals'));
+    await tester.pump();
+    expect(find.text('Selected: []'), findsOneWidget);
   });
 }

@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ class VBottomNavBarStyle extends ThemeExtension<VBottomNavBarStyle> {
     this.unselectedTextColor,
     this.splashColor,
     this.borderColor,
+    this.indicatorColor,
     this.selectedFontSize,
     this.unselectedFontSize,
     this.selectedIconSize,
@@ -42,7 +43,8 @@ class VBottomNavBarStyle extends ThemeExtension<VBottomNavBarStyle> {
       selectedTextColor,
       unselectedTextColor,
       splashColor,
-      borderColor;
+      borderColor,
+      indicatorColor;
 
   final double? selectedFontSize,
       unselectedFontSize,
@@ -58,6 +60,7 @@ class VBottomNavBarStyle extends ThemeExtension<VBottomNavBarStyle> {
     Color? unselectedTextColor,
     Color? splashColor,
     Color? borderColor,
+    Color? indicatorColor,
     double? selectedFontSize,
     double? unselectedFontSize,
     double? selectedIconSize,
@@ -71,6 +74,7 @@ class VBottomNavBarStyle extends ThemeExtension<VBottomNavBarStyle> {
           unselectedTextColor: unselectedTextColor ?? this.unselectedTextColor,
           splashColor: splashColor ?? this.splashColor,
           borderColor: borderColor ?? this.borderColor,
+          indicatorColor: indicatorColor ?? this.indicatorColor,
           selectedFontSize: selectedFontSize ?? this.selectedFontSize,
           unselectedFontSize: unselectedFontSize ?? this.unselectedFontSize,
           selectedIconSize: selectedIconSize ?? this.selectedIconSize,
@@ -94,6 +98,7 @@ class VBottomNavBarStyle extends ThemeExtension<VBottomNavBarStyle> {
           Color.lerp(unselectedTextColor, other.unselectedTextColor, t),
       splashColor: Color.lerp(splashColor, splashColor, t),
       borderColor: Color.lerp(borderColor, other.borderColor, t),
+      indicatorColor: Color.lerp(indicatorColor, other.indicatorColor, t),
       selectedFontSize: lerpDouble(selectedFontSize, other.selectedFontSize, t),
       unselectedFontSize:
           lerpDouble(unselectedFontSize, other.unselectedFontSize, t),
@@ -165,6 +170,8 @@ class VBottomNavBar extends StatelessWidget {
                     index: i,
                     onTap: onTap,
                     style: style,
+                    preserveIconColors:
+                        visaBottomNavBarItems[i].preserveIconColors,
                   ),
                 ),
               ),
@@ -180,10 +187,12 @@ class VBottomNavBar extends StatelessWidget {
 class VBottomBarItems {
   final String icon;
   final String label;
+  final bool preserveIconColors;
 
   VBottomBarItems({
     required this.icon,
     required this.label,
+    this.preserveIconColors = false,
   });
 }
 
@@ -196,6 +205,7 @@ class VBottomNavBarItems extends StatelessWidget {
   final bool enableLineIndicator;
   final double lineIndicatorWidth;
   final VBottomNavBarStyle? style;
+  final bool preserveIconColors;
 
   const VBottomNavBarItems({
     super.key,
@@ -207,6 +217,7 @@ class VBottomNavBarItems extends StatelessWidget {
     this.enableLineIndicator = true,
     this.lineIndicatorWidth = 2,
     this.style,
+    this.preserveIconColors = false,
   });
 
   @override
@@ -218,6 +229,7 @@ class VBottomNavBarItems extends StatelessWidget {
     final selectedTextColor = style?.selectedTextColor ?? defaultStyle?.text;
     final unselectedTextColor =
         style?.unselectedTextColor ?? defaultStyle?.textSubtle;
+    final indicatorColor = style?.indicatorColor ?? selectedItemColor;
     final splashColor = style?.splashColor ?? Colors.transparent;
     final selectedFontSize = style?.selectedFontSize ?? 12;
     final unselectedFontSize = style?.unselectedFontSize ?? 12;
@@ -240,7 +252,7 @@ class VBottomNavBarItems extends StatelessWidget {
                     ? Border(
                         top: BorderSide(
                         color: currentIndex == index
-                            ? selectedItemColor!
+                            ? indicatorColor!
                             : Colors.transparent,
                         width: lineIndicatorWidth,
                       ))
@@ -259,9 +271,11 @@ class VBottomNavBarItems extends StatelessWidget {
                     iconWidth: currentIndex == index
                         ? selectedIconWidth
                         : unselectedIconWidth,
-                    iconColor: currentIndex == index
-                        ? selectedItemColor
-                        : unselectedItemColor,
+                    iconColor: preserveIconColors
+                        ? null
+                        : (currentIndex == index
+                            ? selectedItemColor
+                            : unselectedItemColor),
                   ),
                   const SizedBox(
                     height: 6,

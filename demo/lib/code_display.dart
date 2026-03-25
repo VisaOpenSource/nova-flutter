@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -74,7 +74,9 @@ class CodeDisplay extends StatelessWidget {
     void _onClick() async {
       // gtm.pushEvent('gtm.click',
       //     data: {'gtm.elementId': 'copy_code_${componentName}_$exampleName'});
-      await Clipboard.setData(ClipboardData(text: _plainTextCode)).then(_showSnackBarOnCopySuccess).catchError(_showSnackBarOnCopyFailure);
+      await Clipboard.setData(ClipboardData(text: _plainTextCode))
+          .then(_showSnackBarOnCopySuccess)
+          .catchError(_showSnackBarOnCopyFailure);
     }
 
     return Column(

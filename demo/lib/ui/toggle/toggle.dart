@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -91,8 +91,10 @@ class _TogglePageState extends State<TogglePage> {
   Color exampleBottomBarColor = VColors.defaultActive;
   Color exampleFillShadow = VColors.defaultSurface3;
 
-  TextStyle selectedStyle = defaultVTheme.textStyles.uiLabelActive;
-  TextStyle unSelectedStyle = defaultVTheme.textStyles.uiLabel;
+  TextStyle selectedStyle = defaultVTheme.textStyles.uiLabelSmall.copyWith(
+    fontWeight: VFontWeight.medium,
+  );
+  TextStyle unSelectedStyle = defaultVTheme.textStyles.uiLabelSmall;
 
   List<String> demoExampleTextTypeSematicLabel = [
     "Body text",
@@ -182,8 +184,6 @@ class _TogglePageState extends State<TogglePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                /*
-                // ! New Addition
                 Semantics(
                   header: true,
                   child: Text(
@@ -202,8 +202,6 @@ class _TogglePageState extends State<TogglePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                // ! END
-                */
                 Semantics(
                   header: true,
                   child: Text(
@@ -274,8 +272,6 @@ class _TogglePageState extends State<TogglePage> {
                   copyLabel: "Toggle disabled",
                 ),
                 smallHeight(),
-                /*
-                //! New Addition
                 Semantics(
                   header: true,
                   child: Text(
@@ -291,8 +287,6 @@ class _TogglePageState extends State<TogglePage> {
                   exampleName: 'Disabled_And_Active_Toggle',
                   copyLabel: "Toggle disabled and active",
                 ),
-                // ! END
-                */
                 const Divider(),
                 SemanticHeader(
                   title: "Multi-select toggle buttons",
@@ -316,8 +310,6 @@ class _TogglePageState extends State<TogglePage> {
                   exampleName: 'Multiselect_Toggle',
                   copyLabel: "Multi select",
                 ),
-                /*
-                //! New Addition
                 Semantics(
                   header: true,
                   child: Text(
@@ -333,8 +325,6 @@ class _TogglePageState extends State<TogglePage> {
                   exampleName: 'Multiselect_Toggle',
                   copyLabel: "Multi select",
                 ),
-                //!
-                */
                 const Divider(),
                 Semantics(
                   header: true,
@@ -735,15 +725,16 @@ class _VToggleDefaultState extends State<VToggleDefault> {
             Text(
               toggleListItems[index],
               style: index == selectedIndex && isSelected[index]
-                  ? defaultVTheme.textStyles.uiLabelActive.copyWith(
+                  ? defaultVTheme.textStyles.uiLabelSmall.copyWith(
+                      fontWeight: VFontWeight.medium,
                       color: isToggleDisabled
                           ? VColors.disabled
                           : VColors.defaultText,
                     )
-                  : defaultVTheme.textStyles.uiLabel.copyWith(
+                  : defaultVTheme.textStyles.uiLabelSmall.copyWith(
                       color: isToggleDisabled
                           ? VColors.disabled
-                          : VColors.defaultText,
+                          : VColors.defaultTextSubtle,
                     ),
             ),
           ],
@@ -804,15 +795,16 @@ class _VToggleDefaultWithLabelState extends State<VToggleDefaultWithLabel> {
             Text(
               toggleListItems[index],
               style: index == selectedIndex && isSelected[index]
-                  ? defaultVTheme.textStyles.uiLabelActive.copyWith(
+                  ? defaultVTheme.textStyles.uiLabelSmall.copyWith(
+                      fontWeight: VFontWeight.medium,
                       color: isToggleDisabled
                           ? VColors.disabled
                           : VColors.defaultText,
                     )
-                  : defaultVTheme.textStyles.uiLabel.copyWith(
+                  : defaultVTheme.textStyles.uiLabelSmall.copyWith(
                       color: isToggleDisabled
                           ? VColors.disabled
-                          : VColors.defaultText,
+                          : VColors.defaultTextSubtle,
                     ),
             ),
           ],
@@ -854,9 +846,9 @@ class _VToggleWithLeadingIconsState extends State<VToggleWithLeadingIcons> {
     "Label 3",
   ];
   List<String> toggleListIcons = <String>[
-    VIcons.mapDirectionsAltLow,
-    VIcons.viewListLow,
-    VIcons.viewGridLow,
+    VIcons.mapDirectionsAltTiny,
+    VIcons.viewListTiny,
+    VIcons.viewGridTiny,
   ];
   final Axis axis = Axis.horizontal;
   bool isToggleDisabled = false;
@@ -873,6 +865,8 @@ class _VToggleWithLeadingIconsState extends State<VToggleWithLeadingIcons> {
           children: [
             VIcon(
               svgIcon: toggleListIcons[index],
+              iconHeight: 18,
+              iconWidth: 18,
               iconColor:
                   isToggleDisabled ? VColors.disabled : VColors.defaultActive,
             ),
@@ -881,17 +875,6 @@ class _VToggleWithLeadingIconsState extends State<VToggleWithLeadingIcons> {
             ),
             Text(
               toggleListItems[index],
-              style: index == selectedIndex && isSelected[index]
-                  ? defaultVTheme.textStyles.uiLabelActive.copyWith(
-                      color: isToggleDisabled
-                          ? VColors.disabled
-                          : VColors.defaultText,
-                    )
-                  : defaultVTheme.textStyles.uiLabel.copyWith(
-                      color: isToggleDisabled
-                          ? VColors.disabled
-                          : VColors.defaultText,
-                    ),
             ),
           ],
         );
@@ -931,9 +914,9 @@ class _VToggleWithTrailingIconState extends State<VToggleWithTrailingIcon> {
     "Label 3",
   ];
   List<String> toggleListIcons = <String>[
-    VIcons.mapDirectionsAltLow,
-    VIcons.viewListLow,
-    VIcons.viewGridLow,
+    VIcons.mapDirectionsAltTiny,
+    VIcons.viewListTiny,
+    VIcons.viewGridTiny,
   ];
   final Axis axis = Axis.horizontal;
   bool isToggleDisabled = false;
@@ -950,23 +933,14 @@ class _VToggleWithTrailingIconState extends State<VToggleWithTrailingIcon> {
           children: [
             Text(
               toggleListItems[index],
-              style: index == selectedIndex && isSelected[index]
-                  ? defaultVTheme.textStyles.uiLabelActive.copyWith(
-                      color: isToggleDisabled
-                          ? VColors.disabled
-                          : VColors.defaultText,
-                    )
-                  : defaultVTheme.textStyles.uiLabel.copyWith(
-                      color: isToggleDisabled
-                          ? VColors.disabled
-                          : VColors.defaultText,
-                    ),
             ),
             const SizedBox(
               width: 8,
             ),
             VIcon(
               svgIcon: toggleListIcons[index],
+              iconHeight: 18,
+              iconWidth: 18,
               iconColor:
                   isToggleDisabled ? VColors.disabled : VColors.defaultActive,
             ),
@@ -1026,8 +1000,8 @@ class _VToggleIconOnlyState extends State<VToggleIconOnly> {
           value: toggleIconsSemanticLabel[index],
           label: "",
           child: VIcon(
-            iconHeight: 21,
-            iconWidth: 21,
+            iconHeight: 28,
+            iconWidth: 28,
             svgIcon: toggleListItems[index],
             iconColor:
                 isToggleDisabled ? VColors.disabled : VColors.defaultActive,
@@ -1082,13 +1056,14 @@ class _VToggleMultiSelectState extends State<VToggleMultiSelect> {
     return VToggle(
       axis: axis,
       isSelected: isSelected,
+      isMultiSelect: true,
       toggleListItems: List.generate(toggleListItems.length, (index) {
         return Semantics(
           value: toggleIconsSemanticLabel[index],
           label: "",
           child: VIcon(
-            iconHeight: 21,
-            iconWidth: 21,
+            iconHeight: 28,
+            iconWidth: 28,
             svgIcon: toggleListItems[index],
             iconColor:
                 isToggleDisabled ? VColors.disabled : VColors.defaultActive,
@@ -1149,13 +1124,14 @@ class _VToggleMultiSelectWithLabelState
       ),
       axis: axis,
       isSelected: isSelected,
+      isMultiSelect: true,
       toggleListItems: List.generate(toggleListItems.length, (index) {
         return Semantics(
           value: toggleIconsSemanticLabel[index],
           label: "",
           child: VIcon(
-            iconHeight: 21,
-            iconWidth: 21,
+            iconHeight: 28,
+            iconWidth: 28,
             svgIcon: toggleListItems[index],
             iconColor:
                 isToggleDisabled ? VColors.disabled : VColors.defaultActive,
@@ -1204,13 +1180,14 @@ class _VToggleStandAloneState extends State<VToggleStandAlone> {
     return VToggle(
       axis: axis,
       isSelected: isSelected,
+      isMultiSelect: true,
       toggleListItems: List.generate(toggleListItems.length, (index) {
         return Semantics(
           value: toggleIconsSemanticLabel[index],
           label: "",
           child: VIcon(
-            iconHeight: 21,
-            iconWidth: 21,
+            iconHeight: 28,
+            iconWidth: 28,
             svgIcon: toggleListItems[index],
             iconColor:
                 isToggleDisabled ? VColors.disabled : VColors.defaultActive,
@@ -1251,9 +1228,9 @@ class _VToggleDisabledState extends State<VToggleDisabled> {
     "Label 3",
   ];
   List<String> toggleListIcons = <String>[
-    VIcons.mapDirectionsAltLow,
-    VIcons.viewListLow,
-    VIcons.viewGridLow,
+    VIcons.mapDirectionsAltTiny,
+    VIcons.viewListTiny,
+    VIcons.viewGridTiny,
   ];
   final Axis axis = Axis.horizontal;
   bool isToggleDisabled = true;
@@ -1279,15 +1256,16 @@ class _VToggleDisabledState extends State<VToggleDisabled> {
             Text(
               toggleListItems[index],
               style: index == selectedIndex && isSelected[index]
-                  ? defaultVTheme.textStyles.uiLabelActive.copyWith(
+                  ? defaultVTheme.textStyles.uiLabelSmall.copyWith(
+                      fontWeight: VFontWeight.medium,
                       color: isToggleDisabled
                           ? VColors.disabled
                           : VColors.defaultText,
                     )
-                  : defaultVTheme.textStyles.uiLabel.copyWith(
+                  : defaultVTheme.textStyles.uiLabelSmall.copyWith(
                       color: isToggleDisabled
                           ? VColors.disabled
-                          : VColors.defaultText,
+                          : VColors.defaultTextSubtle,
                     ),
             ),
           ],
@@ -1334,9 +1312,9 @@ class _VToggleDisabledAndActiveState extends State<VToggleDisabledAndActive> {
   ];
 
   List<String> toggleListIcons = <String>[
-    VIcons.mapDirectionsAltLow,
-    VIcons.viewListLow,
-    VIcons.viewGridLow,
+    VIcons.mapDirectionsAltTiny,
+    VIcons.viewListTiny,
+    VIcons.viewGridTiny,
   ];
   final Axis axis = Axis.horizontal;
   bool isToggleDisabled = false;
@@ -1364,15 +1342,16 @@ class _VToggleDisabledAndActiveState extends State<VToggleDisabledAndActive> {
             Text(
               toggleListItems[index],
               style: index == selectedIndex && isSelected[index]
-                  ? defaultVTheme.textStyles.uiLabelActive.copyWith(
+                  ? defaultVTheme.textStyles.uiLabelSmall.copyWith(
+                      fontWeight: VFontWeight.medium,
                       color: isItemDisabled[index]
                           ? VColors.disabled
                           : VColors.defaultText,
                     )
-                  : defaultVTheme.textStyles.uiLabel.copyWith(
+                  : defaultVTheme.textStyles.uiLabelSmall.copyWith(
                       color: isItemDisabled[index]
                           ? VColors.disabled
-                          : VColors.defaultText,
+                          : VColors.defaultTextSubtle,
                     ),
             ),
           ],

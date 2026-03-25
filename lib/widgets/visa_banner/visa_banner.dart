@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -158,6 +158,7 @@ class VBannerStyle extends ThemeExtension<VBannerStyle> {
 
 enum BannerState { informational, warning, error, success }
 
+// ignore: must_be_immutable
 class VBanner extends StatelessWidget {
   VBanner({
     Key? key,
@@ -347,7 +348,7 @@ class VBanner extends StatelessWidget {
                                 description,
                                 style: descriptionTextStyle,
                               ),
-                            if (hasLink)
+                            if (hasLink && !hasAction)
                               VLink(
                                   linkFontSize: 16,
                                   linkFontWeight: VFontWeight.medium,
@@ -360,32 +361,81 @@ class VBanner extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                              VButton(
-                                style: VButtonStyle(
-                                  backgroundColorActive: VColors.transparent,
-                                  backgroundColorDisabled: VColors.transparent,
-                                  foregroundColorActive: VColors.defaultActive,
-                                  foregroundColorDisabled: VColors.disabled,
-                                  overlayColorFocused:
-                                      VColors.defaultSurfaceLowlight,
-                                  overlayColorPressed:
-                                      VColors.defaultSurfaceLowlight,
-                                  borderSideActive: const BorderSide(
-                                    color: VColors.defaultActive,
-                                    style: BorderStyle.solid,
+                              if (hasLink)
+                                Row(
+                                  children: [
+                                    VButton(
+                                      style: VButtonStyle(
+                                        backgroundColorActive:
+                                            VColors.transparent,
+                                        backgroundColorDisabled:
+                                            VColors.transparent,
+                                        foregroundColorActive:
+                                            VColors.defaultActive,
+                                        foregroundColorDisabled:
+                                            VColors.disabled,
+                                        overlayColorFocused:
+                                            VColors.defaultSurfaceLowlight,
+                                        overlayColorPressed:
+                                            VColors.defaultSurfaceLowlight,
+                                        borderSideActive: const BorderSide(
+                                          color: VColors.defaultActive,
+                                          style: BorderStyle.solid,
+                                        ),
+                                        borderSideDisabled: BorderSide(
+                                          color: VColors.defaultDisabled,
+                                          style: BorderStyle.solid,
+                                        ),
+                                      ),
+                                      onPressed: onActionPressed,
+                                      child: Text(
+                                        action,
+                                        style: defaultVTheme
+                                            .textStyles.buttonMedium
+                                            .copyWith(
+                                                color: VColors.defaultActive),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 20),
+                                    VLink(
+                                        linkFontSize: 16,
+                                        linkFontWeight: VFontWeight.medium,
+                                        // Making touchArea 12.5 to meet a11y requirement
+                                        touchArea: 12.5,
+                                        title: link,
+                                        isUnderlined: true,
+                                        onPressed: onLinkPressed),
+                                  ],
+                                )
+                              else
+                                VButton(
+                                  style: VButtonStyle(
+                                    backgroundColorActive: VColors.transparent,
+                                    backgroundColorDisabled:
+                                        VColors.transparent,
+                                    foregroundColorActive:
+                                        VColors.defaultActive,
+                                    foregroundColorDisabled: VColors.disabled,
+                                    overlayColorFocused:
+                                        VColors.defaultSurfaceLowlight,
+                                    overlayColorPressed:
+                                        VColors.defaultSurfaceLowlight,
+                                    borderSideActive: const BorderSide(
+                                      color: VColors.defaultActive,
+                                      style: BorderStyle.solid,
+                                    ),
+                                    borderSideDisabled: BorderSide(
+                                      color: VColors.defaultDisabled,
+                                      style: BorderStyle.solid,
+                                    ),
                                   ),
-                                  borderSideDisabled: BorderSide(
-                                    color: VColors.defaultDisabled,
-                                    style: BorderStyle.solid,
+                                  onPressed: onActionPressed,
+                                  child: Text(
+                                    action,
+                                    style: defaultVTheme.textStyles.buttonMedium
+                                        .copyWith(color: VColors.defaultActive),
                                   ),
                                 ),
-                                onPressed: onActionPressed,
-                                child: Text(
-                                  action,
-                                  style: defaultVTheme.textStyles.buttonMedium
-                                      .copyWith(color: VColors.defaultActive),
-                                ),
-                              ),
                             ],
                           ],
                         ),
@@ -405,14 +455,16 @@ class VBanner extends StatelessWidget {
                             splashColor: VColors.defaultSurfaceLowlight,
                             onTap: onClosePressed,
                             child: Container(
-                              width: 48,
-                              height: 48,
+                              width: 46,
+                              height: 46,
                               padding:
-                                  const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                                  const EdgeInsets.fromLTRB(14, 14, 14, 14),
                               child: VIcon(
                                 svgIcon: VIcons.closeTiny,
+                                iconWidth: 18,
+                                iconHeight: 18,
                                 iconColor: VColors.defaultActiveSubtle
-                                    .withOpacity(0.5),
+                                    .withValues(alpha: 0.5),
                               ),
                             ),
                           ),

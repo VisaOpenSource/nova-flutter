@@ -1,3 +1,20 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
@@ -47,17 +64,19 @@ void main() {
 
     // Test lerp
     var lerpedStyle = style.lerp(anotherStyle, 0.5);
-    expect(lerpedStyle.dividerColor, Color.lerp(Colors.blue, Colors.black, 0.5));
+    expect(
+        lerpedStyle.dividerColor, Color.lerp(Colors.blue, Colors.black, 0.5));
     expect(lerpedStyle.thickness, lerpDouble(1.0, 2.5, 0.5));
     expect(lerpedStyle.height, lerpDouble(2.0, 3.5, 0.5));
     expect(lerpedStyle.indent, lerpDouble(3.0, 4.5, 0.5));
     expect(lerpedStyle.endIndent, lerpDouble(4.0, 5.5, 0.5));
   });
 
-  testWidgets('VDivider builds correctly for each VDividerType', (WidgetTester tester) async {
+  testWidgets('VDivider builds correctly for each VDividerType',
+      (WidgetTester tester) async {
     // Test VDivider of type 'section'
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Material(
           child: VDivider(dividerType: VDividerType.section),
         ),
@@ -67,7 +86,7 @@ void main() {
 
     // Test VDivider of type 'decorative'
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Material(
           child: VDivider(dividerType: VDividerType.decorative),
         ),
@@ -77,7 +96,7 @@ void main() {
 
     // Test VDivider of type 'standard'
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Material(
           child: VDivider(dividerType: VDividerType.standard),
         ),
@@ -86,7 +105,9 @@ void main() {
     expect(find.byType(VDivider), findsOneWidget);
   });
 
-  testWidgets('VDivider applies getAltColorSchemeDark when theme brightness is dark and vExt is not VDef', (WidgetTester tester) async {
+  testWidgets(
+      'VDivider applies getAltColorSchemeDark when theme brightness is dark and vExt is not VDef',
+      (WidgetTester tester) async {
     // Test with Brightness.dark and vExt is not VDef
     await tester.pumpWidget(MaterialApp(
       theme: ThemeData(brightness: Brightness.dark),
@@ -99,10 +120,13 @@ void main() {
 
     // Check if getAltColorSchemeDark is applied
     final dividerWidget = tester.widget<Divider>(find.byType(Divider));
-    expect(dividerWidget.color, equals(getAltColorSchemeDark().activeSubtle.withOpacity(0.5)));
+    expect(dividerWidget.color,
+        equals(getAltColorSchemeDark().activeSubtle.withValues(alpha: 0.5)));
   });
 
-  testWidgets('VDivider applies getAltColorScheme when theme brightness is light and vExt is not VDef', (WidgetTester tester) async {
+  testWidgets(
+      'VDivider applies getAltColorScheme when theme brightness is light and vExt is not VDef',
+      (WidgetTester tester) async {
     // Test with Brightness.light and vExt is not VDef
     await tester.pumpWidget(MaterialApp(
       home: Material(
@@ -114,6 +138,34 @@ void main() {
 
     // Check if getAltColorScheme is applied
     final dividerWidget = tester.widget<Divider>(find.byType(Divider));
-    expect(dividerWidget.color, equals(getAltColorScheme().activeSubtle.withOpacity(0.5)));
+    expect(dividerWidget.color,
+        equals(getAltColorScheme().activeSubtle.withValues(alpha: 0.5)));
+  });
+
+  //! This is Divider golden test
+
+  testWidgets('Divider golden(snapshot) testing', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      RepaintBoundary(
+        child: MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: 300,
+                child: const VDivider(
+                  dividerType: VDividerType.section,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await expectLater(
+      find.byType(VDivider),
+      matchesGoldenFile('goldens/divider.png'),
+    );
   });
 }

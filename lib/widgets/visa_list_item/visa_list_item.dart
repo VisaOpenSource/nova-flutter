@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -110,11 +110,16 @@ class _VListItemState extends State<VListItem> {
   Widget build(BuildContext context) {
     final dynamic defaultStyle;
     if (widget.vExt == null || widget.vExt is VDef) {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark ? getDefaultColorSchemeDark()! : getDefaultColorScheme()!;
+      defaultStyle = Theme.of(context).brightness == Brightness.dark
+          ? getDefaultColorSchemeDark()!
+          : getDefaultColorScheme()!;
     } else {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark ? getAltColorSchemeDark()! : getAltColorScheme()!;
+      defaultStyle = Theme.of(context).brightness == Brightness.dark
+          ? getAltColorSchemeDark()!
+          : getAltColorScheme()!;
     }
-    final borderRadius = widget.style?.borderRadius ?? defaultStyle.vListItemProperties.borderRadius;
+    final borderRadius = widget.style?.borderRadius ??
+        defaultStyle.vListItemProperties.borderRadius;
 
     Color itemListColor() {
       if (_isPressed) {

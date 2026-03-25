@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -273,30 +273,28 @@ class ChatDrawer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: VListItem(
-                          child: Row(
-                            children: [
-                              const VIcon(
-                                svgIcon: VIcons.pinFillTiny,
-                                iconColor: VColors.defaultAccent,
-                                iconHeight: 20,
-                                iconWidth: 20,
-                              ),
-                              const SizedBox(width: 10),
-                              Flexible(
-                                child: Text(
-                                  "Label 1",
-                                  textAlign: TextAlign.left,
-                                  style: defaultVTheme.textStyles.uiLabelLarge
-                                      .copyWith(
-                                    color: VColors.defaultTextSubtle,
+                            child: Row(
+                              children: [
+                                const VIcon(
+                                  svgIcon: VIcons.pinFillTiny,
+                                  iconColor: VColors.defaultAccent,
+                                  iconHeight: 20,
+                                  iconWidth: 20,
+                                ),
+                                const SizedBox(width: 10),
+                                Flexible(
+                                  child: Text(
+                                    "Label 1",
+                                    textAlign: TextAlign.left,
+                                    style: defaultVTheme.textStyles.uiLabelLarge
+                                        .copyWith(
+                                      color: VColors.defaultTextSubtle,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          onTap: () =>
-                              {}, // TODO: Implement pinned chat navigation
-                        ),
+                              ],
+                            ),
+                            onTap: () => {}),
                       ),
                       const SizedBox(height: 11),
 
@@ -321,8 +319,7 @@ class ChatDrawer extends StatelessWidget {
                               color: VColors.defaultTextSubtle,
                             ),
                           ),
-                          onTap: () =>
-                              {}, // TODO: Implement recent chat navigation
+                          onTap: () => {},
                         ),
                       ),
                       Padding(
@@ -336,8 +333,7 @@ class ChatDrawer extends StatelessWidget {
                               color: VColors.defaultTextSubtle,
                             ),
                           ),
-                          onTap: () =>
-                              {}, // TODO: Implement recent chat navigation
+                          onTap: () => {},
                         ),
                       )
                     ],
@@ -433,9 +429,9 @@ class ChatDropDown extends StatelessWidget {
   // Menu item labels for dropdown options
   final List<String> iconPopUpMenuItems = [
     "Exit chat demo",
-    "Label 1", // TODO: Implement additional features
-    "Label 2", // TODO: Implement additional features
-    "Label 3", // TODO: Implement additional features
+    "Label 1",
+    "Label 2",
+    "Label 3",
   ];
 
   // Corresponding icons for each menu item
@@ -507,7 +503,6 @@ class ChatDropDown extends StatelessWidget {
                 if (_ == "Exit chat demo") {
                   Navigator.pop(context); // Return to main demo menu
                 }
-                // TODO: Implement other menu actions (pin, favorite, delete)
               },
               // =============================================================
               // DROPDOWN BUTTON ICON
@@ -564,7 +559,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return VAppBar(
-      title: const Text("Chat name"), // TODO: Make dynamic based on actual chat
+      title: const Text("Chat name"),
 
       // =============================================================
       // HAMBURGER MENU BUTTON (Left side)
@@ -649,7 +644,7 @@ class _UserChatFieldState extends State<UserChatField> {
 
   // Mock data for attachment options panel
   final List<String> panelItems = [
-    "Label 1", // TODO: Replace with actual attachment types
+    "Label 1",
     "Label 2",
     "Label 3",
     "Label 4",
@@ -1576,10 +1571,10 @@ class _ChatFrameState extends State<ChatFrame> with WidgetsBindingObserver {
                                         },
                                       ),
                                     ),
-                                    Visibility(
+                                    const Visibility(
                                       visible:
                                           false, // Removed flag functionality for now
-                                      child: const Padding(
+                                      child: Padding(
                                         padding:
                                             EdgeInsets.symmetric(horizontal: 8),
                                         child: VIcon(

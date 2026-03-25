@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -107,7 +107,9 @@ class _VPanelState extends State<VPanel> {
     super.didChangeDependencies();
     // Request focus when the widget is inserted into the tree.
     Future.microtask(() {
+      if (!context.mounted) return;
       SemanticsService.announce(widget.title ?? '', TextDirection.ltr);
+      // ignore: use_build_context_synchronously
       FocusScope.of(context).requestFocus(_focusNode);
     });
   }

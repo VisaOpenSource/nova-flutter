@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -157,13 +157,14 @@ class _ComboboxState extends State<Combobox> {
       style: isDefault
           ? null
           : VComboboxStyle(
-              backgroundColor: const Color(0xFFF65036D),
+              backgroundColor: const Color(0xFF65036D),
               errorTextColor: const Color(0xFFFFFFFF),
               resultTextColor: const Color(0xFFFFFFFF),
               appBarTitleTextColor: VColors.defaultText,
               listTileColor: VColors.defaultSurface1,
               listTileResultIconColor: VColors.defaultActive,
-              clearIconColor: VColors.defaultActiveSubtle.withOpacity(0.5),
+              clearIconColor:
+                  VColors.defaultActiveSubtle.withValues(alpha: 0.5),
               inputStyle: const VInputStyle(
                 inputDefaultColor: Color(0xFFFFFFFF),
                 borderColor: Color(0xFFFFFFFF),
@@ -551,7 +552,7 @@ class _VComboboxWithInlineMessageState
 // BEGIN VComboboxReadOnly
 
 class VComboboxReadOnly extends StatefulWidget {
-  VComboboxReadOnly({
+  const VComboboxReadOnly({
     Key? key,
     required this.searchController,
     required this.searchList,
@@ -671,7 +672,7 @@ class _VComboboxReadOnlyState extends State<VComboboxReadOnly> {
 // BEGIN VComboboxDisabled
 
 class VComboboxDisabled extends StatefulWidget {
-  VComboboxDisabled({
+  const VComboboxDisabled({
     Key? key,
     required this.searchController,
     required this.searchList,

@@ -1,3 +1,20 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
@@ -37,8 +54,10 @@ void main() {
 
     final lerpStyle = style1.lerp(style2, 0.5);
 
-    expect(lerpStyle.appBarBackgroundColor, Color.lerp(Colors.blue, Colors.white, 0.5));
-    expect(lerpStyle.backgroundColor, Color.lerp(Colors.red, Colors.black, 0.5));
+    expect(lerpStyle.appBarBackgroundColor,
+        Color.lerp(Colors.blue, Colors.white, 0.5));
+    expect(
+        lerpStyle.backgroundColor, Color.lerp(Colors.red, Colors.black, 0.5));
 
     // As lerp for TextStyle is not defined, it should return the TextStyle of the original instance
     expect(lerpStyle.titleTextStyle?.color, Colors.green);
@@ -122,7 +141,8 @@ void main() {
     await tester.pumpAndSettle();
   });
 
-  testWidgets('VPanel applies contentPadding and closeIconPadding correctly', (WidgetTester tester) async {
+  testWidgets('VPanel applies contentPadding and closeIconPadding correctly',
+      (WidgetTester tester) async {
     // Define the padding values
     const EdgeInsets contentPadding = EdgeInsets.all(16.0);
     const EdgeInsets closeIconPadding = EdgeInsets.all(8.0);
@@ -150,7 +170,8 @@ void main() {
 
     // Verify that the closeIconPadding is applied
     final closeIconPaddingFinder = find.byWidgetPredicate(
-      (Widget widget) => widget is Padding && widget.padding == closeIconPadding,
+      (Widget widget) =>
+          widget is Padding && widget.padding == closeIconPadding,
     );
 
     expect(contentPaddingFinder, findsOneWidget);
@@ -178,7 +199,8 @@ void main() {
     expect(find.text('Hello World'), findsOneWidget);
   });
 
-  testWidgets('VHalfScreenPanelButton displays VPanel when tapped', (WidgetTester tester) async {
+  testWidgets('VHalfScreenPanelButton displays VPanel when tapped',
+      (WidgetTester tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
@@ -195,7 +217,8 @@ void main() {
     expect(find.byType(VPanel), findsOneWidget);
   });
 
-  testWidgets('VHalfScreenPanelButton close button test', (WidgetTester tester) async {
+  testWidgets('VHalfScreenPanelButton close button test',
+      (WidgetTester tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
@@ -218,6 +241,36 @@ void main() {
 
     // Check if VPanel is not present in the widget tree (because it's closed)
     expect(find.byType(VPanel), findsNothing);
+  });
+
+  //! This is Panel golden test
+
+  testWidgets('Panel golden(snapshot) testing', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      RepaintBoundary(
+        child: MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: 350,
+                height: 300,
+                child: VPanel(
+                  isFullScreen: false,
+                  showShadow: true,
+                  child: const Text('Panel Content'),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await expectLater(
+      find.byType(VPanel),
+      matchesGoldenFile('goldens/panel.png'),
+    );
   });
 }
 
@@ -262,12 +315,14 @@ class VHalfScreenPanelButton extends StatelessWidget {
                           header: true,
                           child: Text(
                             "How do I reset my password?",
-                            style: defaultVTheme.textStyles.subtitle2.copyWith(height: 23 / 18),
+                            style: defaultVTheme.textStyles.subtitle2
+                                .copyWith(height: 23 / 18),
                           ),
                         ),
                         Text(
                           "Use the “Forgot password” link at sign-in to begin. Enter your email to look up your account, and we’ll send you a security email to confirm you initiated this request. Follow the link included to reset your password.",
-                          style: defaultVTheme.textStyles.bodyText2.copyWith(height: 24 / 16),
+                          style: defaultVTheme.textStyles.bodyText2
+                              .copyWith(height: 24 / 16),
                         ),
                       ],
                     ),

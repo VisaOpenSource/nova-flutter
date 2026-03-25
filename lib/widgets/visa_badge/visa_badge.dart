@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -101,6 +101,7 @@ class VBadgeStyle extends ThemeExtension<VBadgeStyle> {
 
 enum BadgeState { critical, neutral, stable, subtle, warning, number }
 
+// ignore: must_be_immutable
 class VBadge extends StatelessWidget {
   VBadge({
     Key? key,
@@ -134,8 +135,8 @@ class VBadge extends StatelessWidget {
         style?.criticalBGColor ?? messageStyle.negativeSurface;
     final neutralBGColor = style?.neutralBGColor ?? messageStyle.infoSurface;
     final stableBGColor = style?.stableBGColor ?? messageStyle.positiveSurface;
-    final subtleBGColor =
-        style?.subtleBGColor ?? messageStyle.defaultText?.withOpacity(0.1);
+    final subtleBGColor = style?.subtleBGColor ??
+        messageStyle.defaultText?.withValues(alpha: 0.1);
     final warningBGColor = style?.warningBGColor ?? messageStyle.warningSurface;
     final criticalIconColor =
         style?.criticalIconColor ?? messageStyle.negativeText;
@@ -148,13 +149,34 @@ class VBadge extends StatelessWidget {
 
     switch (badgeState) {
       case BadgeState.critical:
-        backgroundColor = criticalBGColor;
-        badgeIcon = VIcon(
-          svgIcon: VIcons.errorTiny,
-          iconHeight: 18,
-          iconWidth: 18,
-          iconColor: criticalIconColor,
-        );
+        backgroundColor = hasLabel ? criticalBGColor : Colors.transparent;
+        badgeIcon = hasLabel
+            ? VIcon(
+                svgIcon: VIcons.errorTiny,
+                iconHeight: 18,
+                iconWidth: 18,
+                iconColor: criticalIconColor,
+              )
+            : Container(
+                height: 16,
+                width: 16,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: hasBG ? criticalIconColor : Colors.transparent,
+                  border: hasBG
+                      ? null
+                      : Border.all(color: criticalIconColor!, width: 1),
+                ),
+                child: Center(
+                  child: VIcon(
+                    svgIcon: VIcons.errorAltTiny,
+                    iconHeight: 10,
+                    iconWidth: 10,
+                    iconColor:
+                        hasBG ? VColors.defaultSurface1 : criticalIconColor,
+                  ),
+                ),
+              );
         badgeEllipse = Container(
           height: 10,
           width: 10,
@@ -164,12 +186,24 @@ class VBadge extends StatelessWidget {
         );
         break;
       case BadgeState.neutral:
-        backgroundColor = neutralBGColor;
-        badgeIcon = VIcon(
-          svgIcon: VIcons.informationTiny,
-          iconHeight: 18,
-          iconWidth: 18,
-          iconColor: neutralIconColor,
+        backgroundColor = hasLabel ? neutralBGColor : Colors.transparent;
+        badgeIcon = Container(
+          height: 16,
+          width: 16,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: hasBG ? neutralIconColor : Colors.transparent,
+            border:
+                hasBG ? null : Border.all(color: neutralIconColor!, width: 1),
+          ),
+          child: Center(
+            child: VIcon(
+              svgIcon: VIcons.informationAltTiny,
+              iconHeight: 10,
+              iconWidth: 10,
+              iconColor: hasBG ? VColors.defaultSurface1 : neutralIconColor,
+            ),
+          ),
         );
         badgeEllipse = Container(
           height: 10,
@@ -183,12 +217,24 @@ class VBadge extends StatelessWidget {
         backgroundColor = numberColor;
         break;
       case BadgeState.stable:
-        backgroundColor = stableBGColor;
-        badgeIcon = VIcon(
-          svgIcon: VIcons.successTiny,
-          iconHeight: 18,
-          iconWidth: 18,
-          iconColor: stableIconColor,
+        backgroundColor = hasLabel ? stableBGColor : Colors.transparent;
+        badgeIcon = Container(
+          height: 16,
+          width: 16,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: hasBG ? stableIconColor : Colors.transparent,
+            border:
+                hasBG ? null : Border.all(color: stableIconColor!, width: 1),
+          ),
+          child: Center(
+            child: VIcon(
+              svgIcon: VIcons.checkmarkTiny,
+              iconHeight: 10,
+              iconWidth: 10,
+              iconColor: hasBG ? VColors.defaultSurface1 : stableIconColor,
+            ),
+          ),
         );
         badgeEllipse = Container(
           height: 10,
@@ -213,13 +259,34 @@ class VBadge extends StatelessWidget {
         );
         break;
       case BadgeState.warning:
-        backgroundColor = warningBGColor;
-        badgeIcon = VIcon(
-          svgIcon: VIcons.warningTiny,
-          iconHeight: 18,
-          iconWidth: 18,
-          iconColor: warningIconColor,
-        );
+        backgroundColor = hasLabel ? warningBGColor : Colors.transparent;
+        badgeIcon = hasLabel
+            ? VIcon(
+                svgIcon: VIcons.warningTiny,
+                iconHeight: 18,
+                iconWidth: 18,
+                iconColor: warningIconColor,
+              )
+            : Container(
+                height: 16,
+                width: 16,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: hasBG ? warningIconColor : Colors.transparent,
+                  border: hasBG
+                      ? null
+                      : Border.all(color: warningIconColor!, width: 1),
+                ),
+                child: Center(
+                  child: VIcon(
+                    svgIcon: VIcons.warningTiny,
+                    iconHeight: 10,
+                    iconWidth: 10,
+                    iconColor:
+                        hasBG ? VColors.defaultSurface1 : warningIconColor,
+                  ),
+                ),
+              );
         badgeEllipse = Container(
           height: 10,
           width: 10,
@@ -244,6 +311,7 @@ class VBadge extends StatelessWidget {
             hasBG: hasBG,
             backgroundColor: backgroundColor,
             hasIcon: hasIcon,
+            hasLabel: hasLabel,
             badgeIcon: badgeIcon,
             label: label,
           );
@@ -257,12 +325,13 @@ class VBadgeLabel extends StatelessWidget {
     required this.backgroundColor,
     required this.hasIcon,
     required this.hasEllipse,
+    required this.hasLabel,
     required this.badgeIcon,
     required this.badgeEllipse,
     required this.label,
   });
 
-  final bool hasBG, hasIcon, hasEllipse;
+  final bool hasBG, hasIcon, hasEllipse, hasLabel;
   final String label;
   final Color? backgroundColor;
   final Widget? badgeIcon, badgeEllipse;
@@ -274,26 +343,30 @@ class VBadgeLabel extends StatelessWidget {
         Row(
           children: [
             badgeIcon!,
-            const SizedBox(
-              width: 2.5,
-            ),
+            if (hasLabel)
+              const SizedBox(
+                width: 2.5,
+              ),
           ],
         ),
       if (hasEllipse)
         Row(
           children: [
             badgeEllipse!,
-            const SizedBox(
-              width: 2.5,
-            ),
+            if (hasLabel)
+              const SizedBox(
+                width: 2.5,
+              ),
           ],
         ),
-      Text(
-        label,
-        style: defaultVTheme.textStyles.uiLabelSmall,
-      ),
+      if (hasLabel)
+        Text(
+          label,
+          style: defaultVTheme.textStyles.uiLabelSmall,
+        ),
     ];
     return Container(
+      height: 28,
       padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       decoration: hasBG ? badgeBG() : null,
       child: Row(
@@ -330,15 +403,34 @@ class VBadgeNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Badge(
-      backgroundColor: numberColor,
+      backgroundColor: Colors.transparent,
       label: hasLabel
-          ? Text(
-              label,
-              style: defaultVTheme.textStyles.uiLabelSmall.copyWith(
-                color: VColors.defaultSurface1,
+          ? Container(
+              width: 18,
+              height: 18,
+              decoration: BoxDecoration(
+                color: numberColor,
+                borderRadius: BorderRadius.circular(9),
+              ),
+              child: Center(
+                child: Text(
+                  label,
+                  style: defaultVTheme.textStyles.uiLabelActive.copyWith(
+                    color: VColors.defaultSurface1,
+                    height: 1.0,
+                  ),
+                ),
               ),
             )
-          : null,
+          : Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                color: numberColor,
+                borderRadius: BorderRadius.circular(100),
+              ),
+            ),
+      smallSize: 10,
       child: child,
     );
   }

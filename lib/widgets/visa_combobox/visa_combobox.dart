@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -158,9 +158,12 @@ class VComboboxScreen extends StatefulWidget {
 class _VComboboxScreenState extends State<VComboboxScreen> {
   TextEditingController onPageSearchComboController = TextEditingController();
   var _searchIndexList = [];
+  int? _previousResultCount;
+
   @override
   void initState() {
     _searchIndexList = widget.searchList;
+    _previousResultCount = widget.searchList.length;
     onPageSearchComboController.text = widget.searchController.text;
     super.initState();
   }
@@ -171,20 +174,44 @@ class _VComboboxScreenState extends State<VComboboxScreen> {
         setState(() {
           _searchIndexList = widget.searchList;
         });
+        // Announce search results change
+        if (_previousResultCount != widget.searchList.length) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            SemanticsService.announce(
+              "${widget.searchList.length} results found",
+              TextDirection.ltr,
+            );
+          });
+          _previousResultCount = widget.searchList.length;
+        }
       } else {
+        final filteredList = widget.searchList
+            .where(
+              (element) => element.toLowerCase().contains(
+                    onPageSearchComboController.text.trim().toLowerCase(),
+                  ),
+            )
+            .toList();
         setState(() {
-          _searchIndexList = widget.searchList
-              .where(
-                (element) => element.toLowerCase().contains(
-                      onPageSearchComboController.text.trim().toLowerCase(),
-                    ),
-              )
-              .toList();
+          _searchIndexList = filteredList;
         });
+        // Announce search results change
+        if (_previousResultCount != filteredList.length) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            SemanticsService.announce(
+              filteredList.isEmpty
+                  ? "No results found"
+                  : "${filteredList.length} result${filteredList.length == 1 ? '' : 's'} found",
+              TextDirection.ltr,
+            );
+          });
+          _previousResultCount = filteredList.length;
+        }
       }
     });
   }
 
+  /* START GENAI */
   Widget _searchTextField() {
     onPageSearchComboController.selection = TextSelection.fromPosition(
       TextPosition(offset: onPageSearchComboController.text.length),
@@ -196,27 +223,36 @@ class _VComboboxScreenState extends State<VComboboxScreen> {
       myLocalController: onPageSearchComboController,
       topLabelText: widget.topLabelText,
       suffix: onPageSearchComboController.text.trim().isNotEmpty
-          ? InkWell(
-              splashColor: VColors.transparent,
-              highlightColor: VColors.transparent,
-              onTap: () {
-                onPageSearchComboController.clear();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  right: 8,
-                ),
+          ? Material(
+              color: VColors.transparent,
+              child: InkWell(
+                splashColor: VColors.transparent,
+                highlightColor: VColors.transparent,
+                onTap: () {
+                  onPageSearchComboController.clear();
+                  SemanticsService.announce(
+                    "Search field cleared",
+                    TextDirection.ltr,
+                  );
+                },
                 child: Semantics(
-                  label: "clear text input",
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 44,
-                    width: 44,
-                    child: VIcon(
-                      iconFit: BoxFit.none,
-                      svgIcon: VIcons.clearAltTiny,
-                      iconColor: widget.style?.clearIconColor ??
-                          VColors.defaultActiveSubtle.withOpacity(0.5),
+                  label: "Clear search text",
+                  hint: "Double tap to clear the search field",
+                  button: true,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      right: 8,
+                    ),
+                    child: Container(
+                      color: Colors.transparent,
+                      height: 44,
+                      width: 44,
+                      child: VIcon(
+                        iconFit: BoxFit.none,
+                        svgIcon: VIcons.clearAltTiny,
+                        iconColor: widget.style?.clearIconColor ??
+                            VColors.defaultActiveSubtle.withValues(alpha: 0.5),
+                      ),
                     ),
                   ),
                 ),
@@ -231,6 +267,7 @@ class _VComboboxScreenState extends State<VComboboxScreen> {
       },
     );
   }
+  /* END GENAI */
 
   @override
   Widget build(BuildContext context) {
@@ -269,8 +306,8 @@ class _VComboboxScreenState extends State<VComboboxScreen> {
         style: widget.style?.appBarStyle,
         leading: widget.closeIcon ??
             Semantics(
-              label: "Close ",
-              value: "",
+              label: "Close selection screen",
+              hint: "Double tap to return to previous screen",
               button: true,
               child: InkWell(
                 child: Container(
@@ -308,16 +345,23 @@ class _VComboboxScreenState extends State<VComboboxScreen> {
             ),
             Expanded(
               child: _searchIndexList.isEmpty
-                  ? Center(
-                      child: Text(
-                        widget.errorText ?? "No results found",
-                        style: errorTextStyle?.copyWith(
-                          color: errorTextColor,
+                  ? /* START GENAI */
+                  Semantics(
+                      liveRegion: true,
+                      label: "Search results",
+                      child: Center(
+                        child: Text(
+                          widget.errorText ?? "No results found",
+                          style: errorTextStyle?.copyWith(
+                            color: errorTextColor,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     )
-                  : Container(
+                  /* END GENAI */
+                  : /* START GENAI */
+                  Container(
                       decoration: BoxDecoration(
                         color: backgroundColor,
                       ),
@@ -326,76 +370,85 @@ class _VComboboxScreenState extends State<VComboboxScreen> {
                           shrinkWrap: true,
                           itemCount: _searchIndexList.length,
                           itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  onPageSearchComboController.text =
-                                      _searchIndexList[index];
-                                });
-                                Navigator.pop(
-                                  context,
-                                  onPageSearchComboController.text.trim(),
-                                );
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 3),
+                              final bool isSelected = onPageSearchComboController.text.trim() == _searchIndexList[index];
+                              /* START GENAI */
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 3),
                                 child: Semantics(
-                                  onDidGainAccessibilityFocus: () {
-                                    if (onPageSearchComboController.text
-                                            .trim() ==
-                                        _searchIndexList[index]) {
-                                      SemanticsService.announce(
-                                          "Selected", TextDirection.ltr);
-                                    } else {
-                                      SemanticsService.announce(
-                                          "${index + 1} of ${_searchIndexList.length} in list",
-                                          TextDirection.ltr);
-                                    }
+                                  button: true,
+                                  enabled: true,
+                                  selected: isSelected,
+                                  label: "${_searchIndexList[index]}${isSelected ? ', currently selected' : ''}",
+                                  hint: "Double tap to select this option",
+                                  onTap: () {
+                                    setState(() {
+                                      onPageSearchComboController.text = _searchIndexList[index];
+                                    });
+                                    SemanticsService.announce(
+                                      "${_searchIndexList[index]} selected",
+                                      TextDirection.ltr,
+                                    );
+                                    Navigator.pop(
+                                      context,
+                                      onPageSearchComboController.text.trim(),
+                                    );
                                   },
-                                  child: ListTile(
-                                    tileColor:
-                                        (onPageSearchComboController.text ==
-                                                _searchIndexList[index])
-                                            ? listTileColor
-                                            : null,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    title: Row(
-                                      children: [
-                                        onPageSearchComboController.text ==
-                                                _searchIndexList[index]
-                                            ? Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 8),
-                                                child: widget
-                                                        .listTileResultIcon ??
-                                                    VIcon(
-                                                        svgIcon: VIcons
-                                                            .checkmarkTiny,
-                                                        iconColor:
-                                                            listTileResultIconColor),
-                                              )
-                                            : const SizedBox(
-                                                width: 24,
+                                  child: ExcludeSemantics(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          onPageSearchComboController.text = _searchIndexList[index];
+                                        });
+                                        SemanticsService.announce(
+                                          "${_searchIndexList[index]} selected",
+                                          TextDirection.ltr,
+                                        );
+                                        Navigator.pop(
+                                          context,
+                                          onPageSearchComboController.text.trim(),
+                                        );
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: isSelected ? listTileColor : Colors.transparent,
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: ListTile(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                          title: Row(
+                                            children: [
+                                              isSelected
+                                                  ? Padding(
+                                                      padding: const EdgeInsets.only(right: 8),
+                                                      child: widget.listTileResultIcon ??
+                                                          VIcon(
+                                                            svgIcon: VIcons.checkmarkTiny,
+                                                            iconColor: listTileResultIconColor,
+                                                          ),
+                                                    )
+                                                  : const SizedBox(width: 24),
+                                              Flexible(
+                                                child: Text(
+                                                  _searchIndexList[index],
+                                                  style: resultTextStyle?.copyWith(
+                                                    color: resultTextColor,
+                                                  ),
+                                                ),
                                               ),
-                                        Flexible(
-                                          child: Text(
-                                            _searchIndexList[index],
-                                            style: resultTextStyle?.copyWith(
-                                              color: resultTextColor,
-                                            ),
+                                            ],
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }),
-                    ),
+                              );
+                              /* END GENAI */
+                            }),
+                      ),
+                  /* END GENAI */
             ),
           ],
         ),

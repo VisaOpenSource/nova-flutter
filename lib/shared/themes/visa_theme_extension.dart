@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,6 +16,36 @@
 //
 import 'package:flutter/material.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
+
+/// Theme extension for the Visa Nova Design System.
+///
+/// ## Overriding Theme Tokens in Downstream Apps
+///
+/// To override theme tokens like `errorBorderColor` in your consuming app:
+///
+/// ```dart
+/// final customTheme = ThemeData(
+///   extensions: [
+///     VDefaultThemeProps(
+///       errorBorderColor: Color(0xFFFF0000), // Your custom error border color
+///       // ... other theme properties
+///     ),
+///   ],
+/// );
+///
+/// // Then apply it to your MaterialApp:
+/// MaterialApp(
+///   theme: customTheme,
+///   // ...
+/// )
+/// ```
+///
+/// ### Accessing Theme Tokens in Widgets
+///
+/// ```dart
+/// final theme = Theme.of(context).extension<VDefaultThemeProps>();
+/// final errorColor = theme?.errorBorderColor ?? VColors.negativeGraphics;
+/// ```
 
 class VAccordionProperties {
   VAccordionProperties({
@@ -70,7 +100,7 @@ class VBannerProperties {
     this.descriptionTextStyle,
     Color? boxShadowColor,
   }) : boxShadowColor =
-            boxShadowColor ?? VColors.defaultSubtle.withOpacity(0.3);
+            boxShadowColor ?? VColors.defaultSubtle.withValues(alpha: 0.3);
 
   final double borderRadius;
   final double boxShadowSpreadRadius;
@@ -315,8 +345,8 @@ class VTabBarProperties {
 class VToggleProperties {
   VToggleProperties({
     this.borderRadius = 8,
-    this.height = 46,
-    this.minimumWidth = 50,
+    this.height = 40,
+    this.minimumWidth = 44,
   });
 
   final double? borderRadius, height, minimumWidth;
@@ -375,6 +405,7 @@ class VDefaultThemeProps extends ThemeExtension<VDefaultThemeProps> {
     this.onActive,
     this.border,
     this.disabled,
+    this.disabledIcon,
     this.accent,
     this.overlay,
     this.transparent,
@@ -420,6 +451,7 @@ class VDefaultThemeProps extends ThemeExtension<VDefaultThemeProps> {
   final Color? onActive;
   final Color? border;
   final Color? disabled;
+  final Color? disabledIcon;
   final Color? accent;
   final Color? overlay;
   final Color? transparent;
@@ -466,6 +498,7 @@ class VDefaultThemeProps extends ThemeExtension<VDefaultThemeProps> {
     Color? onActive,
     Color? border,
     Color? disabled,
+    Color? disabledIcon,
     Color? accent,
     Color? overlay,
     Color? transparent,
@@ -517,6 +550,7 @@ class VDefaultThemeProps extends ThemeExtension<VDefaultThemeProps> {
       onActive: onActive ?? this.onActive,
       border: border ?? this.border,
       disabled: disabled ?? this.disabled,
+      disabledIcon: disabledIcon ?? this.disabledIcon,
       accent: accent ?? this.accent,
       overlay: overlay ?? this.overlay,
       transparent: transparent ?? this.transparent,
@@ -546,6 +580,7 @@ class VDefaultThemeProps extends ThemeExtension<VDefaultThemeProps> {
       onActive: Color.lerp(onActive, other.onActive, t),
       border: Color.lerp(border, other.border, t),
       disabled: Color.lerp(disabled, other.disabled, t),
+      disabledIcon: Color.lerp(disabledIcon, other.disabledIcon, t),
       accent: Color.lerp(accent, other.accent, t),
       overlay: Color.lerp(overlay, other.overlay, t),
       transparent: Color.lerp(transparent, other.transparent, t),
@@ -620,6 +655,7 @@ class VAltThemeProps extends ThemeExtension<VAltThemeProps> {
     this.onActive,
     this.border,
     this.disabled,
+    this.disabledIcon,
     this.accent,
     this.overlay,
     this.transparent,
@@ -664,6 +700,7 @@ class VAltThemeProps extends ThemeExtension<VAltThemeProps> {
   final Color? onActive;
   final Color? border;
   final Color? disabled;
+  final Color? disabledIcon;
   final Color? accent;
   final Color? overlay;
   final Color? transparent;
@@ -710,6 +747,7 @@ class VAltThemeProps extends ThemeExtension<VAltThemeProps> {
     Color? onActive,
     Color? border,
     Color? disabled,
+    Color? disabledIcon,
     Color? accent,
     Color? overlay,
     Color? transparent,
@@ -761,6 +799,7 @@ class VAltThemeProps extends ThemeExtension<VAltThemeProps> {
       onActive: onActive ?? this.onActive,
       border: border ?? this.border,
       disabled: disabled ?? this.disabled,
+      disabledIcon: disabledIcon ?? this.disabledIcon,
       accent: accent ?? this.accent,
       overlay: overlay ?? this.overlay,
       transparent: transparent ?? this.transparent,
@@ -790,6 +829,7 @@ class VAltThemeProps extends ThemeExtension<VAltThemeProps> {
       onActive: Color.lerp(onActive, other.onActive, t),
       border: Color.lerp(border, other.border, t),
       disabled: Color.lerp(disabled, other.disabled, t),
+      disabledIcon: Color.lerp(disabledIcon, other.disabledIcon, t),
       accent: Color.lerp(accent, other.accent, t),
       overlay: Color.lerp(overlay, other.overlay, t),
       transparent: Color.lerp(transparent, other.transparent, t),
@@ -845,6 +885,7 @@ class VMessageColorSet extends ThemeExtension<VMessageColorSet> {
     this.transparent,
     this.subtleText,
     this.defaultText,
+    this.errorBorderColor,
   });
 
   final Color? normalColor;
@@ -868,6 +909,7 @@ class VMessageColorSet extends ThemeExtension<VMessageColorSet> {
   final Color? subtleText;
   final Color? defaultText;
   final Color? surface2;
+  final Color? errorBorderColor;
 
   @override
   ThemeExtension<VMessageColorSet> copyWith({
@@ -892,6 +934,7 @@ class VMessageColorSet extends ThemeExtension<VMessageColorSet> {
     Color? subtleText,
     Color? defaultText,
     Color? surface2,
+    Color? errorBorderColor,
   }) {
     return VMessageColorSet(
       normalColor: normalColor ?? this.normalColor,
@@ -917,6 +960,7 @@ class VMessageColorSet extends ThemeExtension<VMessageColorSet> {
       subtleText: subtleText ?? this.subtleText,
       defaultText: defaultText ?? this.defaultText,
       surface2: surface2 ?? this.surface2,
+      errorBorderColor: errorBorderColor ?? this.errorBorderColor,
     );
   }
 
@@ -952,6 +996,7 @@ class VMessageColorSet extends ThemeExtension<VMessageColorSet> {
       subtleText: Color.lerp(subtleText, other.subtleText, t),
       defaultText: Color.lerp(defaultText, other.defaultText, t),
       surface2: Color.lerp(surface2, other.surface2, t),
+      errorBorderColor: Color.lerp(errorBorderColor, other.errorBorderColor, t),
     );
   }
 }

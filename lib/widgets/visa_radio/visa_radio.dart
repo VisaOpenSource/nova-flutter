@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -137,16 +137,16 @@ class VRadio<T> extends StatelessWidget {
         style?.subtitleTextColorDisabled ?? defaultStyle?.disabled;
     final overlayColor = style?.overlayColor ?? defaultStyle?.surfaceLowlight;
     return VMatRadioListTile<T>(
-      fillColor: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
-        if (states.contains(MaterialState.disabled)) {
+      fillColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+        if (states.contains(WidgetState.disabled)) {
           return fillColorDisabled;
         }
-        if (states.contains(MaterialState.selected)) {
+        if (states.contains(WidgetState.selected)) {
           return fillColorPressed;
         }
         return fillColor;
       }),
-      overlayColor: MaterialStateColor.resolveWith((states) => overlayColor!),
+      overlayColor: WidgetStateColor.resolveWith((states) => overlayColor!),
       title: Transform(
         transform: Matrix4.translationValues(-14, 0, 0),
         child: Text(

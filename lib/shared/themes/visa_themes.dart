@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -370,6 +370,7 @@ class VDef extends VExt {
     onActive: VColors.defaultOnActive,
     border: VColors.defaultBorder,
     disabled: VColors.defaultDisabled,
+    disabledIcon: VColors.disabledIcon,
     accent: VColors.defaultAccent,
     overlay: VColors.defaultOverlay,
     transparent: VColors.transparent,
@@ -475,6 +476,7 @@ class VDef extends VExt {
     onActive: VColors.defaultOnActiveDark,
     border: VColors.defaultBorderDark,
     disabled: VColors.defaultDisabledDark,
+    disabledIcon: VColors.disabledIconDark,
     accent: VColors.defaultAccentDark,
     overlay: VColors.defaultOverlayDark,
     transparent: VColors.transparent,
@@ -582,6 +584,7 @@ class VAlt extends VExt {
     onActive: VColors.alternateOnActive,
     border: VColors.alternateBorder,
     disabled: VColors.alternateDisabled,
+    disabledIcon: VColors.disabledIcon,
     accent: VColors.alternateAccent,
     overlay: VColors.alternateOverlay,
     transparent: VColors.transparent,
@@ -687,6 +690,7 @@ class VAlt extends VExt {
     onActive: VColors.alternateOnActiveDark,
     border: VColors.alternateBorderDark,
     disabled: VColors.alternateDisabledDark,
+    disabledIcon: VColors.disabledIconDark,
     accent: VColors.alternateAccentDark,
     overlay: VColors.alternateOverlayDark,
     transparent: VColors.transparent,
@@ -799,6 +803,7 @@ const messageColorScheme = VMessageColorSet(
   transparent: VColors.transparent,
   subtleText: VColors.defaultTextSubtle,
   defaultText: VColors.defaultText,
+  errorBorderColor: VColors.negativeGraphics,
 );
 
 ThemeData getColorScheme(ThemeExtension<dynamic> scheme) {
@@ -1011,6 +1016,7 @@ class VTextStyle {
     return baseTextStyle.copyWith(
       fontSize: 14.0,
       fontWeight: VFontWeight.regular,
+      height: 1.4286,
     );
   }
 
@@ -1019,6 +1025,7 @@ class VTextStyle {
     return baseTextStyle.copyWith(
       fontSize: 14.0,
       fontWeight: VFontWeight.medium,
+      height: 1.4286,
     );
   }
 

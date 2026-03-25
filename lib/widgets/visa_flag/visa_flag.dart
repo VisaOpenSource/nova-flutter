@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -165,8 +165,8 @@ class VFlag extends StatelessWidget {
         style?.successIconColor ?? messageStyle.positiveText;
     final linkTextColor = style?.linkTextColor ?? defaultStyle.active;
     final linkUnderlineColor = style?.linkUnderlineColor ?? defaultStyle.active;
-    final closeIconColor =
-        style?.closeIconColor ?? defaultStyle.activeSubtle.withOpacity(0.5);
+    final closeIconColor = style?.closeIconColor ??
+        defaultStyle.activeSubtle.withValues(alpha: 0.5);
     final titleTextColor = style?.titleTextColor ?? defaultStyle?.text;
     final descriptionTextColor =
         style?.descriptionTextColor ?? defaultStyle?.text;

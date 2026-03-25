@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -114,6 +114,7 @@ class VCheckboxStyle extends ThemeExtension<VCheckboxStyle> {
 
 // Regular Checkbox tile
 @immutable
+// ignore: must_be_immutable
 class VCheckboxTile extends StatefulWidget {
   VCheckboxTile({
     Key? key,
@@ -174,17 +175,23 @@ class _VCheckboxTileState extends State<VCheckboxTile> {
         widget.style?.fillColorPressed ?? defaultStyle?.disabled;
     final overlayColor =
         widget.style?.overlayColor ?? defaultStyle?.surfaceLowlight;
-    final crossAxisAlignment =
-        widget.style?.crossAxisAlignment ?? CrossAxisAlignment.center;
+    final crossAxisAlignment = widget.style?.crossAxisAlignment ??
+        (widget.subtitle != null
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.center);
+
+    // Calculate content padding: 13px vertical for 46px height without subtitle, 23px for 66px height with subtitle
+    // Horizontal padding: 15px between checkbox and text (13px touch target + 2px space)
+    final verticalPadding = widget.subtitle != null ? 23.0 : 13.0;
 
     return VMatCheckboxListTile(
       // Pressed state is not working in this case since fillColor only resolves with
-      fillColor: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
-        if (states.contains(MaterialState.disabled)) {
+      fillColor:
+          WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.disabled)) {
           return fillColorDisabled;
         }
-        if (states.contains(MaterialState.pressed)) {
+        if (states.contains(WidgetState.pressed)) {
           return fillColorPressed;
         } else {
           return fillColor;
@@ -210,9 +217,10 @@ class _VCheckboxTileState extends State<VCheckboxTile> {
                       widget.isChecked = value;
                     });
             },
-      // To meet the a11y requirement, minimum touch area is 48x48
-      contentPadding: EdgeInsets.symmetric(vertical: 4),
-      overlayColor: MaterialStateColor.resolveWith((states) => overlayColor!),
+      // Height: 46px without subtitle, 66px with subtitle. 15px horizontal gap (13px + 2px)
+      contentPadding:
+          EdgeInsets.symmetric(vertical: verticalPadding, horizontal: 0),
+      overlayColor: WidgetStateColor.resolveWith((states) => overlayColor!),
       side: BorderSide(
           width: 2,
           color: widget.isDisabled ? borderColorDisabled! : borderColor!),
@@ -518,14 +526,14 @@ class VNestedCheckboxTile extends StatelessWidget {
         style?.fillColorPressed ?? defaultStyle?.activePressed;
     final fillColorDisabled = style?.fillColorPressed ?? defaultStyle?.disabled;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 1, 0, 1),
+      padding: const EdgeInsets.only(bottom: 5),
       child: VMatCheckboxListTile(
-        fillColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.disabled)) {
+        fillColor:
+            WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
             return fillColorDisabled;
           }
-          if (states.contains(MaterialState.pressed)) {
+          if (states.contains(WidgetState.pressed)) {
             return fillColorPressed;
           } else {
             return fillColor;
@@ -538,16 +546,18 @@ class VNestedCheckboxTile extends StatelessWidget {
         title: label,
         titleStyle: defaultVTheme.textStyles.uiLabelLarge,
         controlAffinity: ListTileControlAffinity.leading,
+        crossAxisAlignment: CrossAxisAlignment.center,
         value: value,
         onChanged: (_) {
           _onChanged();
         },
         activeColor: fillColor,
+        // Height of 46px (13px vertical padding + 20px checkbox + 13px vertical padding)
         contentPadding: checkboxType == CheckboxType.child
-            ? const EdgeInsets.only(left: 16)
-            : EdgeInsets.zero,
+            ? const EdgeInsets.only(left: 16, top: 13, bottom: 13)
+            : const EdgeInsets.symmetric(vertical: 13),
         side: BorderSide(width: 2, color: borderColor!),
-        focusNode: FocusNode(skipTraversal: true),
+        focusNode: FocusNode(skipTraversal: true, canRequestFocus: false),
       ),
     );
   }
@@ -555,6 +565,7 @@ class VNestedCheckboxTile extends StatelessWidget {
 
 // Checkbox validation tile
 @immutable
+// ignore: must_be_immutable
 class VCheckboxValidationTile extends StatefulWidget {
   VCheckboxValidationTile({
     Key? key,

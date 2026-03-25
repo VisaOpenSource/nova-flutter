@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 // Visa Nova Flutter Demo ListItem Page
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:visa_nova_flutter/shared/size_helper.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
 import 'package:visa_nova_icons_flutter/visa_nova_icons_flutter.dart';
 // Demo app imports
@@ -863,7 +862,7 @@ class VListItemExampleReadOnly extends StatelessWidget {
                 svgIcon: VIcons.securityLow,
                 iconHeight: 24,
                 iconWidth: 24,
-                iconColor: VColors.defaultActiveSubtle.withOpacity(0.50),
+                iconColor: VColors.defaultActiveSubtle.withValues(alpha: 0.50),
               ),
               const SizedBox(
                 width: 5,
@@ -907,7 +906,7 @@ class VListItemExampleDefault extends StatelessWidget {
             svgIcon: VIcons.securityLow,
             iconHeight: 24,
             iconWidth: 24,
-            iconColor: VColors.defaultActiveSubtle.withOpacity(0.50),
+            iconColor: VColors.defaultActiveSubtle.withValues(alpha: 0.50),
           ),
           const SizedBox(
             width: 5,
@@ -1129,7 +1128,7 @@ class VListItemTrailingIcon extends StatelessWidget {
             svgIcon: VIcons.securityLow,
             iconHeight: 24,
             iconWidth: 24,
-            iconColor: VColors.defaultActiveSubtle.withOpacity(0.50),
+            iconColor: VColors.defaultActiveSubtle.withValues(alpha: 0.50),
           ),
         ],
       ),

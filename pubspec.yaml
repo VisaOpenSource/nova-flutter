@@ -1,5 +1,5 @@
 #
-#              © 2025 Visa
+#              © 2025-2026 Visa
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 #
 name: visa_nova_flutter
 description: Nova Flutter is a library of accessible components for the Visa Product Design System. It helps developers create consistent, user-friendly, and accessible Flutter app interfaces.
-version: 8.2.0
-homepage: https://design.visa.com/developing/flutter/
+version: 8.3.1
+homepage: https://design.visa.com/developing/flutter
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -33,7 +33,6 @@ dependencies:
   path: ^1.8.0
   string_scanner: ^1.2.0
   visa_nova_icons_flutter: ^4.1.0
-
   # visa_nova_icons_flutter:
   #   path: nova_icons_flutter/
 

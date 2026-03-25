@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -315,6 +315,7 @@ class VInputStyle extends ThemeExtension<VInputStyle> {
   }
 }
 
+// ignore: must_be_immutable
 class VInput extends StatefulWidget {
   VInput({
     Key? key,
@@ -529,11 +530,13 @@ class _VInputState extends State<VInput> {
     final inputDefaultColor =
         widget.style?.inputDefaultColor ?? defaultStyle.text;
     final errorBorderColor =
-        widget.style?.errorBorderColor ?? messageStyle.negativeGraphics;
+        widget.style?.errorBorderColor ?? messageStyle.errorBorderColor;
     final containerColor =
         widget.style?.containerColor ?? defaultStyle.transparent;
+    // ignore: unused_local_variable
     final bottomBarErrorColor =
         widget.style?.bottomBarErrorColor ?? messageStyle.negativeGraphics;
+    // ignore: unused_local_variable
     final bottomBarColor =
         widget.style?.bottomBarColor ?? defaultStyle.activeHover;
     final counterErrorTextColor =
@@ -566,10 +569,10 @@ class _VInputState extends State<VInput> {
 
     Color? borderColor() {
       if (widget.textLength != null && containerLength > widget.textLength!) {
-        return widget.style?.borderErrorColor ?? messageStyle.negativeText;
+        return widget.style?.borderErrorColor ?? messageStyle.errorBorderColor;
       }
       if (widget.hasError) {
-        return widget.style?.borderErrorColor ?? messageStyle.negativeText;
+        return widget.style?.borderErrorColor ?? messageStyle.errorBorderColor;
       }
       if (!widget.isEnabled) {
         return widget.style?.borderDisabledColor ?? defaultStyle.disabled;
@@ -589,7 +592,8 @@ class _VInputState extends State<VInput> {
             messageStyle.negativeGraphics;
       }
       if (!widget.isEnabled) {
-        return widget.style?.leadingIconDisabledColor ?? defaultStyle.disabled;
+        return widget.style?.leadingIconDisabledColor ??
+            defaultStyle.disabledIcon;
       }
       if (widget.isFocused != null && widget.isFocused!) {
         return widget.style?.leadingIconFocusedColor ?? defaultStyle.active;
@@ -606,7 +610,8 @@ class _VInputState extends State<VInput> {
             messageStyle.negativeGraphics;
       }
       if (!widget.isEnabled) {
-        return widget.style?.trailingIconDisabledColor ?? defaultStyle.disabled;
+        return widget.style?.trailingIconDisabledColor ??
+            defaultStyle.disabledIcon;
       }
       if (widget.isFocused != null && widget.isFocused! ||
           widget.myLocalController!.text.trim().isNotEmpty) {
@@ -750,7 +755,7 @@ class _VInputState extends State<VInput> {
                                 right: 4,
                                 top: 5,
                               ),
-                              thumbColor: thumbColor!.withOpacity(0.5),
+                              thumbColor: thumbColor!.withValues(alpha: 0.5),
                               trackColor: trackColor,
                               trackBorderColor: trackBorderColor,
                               interactive: false,
@@ -1038,7 +1043,7 @@ class _VInputState extends State<VInput> {
                     right: 4,
                     top: 5,
                   ),
-                  thumbColor: thumbColor!.withOpacity(0.5),
+                  thumbColor: thumbColor!.withValues(alpha: 0.5),
                   trackColor: trackColor,
                   trackBorderColor: trackBorderColor,
                   interactive: false,

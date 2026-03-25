@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,21 +22,22 @@ abstract class VColors {
   static const Color defaultActiveHover = Color(0xFF173BE8);
   static const Color defaultActivePressed = Color(0xFF0F2595);
   static const Color defaultSubtle = Color(0xFF8A847F);
-  static Color defaultActiveSubtle = const Color(0xFF000000).withOpacity(0.5);
+  static Color defaultActiveSubtle =
+      const Color(0xFF000000).withValues(alpha: 0.5);
   static const Color defaultSurface1 = Color(0xFFFFFFFF);
   static const Color defaultSurface2 = Color(0xFFF5F5F5);
   static const Color defaultSurface3 = Color(0xFFF0F0F0);
   static Color defaultSurfaceHighlight =
-      const Color(0xFFB3D7FF).withOpacity(0.35);
+      const Color(0xFFB3D7FF).withValues(alpha: 0.35);
   static Color defaultSurfaceLowlight =
-      const Color(0xFFB3D7FF).withOpacity(0.6);
+      const Color(0xFFB3D7FF).withValues(alpha: 0.6);
   static const Color defaultText = Color(0xFF000000);
   static const Color defaultTextSubtle = Color(0xFF4A4A4A);
   static const Color defaultOnActive = Color(0xFFFFFFFF);
-  static Color defaultBorder = const Color(0xFF000000).withOpacity(0.1);
-  static Color defaultDisabled = const Color(0xFF000000).withOpacity(0.2);
+  static Color defaultBorder = const Color(0xFF000000).withValues(alpha: 0.1);
+  static Color defaultDisabled = const Color(0xFF000000).withValues(alpha: 0.2);
   static const Color defaultAccent = Color(0xFF1434CB);
-  static Color defaultOverlay = const Color(0xFF142239).withOpacity(0.4);
+  static Color defaultOverlay = const Color(0xFF142239).withValues(alpha: 0.4);
 
   // Nova Default Dark
   static const Color defaultActiveDark = Color(0xFFBDEAFF);
@@ -44,42 +45,48 @@ abstract class VColors {
   static const Color defaultActivePressedDark = Color(0xFF80D7FF);
   static const Color defaultSubtleDark = Color(0xFF8A847F);
   static Color defaultActiveSubtleDark =
-      const Color(0xFFFFFFFF).withOpacity(0.5);
+      const Color(0xFFFFFFFF).withValues(alpha: 0.5);
   static const Color defaultSurface1Dark = Color(0xFF0A0A0A);
   static const Color defaultSurface2Dark = Color(0xFF1A1A1A);
   static const Color defaultSurface3Dark = Color(0xFF2E2E2E);
   static Color defaultSurfaceHighlightDark =
-      const Color(0xFF000000).withOpacity(0.35);
+      const Color(0xFF000000).withValues(alpha: 0.35);
   static Color defaultSurfaceLowlightDark =
-      const Color(0xFF000000).withOpacity(0.6);
+      const Color(0xFF000000).withValues(alpha: 0.6);
   static const Color defaultTextDark = Color(0xFFFFFFFF);
   static const Color defaultTextSubtleDark = Color(0xFFD9D9D9);
   static const Color defaultOnActiveDark = Color(0xFF2E2E2E);
-  static Color defaultBorderDark = const Color(0xFFFFFFFF).withOpacity(0.1);
-  static Color defaultDisabledDark = const Color(0xFFFFFFFF).withOpacity(0.2);
+  static Color defaultBorderDark =
+      const Color(0xFFFFFFFF).withValues(alpha: 0.1);
+  static Color defaultDisabledDark =
+      const Color(0xFFFFFFFF).withValues(alpha: 0.2);
   static const Color defaultAccentDark = Color(0xFFFCC015);
-  static Color defaultOverlayDark = const Color(0xFF000000).withOpacity(0.4);
+  static Color defaultOverlayDark =
+      const Color(0xFF000000).withValues(alpha: 0.4);
 
   // Nova Alternate
   static const Color alternateActive = Color(0xFFFCC015);
   static const Color alternateActiveHover = Color(0xFFFCC936);
   static const Color alternateActivePressed = Color(0xFFD39D03);
   static const Color alternateSubtle = Color(0xFFD9D9D9);
-  static Color alternateActiveSubtle = const Color(0xFFFFFFFF).withOpacity(0.5);
+  static Color alternateActiveSubtle =
+      const Color(0xFFFFFFFF).withValues(alpha: 0.5);
   static const Color alternateSurface1 = Color(0xFF1434CB);
   static const Color alternateSurface2 = Color(0xFF112CAC);
   static const Color alternateSurface3 = Color(0xFF112AA7);
   static Color alternateSurfaceHighlight =
-      const Color(0xFF021E4C).withOpacity(0.35);
+      const Color(0xFF021E4C).withValues(alpha: 0.35);
   static Color alternateSurfaceLowlight =
-      const Color(0xFF021E4C).withOpacity(0.6);
+      const Color(0xFF021E4C).withValues(alpha: 0.6);
   static const Color alternateText = Color(0xFFFFFFFF);
   static const Color alternateTextSubtle = Color(0xFFD9D9D9);
   static const Color alternateOnActive = Color(0xFF021E4C);
-  static Color alternateBorder = const Color(0xFFFFFFFF).withOpacity(0.1);
-  static Color alternateDisabled = const Color(0xFFFFFFFF).withOpacity(0.2);
+  static Color alternateBorder = const Color(0xFFFFFFFF).withValues(alpha: 0.1);
+  static Color alternateDisabled =
+      const Color(0xFFFFFFFF).withValues(alpha: 0.2);
   static const Color alternateAccent = Color(0xFFFFFFFF);
-  static Color alternateOverlay = const Color(0xFF000000).withOpacity(0.4);
+  static Color alternateOverlay =
+      const Color(0xFF000000).withValues(alpha: 0.4);
 
   // Nova Alternate Dark
   static const Color alternateActiveDark = Color(0xFFBDEAFF);
@@ -87,21 +94,24 @@ abstract class VColors {
   static const Color alternateActivePressedDark = Color(0xFF80D7FF);
   static const Color alternateSubtleDark = Color(0xFFD9D9D9);
   static Color alternateActiveSubtleDark =
-      const Color(0xFFFFFFFF).withOpacity(0.5);
+      const Color(0xFFFFFFFF).withValues(alpha: 0.5);
   static const Color alternateSurface1Dark = Color(0xFF2E2E2E);
   static const Color alternateSurface2Dark = Color(0xFF1A1A1A);
   static const Color alternateSurface3Dark = Color(0xFF0A0A0A);
   static Color alternateSurfaceHighlightDark =
-      const Color(0xFF000000).withOpacity(0.35);
+      const Color(0xFF000000).withValues(alpha: 0.35);
   static Color alternateSurfaceLowlightDark =
-      const Color(0xFF000000).withOpacity(0.6);
+      const Color(0xFF000000).withValues(alpha: 0.6);
   static const Color alternateTextDark = Color(0xFFFFFFFF);
   static const Color alternateTextSubtleDark = Color(0xFFD9D9D9);
   static const Color alternateOnActiveDark = Color(0xFF0A0A0A);
-  static Color alternateBorderDark = const Color(0xFFFFFFFF).withOpacity(0.1);
-  static Color alternateDisabledDark = const Color(0xFFFFFFFF).withOpacity(0.2);
+  static Color alternateBorderDark =
+      const Color(0xFFFFFFFF).withValues(alpha: 0.1);
+  static Color alternateDisabledDark =
+      const Color(0xFFFFFFFF).withValues(alpha: 0.2);
   static const Color alternateAccentDark = Color(0xFFFCC015);
-  static Color alternateOverlayDark = const Color(0xFF000000).withOpacity(0.4);
+  static Color alternateOverlayDark =
+      const Color(0xFF000000).withValues(alpha: 0.4);
 
   // Nova Positive
   static const Color positiveSurface = Color(0xFFD6F2C4);
@@ -136,4 +146,17 @@ abstract class VColors {
   static const Color disabled = Color(0xFFCACACA);
   static const Color primaryPressed = Color(0xFF132482);
   static const Color offPressed = Color(0xFFD7EAFF);
+
+  // Toggle Switch - WCAG compliant colors at full opacity
+  static const Color toggleTrackDisabledOff = Color(0xFF757575); // Light mode
+  static const Color toggleTrackDisabledOffDark =
+      Color(0xFF7A7A7A); // Dark mode
+  static const Color toggleTrackDisabledOn = Color(0xFF757575); // Light mode
+  static const Color toggleTrackDisabledOnDark = Color(0xFF7A7A7A); // Dark mode
+  static const Color toggleThumbDisabled = Color(0xFFFFFFFF); // Light mode
+  static const Color toggleThumbDisabledDark = Color(0xFFD9D9D9); // Dark mode
+
+  // Disabled Icons - WCAG compliant colors at full opacity
+  static const Color disabledIcon = Color(0xFF757575); // Light mode
+  static const Color disabledIconDark = Color(0xFF7A7A7A); // Dark mode
 }

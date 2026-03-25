@@ -1,3 +1,20 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
@@ -51,7 +68,7 @@ void main() {
       const MaterialApp(
         home: Scaffold(
           body: VWizard(
-            completedSteps: [],
+            completedSteps: [true, false, false, false, false],
             currentStep: 2,
             totalSteps: 5,
           ),
@@ -73,7 +90,7 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: VWizard(
-            completedSteps: const [],
+            completedSteps: const [true, false, false, false, false],
             vExt: VAlt(),
             currentStep: 2,
             totalSteps: 5,
@@ -88,5 +105,111 @@ void main() {
 
     // Verify the current step
     expect(find.text('2'), findsOneWidget);
+  });
+
+  testWidgets('VWizard with error on current step',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: VWizard(
+            completedSteps: [true, false, false],
+            currentStep: 2,
+            totalSteps: 3,
+            hasError: true,
+          ),
+        ),
+      ),
+    );
+
+    // Verify the widget renders
+    expect(find.byType(VWizard), findsOneWidget);
+    // Error step should show error icon semantics
+    expect(find.bySemanticsLabel('Error, step 2 of 3'), findsOneWidget);
+  });
+
+  testWidgets('VWizard with completed current step',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: VWizard(
+            completedSteps: [true, true, false],
+            currentStep: 2,
+            totalSteps: 3,
+          ),
+        ),
+      ),
+    );
+
+    // Verify the widget renders with a completed current step (checkmark)
+    expect(find.byType(VWizard), findsOneWidget);
+    expect(find.bySemanticsLabel('Current step, completed, step 2 of 3'),
+        findsOneWidget);
+  });
+
+  testWidgets('VWizard dark mode', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData(brightness: Brightness.dark),
+        home: const Scaffold(
+          body: VWizard(
+            completedSteps: [true, false, false],
+            currentStep: 2,
+            totalSteps: 3,
+          ),
+        ),
+      ),
+    );
+
+    expect(find.byType(VWizard), findsOneWidget);
+    expect(find.text('2'), findsOneWidget);
+  });
+
+  testWidgets('VWizard dark mode alt', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData(brightness: Brightness.dark),
+        home: Scaffold(
+          body: VWizard(
+            completedSteps: const [true, false, false],
+            currentStep: 2,
+            totalSteps: 3,
+            vExt: VAlt(),
+          ),
+        ),
+      ),
+    );
+
+    expect(find.byType(VWizard), findsOneWidget);
+  });
+
+  //! This is Wizard golden test
+
+  testWidgets('Wizard golden(snapshot) testing', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      RepaintBoundary(
+        child: MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: 400,
+                child: VWizard(
+                  completedSteps: const [true, true, false, false, false],
+                  currentStep: 2,
+                  totalSteps: 5,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await expectLater(
+      find.byType(VWizard),
+      matchesGoldenFile('goldens/wizard.png'),
+    );
   });
 }

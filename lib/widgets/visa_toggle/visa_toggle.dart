@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -116,6 +116,7 @@ class VToggle extends StatefulWidget {
     this.axis = Axis.horizontal,
     this.onPressed,
     this.isDisabled = false,
+    this.isMultiSelect = false,
     this.toggleTextStyle,
     this.style,
     this.vExt,
@@ -127,6 +128,9 @@ class VToggle extends StatefulWidget {
   final List<Widget> toggleListItems;
   final Function(int)? onPressed;
   final bool isDisabled;
+
+  /// When true, multiple items can be selected. When false (default), only one item can be selected at a time.
+  final bool isMultiSelect;
   final TextStyle? toggleTextStyle;
   final VToggleStyle? style;
   final VExt? vExt;
@@ -140,6 +144,78 @@ class VToggle extends StatefulWidget {
 }
 
 class _VToggleState extends State<VToggle> {
+  /// Applies appropriate text styles to toggle items based on their selection state
+  Widget _applyToggleTextStyle(Widget child, int index) {
+    // If the child is already a Text widget, wrap it with the appropriate style
+    if (child is Text) {
+      final isSelected = widget.isSelected[index];
+      final isDisabled = widget.isDisabled ||
+          (widget.disabledItems != null && widget.disabledItems![index]);
+
+      TextStyle style;
+      Color textColor;
+
+      if (isSelected) {
+        // Active labels: size "label-active" and color "text"
+        style = defaultVTheme.textStyles.uiLabelActive;
+        textColor = isDisabled ? VColors.disabled : VColors.defaultText;
+      } else {
+        // Button labels: size "label" and color "text"
+        style = defaultVTheme.textStyles.uiLabel;
+        textColor = isDisabled ? VColors.disabled : VColors.defaultText;
+      }
+
+      return Text(
+        child.data!,
+        style: style.copyWith(
+          color: textColor,
+          // Ensure consistent vertical alignment between regular and medium weights
+          leadingDistribution: TextLeadingDistribution.even,
+        ),
+        textAlign: child.textAlign,
+        overflow: child.overflow,
+        softWrap: child.softWrap,
+        maxLines: child.maxLines,
+        semanticsLabel: child.semanticsLabel,
+        textHeightBehavior: const TextHeightBehavior(
+          leadingDistribution: TextLeadingDistribution.even,
+        ),
+      );
+    }
+
+    // For Row/Column widgets containing Text widgets, recursively apply styles
+    if (child is Row) {
+      return Row(
+        mainAxisAlignment: child.mainAxisAlignment,
+        crossAxisAlignment: child.crossAxisAlignment,
+        mainAxisSize: child.mainAxisSize,
+        textDirection: child.textDirection,
+        verticalDirection: child.verticalDirection,
+        textBaseline: child.textBaseline,
+        children: child.children
+            .map((childWidget) => _applyToggleTextStyle(childWidget, index))
+            .toList(),
+      );
+    }
+
+    if (child is Column) {
+      return Column(
+        mainAxisAlignment: child.mainAxisAlignment,
+        crossAxisAlignment: child.crossAxisAlignment,
+        mainAxisSize: child.mainAxisSize,
+        textDirection: child.textDirection,
+        verticalDirection: child.verticalDirection,
+        textBaseline: child.textBaseline,
+        children: child.children
+            .map((childWidget) => _applyToggleTextStyle(childWidget, index))
+            .toList(),
+      );
+    }
+
+    // For other widgets, return as-is
+    return child;
+  }
+
   @override
   Widget build(BuildContext context) {
     final disabledItems = widget.disabledItems ??
@@ -188,33 +264,45 @@ class _VToggleState extends State<VToggle> {
               padding: const EdgeInsets.only(bottom: 4.0),
               child: widget.topLabel == null
                   ? const SizedBox.shrink()
-                  : widget.topLabel!,
+                  : DefaultTextStyle(
+                      // Group label: size "label" and color "text-subtle"
+                      style: defaultVTheme.textStyles.uiLabel.copyWith(
+                        color: defaultStyle.textSubtle,
+                      ),
+                      child: widget.topLabel!,
+                    ),
             ),
           ),
           ToggleButtons(
-            splashColor: pressedSplashColor,
+            splashColor:
+                widget.isDisabled ? Colors.transparent : pressedSplashColor,
+            highlightColor:
+                widget.isDisabled ? Colors.transparent : pressedSplashColor,
+            hoverColor: widget.isDisabled ? Colors.transparent : null,
+            focusColor: widget.isDisabled ? Colors.transparent : null,
             direction: widget.axis,
             borderRadius: BorderRadius.all(
               Radius.circular(borderRadius!),
             ),
             selectedBorderColor: selectedBorderColor,
             borderColor: unselectedBorderColor,
-            fillColor: toggleFillColor,
+            fillColor: widget.isDisabled ? Colors.transparent : toggleFillColor,
             disabledBorderColor: disabledBorderColor,
+            disabledColor: Colors.transparent,
             isSelected: widget.isSelected,
             constraints: BoxConstraints(minHeight: height),
-            onPressed: widget.onPressed == null
+            onPressed: widget.onPressed == null || widget.isDisabled
                 ? null
                 : (int index) {
                     if (!disabledItems[index]) {
                       setState(() {
-                        for (int buttonIndex = 0;
-                            buttonIndex < widget.isSelected.length;
-                            buttonIndex++) {
-                          if (buttonIndex == index) {
-                            widget.isSelected[buttonIndex] = true;
-                          } else {
-                            widget.isSelected[buttonIndex] = false;
+                        if (widget.isMultiSelect) {
+                          // Multi-select: toggle the pressed item
+                          widget.isSelected[index] = !widget.isSelected[index];
+                        } else {
+                          // Single-select: deselect all others, select the pressed item
+                          for (int i = 0; i < widget.isSelected.length; i++) {
+                            widget.isSelected[i] = i == index;
                           }
                         }
                       });
@@ -222,10 +310,12 @@ class _VToggleState extends State<VToggle> {
                     }
                   },
             children: List.generate(widget.toggleListItems.length, (index) {
-              return IntrinsicWidth(
+              final isItemDisabled = widget.isDisabled || disabledItems[index];
+              final content = IntrinsicWidth(
                 child: Container(
                   constraints: BoxConstraints(
                     minWidth: minimumWidth!,
+                    minHeight: minimumWidth!,
                   ),
                   decoration: widget.isSelected[index]
                       ? BoxDecoration(
@@ -273,21 +363,59 @@ class _VToggleState extends State<VToggle> {
                                     : 0),
                           ),
                         )
-                      : null,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 10,
+                      : BoxDecoration(
+                          // Transparent bottom border to maintain consistent height with selected items
+                          border: const Border(
+                            bottom: BorderSide(
+                              width: 2,
+                              color: Colors.transparent,
+                            ),
+                          ),
+                          borderRadius: BorderRadius.only(
+                            topLeft:
+                                Radius.circular(index == 0 ? borderRadius! : 0),
+                            topRight: Radius.circular(
+                                index == widget.toggleListItems.length - 1
+                                    ? borderRadius!
+                                    : 0),
+                            bottomLeft:
+                                Radius.circular(index == 0 ? borderRadius! : 0),
+                            bottomRight: Radius.circular(
+                                index == widget.toggleListItems.length - 1
+                                    ? borderRadius!
+                                    : 0),
+                          ),
                         ),
-                        child: widget.toggleListItems[index],
-                      ),
-                    ],
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: _applyToggleTextStyle(
+                          widget.toggleListItems[index], index),
+                    ),
                   ),
                 ),
               );
+
+              // For disabled items, wrap in a Stack with an overlay to block splash effect
+              if (isItemDisabled) {
+                return Stack(
+                  children: [
+                    content,
+                    Positioned.fill(
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () {}, // Absorb tap
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }
+              return content;
             }),
           ),
         ],

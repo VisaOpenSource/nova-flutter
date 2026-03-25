@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import 'package:demo/patterns/chat_pattern/chats.dart';
 import 'package:demo/utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
-import 'package:visa_nova_icons_flutter/visa_nova_icons_flutter.dart';
 
 class ChatLandingPage extends StatefulWidget {
   const ChatLandingPage({super.key});

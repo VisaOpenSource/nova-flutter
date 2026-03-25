@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -46,7 +46,6 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
 
 // Examples can assume:
@@ -327,7 +326,7 @@ class VMatCheckboxListTile extends StatefulWidget {
   /// {@macro flutter.widgets.Focus.focusNode}
   final FocusNode? focusNode;
 
-  final MaterialStateProperty<Color?>? fillColor;
+  final WidgetStateProperty<Color?>? fillColor;
 
   /// {@macro flutter.material.ListTile.enableFeedback}
   ///
@@ -336,9 +335,10 @@ class VMatCheckboxListTile extends StatefulWidget {
   ///  * [Feedback] for providing platform-specific feedback to certain actions.
   final bool? enableFeedback;
 
-  final MaterialStateProperty<Color?>? overlayColor;
+  final WidgetStateProperty<Color?>? overlayColor;
 
   @override
+  // ignore: library_private_types_in_public_api
   _VMatCheckboxListTileState createState() => _VMatCheckboxListTileState();
 }
 
@@ -399,14 +399,7 @@ class _VMatCheckboxListTileState extends State<VMatCheckboxListTile> {
         break;
       case ListTileControlAffinity.trailing:
       case ListTileControlAffinity.platform:
-        leading = Container(
-          margin: const EdgeInsets.only(
-            right: 8,
-          ),
-          child: Center(
-            child: widget.secondary,
-          ),
-        );
+        leading = widget.secondary;
         trailing = control;
         break;
     }
@@ -448,11 +441,8 @@ class _VMatCheckboxListTileState extends State<VMatCheckboxListTile> {
 
           break;
         case CrossAxisAlignment.center:
-        // TODO: Handle this case.
         case CrossAxisAlignment.stretch:
-        // TODO: Handle this case.
         case CrossAxisAlignment.baseline:
-        // TODO: Handle this case.
       }
 
       return Theme(
@@ -464,13 +454,28 @@ class _VMatCheckboxListTileState extends State<VMatCheckboxListTile> {
             selectedColor:
                 widget.activeColor ?? Theme.of(context).colorScheme.secondary,
             child: InkWell(
+              canRequestFocus: false,
               onTap: widget.onChanged != null ? _handleValueChange : null,
               child: Padding(
                 padding: widget.contentPadding!,
                 child: Row(
-                    crossAxisAlignment: widget.crossAxisAlignment,
+                    crossAxisAlignment: widget.controlAffinity ==
+                            ListTileControlAffinity.trailing
+                        ? CrossAxisAlignment.center
+                        : widget.crossAxisAlignment,
                     children: [
-                      Transform.translate(offset: offset, child: leading!),
+                      // For trailing checkbox, icon should be centered; for leading checkbox, use offset
+                      if (widget.controlAffinity ==
+                              ListTileControlAffinity.trailing &&
+                          widget.secondary != null)
+                        leading!
+                      else
+                        Transform.translate(offset: offset, child: leading!),
+                      SizedBox(
+                          width: widget.controlAffinity ==
+                                  ListTileControlAffinity.leading
+                              ? 15
+                              : 8),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -490,7 +495,7 @@ class _VMatCheckboxListTileState extends State<VMatCheckboxListTile> {
                                 height: 2,
                               ),
                               DefaultTextStyle.merge(
-                                style: defaultVTheme.textStyles.uiLabel
+                                style: defaultVTheme.textStyles.uiLabelSmall
                                     .copyWith(
                                         height: 1,
                                         color: VColors.defaultTextSubtle),
@@ -504,7 +509,19 @@ class _VMatCheckboxListTileState extends State<VMatCheckboxListTile> {
                           ],
                         ),
                       ),
-                      if (trailing != null) trailing
+                      // For trailing checkbox, align checkbox to start (top) of text
+                      if (trailing != null)
+                        widget.subtitle != null &&
+                                widget.controlAffinity ==
+                                    ListTileControlAffinity.trailing
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Transform.translate(
+                                      offset: offset, child: trailing)
+                                ],
+                              )
+                            : trailing
                     ]),
               ),
             ),

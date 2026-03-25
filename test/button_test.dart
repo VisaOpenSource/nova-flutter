@@ -1,3 +1,20 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
@@ -290,11 +307,11 @@ void main() {
     expect(button.style?.overlayColor?.resolve({}), null);
 
     // Check color when button is pressed
-    expect(button.style?.overlayColor?.resolve({MaterialState.pressed}),
+    expect(button.style?.overlayColor?.resolve({WidgetState.pressed}),
         Colors.red);
 
     // Check color when button is focused
-    expect(button.style?.overlayColor?.resolve({MaterialState.focused}),
+    expect(button.style?.overlayColor?.resolve({WidgetState.focused}),
         Colors.blue);
   });
 
@@ -328,21 +345,21 @@ void main() {
     final button = tester.widget<ElevatedButton>(buttonFinder);
 
     // Check properties
-    expect(button.style?.backgroundColor?.resolve({MaterialState.disabled}),
+    expect(button.style?.backgroundColor?.resolve({WidgetState.disabled}),
         Colors.grey);
     expect(button.style?.backgroundColor?.resolve({}), Colors.red);
-    expect(button.style?.foregroundColor?.resolve({MaterialState.disabled}),
+    expect(button.style?.foregroundColor?.resolve({WidgetState.disabled}),
         Colors.black);
     expect(button.style?.foregroundColor?.resolve({}), Colors.white);
-    expect(button.style?.overlayColor?.resolve({MaterialState.pressed}),
+    expect(button.style?.overlayColor?.resolve({WidgetState.pressed}),
         Colors.blue);
-    expect(button.style?.overlayColor?.resolve({MaterialState.focused}),
+    expect(button.style?.overlayColor?.resolve({WidgetState.focused}),
         Colors.green);
     expect(button.style?.shadowColor?.resolve({}), Colors.yellow);
     expect(button.style?.elevation?.resolve({}), 5);
     expect(button.style?.minimumSize?.resolve({}), const Size(50, 50));
     expect(
-        button.style?.shape?.resolve({MaterialState.disabled}),
+        button.style?.shape?.resolve({WidgetState.disabled}),
         isA<CircleBorder>().having((b) => b.side, 'side',
             const BorderSide(color: Colors.purple, width: 2)));
     expect(
@@ -373,7 +390,7 @@ void main() {
     // Check if borderSideActive and borderSideDisabled are BorderSide.none
     expect(button.style?.shape?.resolve({}),
         isA<CircleBorder>().having((b) => b.side, 'side', BorderSide.none));
-    expect(button.style?.shape?.resolve({MaterialState.disabled}),
+    expect(button.style?.shape?.resolve({WidgetState.disabled}),
         isA<CircleBorder>().having((b) => b.side, 'side', BorderSide.none));
   });
 }

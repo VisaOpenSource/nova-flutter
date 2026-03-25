@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
 //
 // Visa Nova Flutter Demo Button Page
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:visa_nova_flutter/shared/themes/themes.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
 import 'package:visa_nova_icons_flutter/visa_nova_icons_flutter.dart';
 // Demo app imports
@@ -160,6 +158,19 @@ class Buttons extends StatelessWidget {
                         copyLabel: "Primary text button with icon",
                       ),
                       const Divider(),
+                      const SemanticHeader(
+                        title: "Large primary text button",
+                      ),
+                      smallHeight(),
+                      const VButtonPrimaryLarge(),
+                      smallHeight(),
+                      const ShowCodeAccordion(
+                        codeSegment: CodeSegments.VButtonPrimaryLarge,
+                        componentName: 'Button',
+                        exampleName: 'Large_Primary_Text_Button',
+                        copyLabel: "Large primary text button",
+                      ),
+                      const Divider(),
                     ]),
 
                 /// Secondary Buttons
@@ -265,6 +276,19 @@ class Buttons extends StatelessWidget {
                         copyLabel: "Secondary text button with icon",
                       ),
                       const Divider(),
+                      const SemanticHeader(
+                        title: "Large secondary text button",
+                      ),
+                      smallHeight(),
+                      const VButtonSecondaryLarge(),
+                      smallHeight(),
+                      const ShowCodeAccordion(
+                        codeSegment: CodeSegments.VButtonSecondaryLarge,
+                        componentName: 'Button',
+                        exampleName: 'Large_Secondary_Text_Button',
+                        copyLabel: "Large secondary text button",
+                      ),
+                      const Divider(),
                     ]),
 
                 /// Tertiary Buttons
@@ -362,6 +386,19 @@ class Buttons extends StatelessWidget {
                       copyLabel: "Tertiary text button with icon",
                     ),
                     const Divider(),
+                    const SemanticHeader(
+                      title: "Large tertiary text button",
+                    ),
+                    smallHeight(),
+                    const VButtonTertiaryLarge(),
+                    smallHeight(),
+                    const ShowCodeAccordion(
+                      codeSegment: CodeSegments.VButtonTertiaryLarge,
+                      componentName: 'Button',
+                      exampleName: 'Large_Tertiary_Text_Button',
+                      copyLabel: "Large tertiary text button",
+                    ),
+                    const Divider(),
 
                     /// Destructive Buttons
                     Column(
@@ -438,6 +475,52 @@ class Buttons extends StatelessWidget {
                         ),
                         smallHeight(),
                         const SemanticHeader(
+                          title: "Default primary icon button",
+                        ),
+                        smallHeight(),
+                        VPrimaryIconButtonDefault(shareIcon: shareIcon),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VPrimaryIconButtonDefault,
+                          componentName: 'Button',
+                          exampleName: 'Default_Primary_Icon_Button',
+                          copyLabel: "Default primary icon button",
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Alternate primary icon button",
+                        ),
+                        smallHeight(),
+                        CustomPaint(
+                          painter: CheckeredPatternDark(),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: VPrimaryIconButtonAlternate(
+                                      shareIcon: shareIcon),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        largeHeight(),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VPrimaryIconButtonAlternate,
+                          componentName: 'Button',
+                          exampleName: 'Alternate_Primary_Icon_Button',
+                          copyLabel: "Alternate primary icon button",
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
                           title: "Primary icon button with label",
                         ),
                         smallHeight(),
@@ -463,6 +546,19 @@ class Buttons extends StatelessWidget {
                           exampleName: 'Primary_Disabled_Button_With_Icon',
                           copyLabel: "Primary icon button",
                         ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Large primary icon button",
+                        ),
+                        smallHeight(),
+                        VPrimaryIconButtonLarge(shareIcon: shareIcon),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VPrimaryIconButtonLarge,
+                          componentName: 'Button',
+                          exampleName: 'Large_Primary_Icon_Button',
+                          copyLabel: "Large primary icon button",
+                        ),
                         const Divider(),
                       ],
                     ),
@@ -479,6 +575,53 @@ class Buttons extends StatelessWidget {
                                       Brightness.dark
                                   ? VColors.defaultTextDark
                                   : VColors.defaultText),
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Default secondary icon button",
+                        ),
+                        smallHeight(),
+                        VSecondaryIconButtonDefault(shareIcon: shareIcon),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VSecondaryIconButtonDefault,
+                          componentName: 'Button',
+                          exampleName: 'Default_Secondary_Icon_Button',
+                          copyLabel: "Default secondary icon button",
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Alternate secondary icon button",
+                        ),
+                        smallHeight(),
+                        CustomPaint(
+                          painter: CheckeredPatternDark(),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: VSecondaryIconButtonAlternate(
+                                      shareIcon: shareIcon),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        largeHeight(),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment:
+                              CodeSegments.VSecondaryIconButtonAlternate,
+                          componentName: 'Button',
+                          exampleName: 'Alternate_Secondary_Icon_Button',
+                          copyLabel: "Alternate secondary icon button",
                         ),
                         smallHeight(),
                         const SemanticHeader(
@@ -506,6 +649,227 @@ class Buttons extends StatelessWidget {
                           exampleName: 'Secondary_Disabled_Button_With_Icon',
                           copyLabel: "Secondary icon button",
                         ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Large secondary icon button",
+                        ),
+                        smallHeight(),
+                        VSecondaryIconButtonLarge(shareIcon: shareIcon),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VSecondaryIconButtonLarge,
+                          componentName: 'Button',
+                          exampleName: 'Large_Secondary_Icon_Button',
+                          copyLabel: "Large secondary icon button",
+                        ),
+                      ],
+                    ),
+
+                    /// UI icon buttons
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SemanticHeader(
+                          title: "UI icon buttons",
+                          style: defaultVTheme.textStyles.headline2.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? VColors.defaultTextDark
+                                  : VColors.defaultText),
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Small UI icon button",
+                        ),
+                        smallHeight(),
+                        VUIIconButtonSmall(shareIcon: shareIcon),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VUIIconButtonSmall,
+                          componentName: 'Button',
+                          exampleName: 'Small_UI_Icon_Button',
+                          copyLabel: "Small UI icon button",
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Medium UI icon button",
+                        ),
+                        smallHeight(),
+                        VUIIconButtonMedium(shareIcon: shareIcon),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VUIIconButtonMedium,
+                          componentName: 'Button',
+                          exampleName: 'Medium_UI_Icon_Button',
+                          copyLabel: "Medium UI icon button",
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Large UI icon button",
+                        ),
+                        smallHeight(),
+                        VUIIconButtonLarge(shareIcon: shareIcon),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VUIIconButtonLarge,
+                          componentName: 'Button',
+                          exampleName: 'Large_UI_Icon_Button',
+                          copyLabel: "Large UI icon button",
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Subtle UI icon button",
+                        ),
+                        smallHeight(),
+                        VUIIconButtonSubtle(shareIcon: shareIcon),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VUIIconButtonSubtle,
+                          componentName: 'Button',
+                          exampleName: 'Subtle_UI_Icon_Button',
+                          copyLabel: "Subtle UI icon button",
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Large UI icon button with badge",
+                        ),
+                        smallHeight(),
+                        VUIIconButtonLargeBadge(shareIcon: shareIcon),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VUIIconButtonLargeBadge,
+                          componentName: 'Button',
+                          exampleName: 'Large_UI_Icon_Button_With_Badge',
+                          copyLabel: "Large UI icon button with badge",
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Alternate UI icon button",
+                        ),
+                        smallHeight(),
+                        CustomPaint(
+                          painter: CheckeredPatternDark(),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: VUIIconButtonAlternate(
+                                      shareIcon: shareIcon),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        largeHeight(),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VUIIconButtonAlternate,
+                          componentName: 'Button',
+                          exampleName: 'Alternate_UI_Icon_Button',
+                          copyLabel: "Alternate UI icon button",
+                        ),
+                        const Divider(),
+                      ],
+                    ),
+
+                    /// Stacked icon buttons
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SemanticHeader(
+                          title: "Stacked icon buttons",
+                          style: defaultVTheme.textStyles.headline2.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? VColors.defaultTextDark
+                                  : VColors.defaultText),
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Default stacked icon button",
+                        ),
+                        smallHeight(),
+                        VStackedIconButtonDefault(shareIcon: shareIcon),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VStackedIconButtonDefault,
+                          componentName: 'Button',
+                          exampleName: 'Default_Stacked_Icon_Button',
+                          copyLabel: "Default stacked icon button",
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Alternate stacked icon button",
+                        ),
+                        smallHeight(),
+                        CustomPaint(
+                          painter: CheckeredPatternDark(),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: VStackedIconButtonAlternate(
+                                      shareIcon: shareIcon),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        largeHeight(),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VStackedIconButtonAlternate,
+                          componentName: 'Button',
+                          exampleName: 'Alternate_Stacked_Icon_Button',
+                          copyLabel: "Alternate stacked icon button",
+                        ),
+                        const Divider(),
+                      ],
+                    ),
+
+                    /// Button coded as link
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SemanticHeader(
+                          title: "Button coded as a link",
+                          style: defaultVTheme.textStyles.headline2.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? VColors.defaultTextDark
+                                  : VColors.defaultText),
+                        ),
+                        smallHeight(),
+                        const SemanticHeader(
+                          title: "Button coded as a link",
+                        ),
+                        smallHeight(),
+                        const VButtonCodedAsLink(),
+                        smallHeight(),
+                        const ShowCodeAccordion(
+                          codeSegment: CodeSegments.VButtonCodedAsLink,
+                          componentName: 'Button',
+                          exampleName: 'Button_Coded_As_Link',
+                          copyLabel: "Button coded as link",
+                        ),
+                        const Divider(),
                       ],
                     ),
                   ],
@@ -870,7 +1234,7 @@ class VSecondaryIconButtonDisabled extends StatelessWidget {
           ),
           onPressed: null,
           icon: const VIcon(
-            svgIcon: VIcons.shareTiny,
+            svgIcon: VIcons.connectTiny,
             iconColor: VColors.disabled,
           ),
         ),
@@ -921,7 +1285,7 @@ class VSecondaryIconButton extends StatelessWidget {
           ),
           onPressed: () {},
           icon: const VIcon(
-            svgIcon: VIcons.shareTiny,
+            svgIcon: VIcons.connectTiny,
             iconColor: VColors.defaultActive,
           ),
         ),
@@ -1187,7 +1551,9 @@ class VisaPrimaryIconButtonDisabled extends StatelessWidget {
         buttonVGap,
         Text(
           "Action",
-          style: defaultVTheme.textStyles.uiLabelSmall,
+          style: defaultVTheme.textStyles.uiLabelSmall.copyWith(
+            color: VColors.defaultDisabled,
+          ),
         )
       ],
     );
@@ -1344,6 +1710,667 @@ class VButtonPrimary extends StatelessWidget {
         ),
       ),
       onPressed: () {},
+    );
+  }
+}
+// END
+
+// BEGIN VButtonPrimaryLarge
+class VButtonPrimaryLarge extends StatelessWidget {
+  const VButtonPrimaryLarge({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VButton(
+      child: Text(
+        "Primary action",
+        style: defaultVTheme.textStyles.buttonLarge.copyWith(
+          color: VColors.defaultSurface1,
+        ),
+      ),
+      style: const VButtonStyle(
+        minimumSize: Size(129, 56),
+      ),
+      onPressed: () {},
+    );
+  }
+}
+// END
+
+// BEGIN VButtonSecondaryLarge
+class VButtonSecondaryLarge extends StatelessWidget {
+  const VButtonSecondaryLarge({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VButton(
+      child: Text(
+        "Secondary action",
+        style: defaultVTheme.textStyles.buttonLarge.copyWith(
+          color: VColors.defaultActive,
+        ),
+      ),
+      style: VButtonStyle(
+        minimumSize: const Size(129, 56),
+        backgroundColorActive: VColors.transparent,
+        backgroundColorDisabled: VColors.transparent,
+        foregroundColorActive: VColors.defaultActive,
+        foregroundColorDisabled: VColors.disabled,
+        overlayColorFocused: VColors.defaultSurfaceLowlight,
+        overlayColorPressed: VColors.defaultSurfaceLowlight,
+        borderSideActive: const BorderSide(
+          color: VColors.defaultActive,
+          style: BorderStyle.solid,
+        ),
+        borderSideDisabled: BorderSide(
+          color: VColors.defaultDisabled,
+          style: BorderStyle.solid,
+        ),
+      ),
+      onPressed: () {},
+    );
+  }
+}
+// END
+
+// BEGIN VButtonTertiaryLarge
+class VButtonTertiaryLarge extends StatelessWidget {
+  const VButtonTertiaryLarge({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VButton(
+      style: VButtonStyle(
+        minimumSize: const Size(129, 56),
+        backgroundColorActive: Colors.transparent,
+        backgroundColorDisabled: Colors.transparent,
+        foregroundColorActive: VColors.defaultActive,
+        foregroundColorDisabled: VColors.defaultDisabled,
+        overlayColorPressed: VColors.defaultSurfaceLowlight,
+      ),
+      child: Text(
+        "Tertiary action",
+        style: defaultVTheme.textStyles.buttonLarge.copyWith(
+          color: VColors.defaultActive,
+        ),
+      ),
+      onPressed: () {},
+    );
+  }
+}
+// END
+
+// BEGIN VPrimaryIconButtonDefault
+class VPrimaryIconButtonDefault extends StatelessWidget {
+  const VPrimaryIconButtonDefault({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VIconButton(
+      style: const VButtonStyle(
+        minimumSize: Size(46, 46),
+      ),
+      onPressed: () {},
+      icon: const VIcon(
+        svgIcon: VIcons.shareTinyAlternate,
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VPrimaryIconButtonAlternate
+class VPrimaryIconButtonAlternate extends StatelessWidget {
+  const VPrimaryIconButtonAlternate({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VIconButton(
+      style: const VButtonStyle(
+        minimumSize: Size(46, 46),
+        backgroundColorActive: VColors.alternateActive,
+      ),
+      vExt: VAlt(),
+      onPressed: () {},
+      icon: const VIcon(
+        svgIcon: VIcons.shareTiny,
+        iconColor: VColors.alternateOnActive,
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VPrimaryIconButtonLarge
+class VPrimaryIconButtonLarge extends StatelessWidget {
+  const VPrimaryIconButtonLarge({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VIconButton(
+      style: const VButtonStyle(
+        minimumSize: Size(56, 56),
+      ),
+      onPressed: () {},
+      icon: const VIcon(
+        svgIcon: VIcons.shareLowAlternate,
+        iconWidth: 24,
+        iconHeight: 24,
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VSecondaryIconButtonDefault
+class VSecondaryIconButtonDefault extends StatelessWidget {
+  const VSecondaryIconButtonDefault({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VIconButton(
+      style: VButtonStyle(
+        minimumSize: const Size(46, 46),
+        backgroundColorActive: VColors.transparent,
+        backgroundColorDisabled: VColors.transparent,
+        foregroundColorActive: VColors.defaultActive,
+        foregroundColorDisabled: VColors.disabled,
+        overlayColorFocused: VColors.defaultSurfaceLowlight,
+        overlayColorPressed: VColors.defaultSurfaceLowlight,
+        borderSideActive: const BorderSide(
+          color: VColors.defaultActive,
+          style: BorderStyle.solid,
+        ),
+        borderSideDisabled: BorderSide(
+          color: VColors.defaultDisabled,
+          style: BorderStyle.solid,
+        ),
+      ),
+      onPressed: () {},
+      icon: const VIcon(
+        svgIcon: VIcons.connectTiny,
+        iconColor: VColors.defaultActive,
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VSecondaryIconButtonAlternate
+class VSecondaryIconButtonAlternate extends StatelessWidget {
+  const VSecondaryIconButtonAlternate({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VIconButton(
+      style: VButtonStyle(
+        minimumSize: const Size(46, 46),
+        backgroundColorActive: VColors.transparent,
+        backgroundColorDisabled: VColors.transparent,
+        foregroundColorActive: VColors.alternateActive,
+        foregroundColorDisabled: VColors.alternateDisabled,
+        overlayColorFocused: VColors.alternateSurfaceLowlight,
+        overlayColorPressed: VColors.alternateSurfaceLowlight,
+        borderSideActive: const BorderSide(
+          color: VColors.alternateActive,
+          style: BorderStyle.solid,
+        ),
+        borderSideDisabled: BorderSide(
+          color: VColors.alternateDisabled,
+          style: BorderStyle.solid,
+        ),
+      ),
+      vExt: VAlt(),
+      onPressed: () {},
+      icon: const VIcon(
+        svgIcon: VIcons.connectTinyAlternate,
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VSecondaryIconButtonLarge
+class VSecondaryIconButtonLarge extends StatelessWidget {
+  const VSecondaryIconButtonLarge({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VIconButton(
+      style: VButtonStyle(
+        minimumSize: const Size(56, 56),
+        backgroundColorActive: VColors.transparent,
+        backgroundColorDisabled: VColors.transparent,
+        foregroundColorActive: VColors.defaultActive,
+        foregroundColorDisabled: VColors.disabled,
+        overlayColorFocused: VColors.defaultSurfaceLowlight,
+        overlayColorPressed: VColors.defaultSurfaceLowlight,
+        borderSideActive: const BorderSide(
+          color: VColors.defaultActive,
+          style: BorderStyle.solid,
+        ),
+        borderSideDisabled: BorderSide(
+          color: VColors.defaultDisabled,
+          style: BorderStyle.solid,
+        ),
+      ),
+      onPressed: () {},
+      icon: const VIcon(
+        svgIcon: VIcons.connectTiny,
+        iconColor: VColors.defaultActive,
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VUIIconButtonSmall
+class VUIIconButtonSmall extends StatelessWidget {
+  const VUIIconButtonSmall({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VIconButton(
+      style: VButtonStyle(
+        minimumSize: const Size(44, 44),
+        backgroundColorActive: VColors.transparent,
+        backgroundColorDisabled: VColors.defaultDisabled,
+        foregroundColorActive: VColors.defaultActive,
+        foregroundColorDisabled: VColors.disabled,
+        overlayColorFocused: VColors.defaultSurfaceLowlight,
+        overlayColorPressed: VColors.defaultSurfaceLowlight,
+      ),
+      onPressed: () {},
+      icon: const VIcon(
+        svgIcon: VIcons.notificationsTiny,
+        iconColor: VColors.defaultActive,
+        iconWidth: 16,
+        iconHeight: 16,
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VUIIconButtonMedium
+class VUIIconButtonMedium extends StatelessWidget {
+  const VUIIconButtonMedium({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VIconButton(
+      style: VButtonStyle(
+        minimumSize: const Size(46, 46),
+        backgroundColorActive: VColors.transparent,
+        backgroundColorDisabled: VColors.defaultDisabled,
+        foregroundColorActive: VColors.defaultActive,
+        foregroundColorDisabled: VColors.disabled,
+        overlayColorFocused: VColors.defaultSurfaceLowlight,
+        overlayColorPressed: VColors.defaultSurfaceLowlight,
+      ),
+      onPressed: () {},
+      icon: const VIcon(
+        svgIcon: VIcons.notificationsTiny,
+        iconColor: VColors.defaultActive,
+        iconWidth: 18,
+        iconHeight: 18,
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VUIIconButtonLarge
+class VUIIconButtonLarge extends StatelessWidget {
+  const VUIIconButtonLarge({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VIconButton(
+      style: VButtonStyle(
+        minimumSize: const Size(56, 56),
+        backgroundColorActive: VColors.transparent,
+        backgroundColorDisabled: VColors.transparent,
+        foregroundColorActive: VColors.defaultActive,
+        foregroundColorDisabled: VColors.disabled,
+        overlayColorFocused: VColors.defaultSurfaceLowlight,
+        overlayColorPressed: VColors.defaultSurfaceLowlight,
+      ),
+      onPressed: () {},
+      icon: const VIcon(
+        svgIcon: VIcons.notificationsLow,
+        iconColor: VColors.defaultActive,
+        iconWidth: 24,
+        iconHeight: 24,
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VUIIconButtonSubtle
+class VUIIconButtonSubtle extends StatelessWidget {
+  const VUIIconButtonSubtle({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VIconButton(
+      style: VButtonStyle(
+        minimumSize: const Size(40, 40),
+        backgroundColorActive: VColors.transparent,
+        backgroundColorDisabled: VColors.transparent,
+        foregroundColorActive: VColors.defaultActiveSubtle,
+        foregroundColorDisabled: VColors.disabled,
+        overlayColorFocused: VColors.defaultSurfaceLowlight,
+        overlayColorPressed: VColors.defaultSurfaceLowlight,
+      ),
+      onPressed: () {},
+      icon: VIcon(
+        svgIcon: VIcons.notificationsTiny,
+        iconColor: VColors.defaultActiveSubtle,
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VUIIconButtonLargeBadge
+class VUIIconButtonLargeBadge extends StatelessWidget {
+  const VUIIconButtonLargeBadge({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        VIconButton(
+          style: VButtonStyle(
+            minimumSize: const Size(56, 56),
+            backgroundColorActive: VColors.transparent,
+            backgroundColorDisabled: VColors.transparent,
+            foregroundColorActive: VColors.defaultActive,
+            foregroundColorDisabled: VColors.disabled,
+            overlayColorFocused: VColors.defaultSurfaceLowlight,
+            overlayColorPressed: VColors.defaultSurfaceLowlight,
+          ),
+          onPressed: () {},
+          icon: const VIcon(
+            svgIcon: VIcons.notificationsLow,
+            iconColor: VColors.defaultActive,
+            iconWidth: 24,
+            iconHeight: 24,
+          ),
+        ),
+        Positioned(
+          right: 0,
+          top: 0,
+          child: Container(
+            width: 16,
+            height: 16,
+            decoration: BoxDecoration(
+              color: VColors.negativeText,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              '9',
+              style: defaultVTheme.textStyles.uiLabelXSmall.copyWith(
+                color: VColors.defaultOnActive,
+                fontSize: 10,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+// END
+
+// BEGIN VUIIconButtonAlternate
+class VUIIconButtonAlternate extends StatelessWidget {
+  const VUIIconButtonAlternate({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VIconButton(
+      style: VButtonStyle(
+        minimumSize: const Size(40, 40),
+        backgroundColorActive: VColors.transparent,
+        backgroundColorDisabled: VColors.transparent,
+        foregroundColorActive: VColors.alternateOnActive,
+        foregroundColorDisabled: VColors.alternateDisabled,
+        overlayColorFocused: VColors.alternateSurfaceLowlight,
+        overlayColorPressed: VColors.alternateSurfaceLowlight,
+      ),
+      vExt: VAlt(),
+      onPressed: () {},
+      icon: const VIcon(
+        svgIcon: VIcons.notificationsTinyAlternate,
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VStackedIconButtonDefault
+class VStackedIconButtonDefault extends StatefulWidget {
+  const VStackedIconButtonDefault({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  State<VStackedIconButtonDefault> createState() =>
+      _VStackedIconButtonDefaultState();
+}
+
+class _VStackedIconButtonDefaultState extends State<VStackedIconButtonDefault> {
+  bool _isPressed = false;
+
+  void _handleTapDown(TapDownDetails details) {
+    setState(() => _isPressed = true);
+  }
+
+  void _handleTapUp(TapUpDetails details) {
+    setState(() => _isPressed = false);
+  }
+
+  void _handleTapCancel() {
+    setState(() => _isPressed = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textColor = _isPressed ? VColors.defaultActive : VColors.defaultText;
+    final iconColor =
+        _isPressed ? VColors.defaultActive : VColors.defaultActive;
+    final backgroundColor =
+        _isPressed ? VColors.defaultSurfaceLowlight : VColors.transparent;
+
+    return GestureDetector(
+      onTapDown: _handleTapDown,
+      onTapUp: _handleTapUp,
+      onTapCancel: _handleTapCancel,
+      onTap: () {},
+      child: Container(
+        constraints: const BoxConstraints(minWidth: 70, minHeight: 72),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            VIcon(
+              svgIcon: VIcons.glossaryLow,
+              iconColor: iconColor,
+              iconWidth: 24,
+              iconHeight: 24,
+            ),
+            const SizedBox(height: 2),
+            Text(
+              "Action",
+              style: defaultVTheme.textStyles.uiLabelSmall.copyWith(
+                color: textColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VStackedIconButtonAlternate
+class VStackedIconButtonAlternate extends StatelessWidget {
+  const VStackedIconButtonAlternate({
+    Key? key,
+    required this.shareIcon,
+  }) : super(key: key);
+
+  final String shareIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return VButton(
+      style: VButtonStyle(
+        minimumSize: const Size(70, 72),
+        backgroundColorActive: VColors.transparent,
+        backgroundColorDisabled: VColors.transparent,
+        foregroundColorActive: VColors.alternateActive,
+        foregroundColorDisabled: VColors.alternateDisabled,
+        overlayColorFocused: VColors.alternateSurfaceLowlight,
+        overlayColorPressed: VColors.alternateSurfaceLowlight,
+        borderRadiusActive: 8.0,
+        borderRadiusDisabled: 8.0,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+      ),
+      vExt: VAlt(),
+      onPressed: () {},
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const VIcon(
+            svgIcon: VIcons.glossaryLowAlternate,
+            iconWidth: 24,
+            iconHeight: 24,
+          ),
+          const SizedBox(height: 2),
+          Text(
+            "Action",
+            style: defaultVTheme.textStyles.uiLabelSmall.copyWith(
+              color: VColors.alternateText,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+// END
+
+// BEGIN VButtonCodedAsLink
+class VButtonCodedAsLink extends StatelessWidget {
+  const VButtonCodedAsLink({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      link: true,
+      child: GestureDetector(
+        onTap: () {},
+        child: VButton(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Primary action",
+                style: defaultVTheme.textStyles.buttonMedium.copyWith(
+                  color: VColors.defaultSurface1,
+                ),
+              ),
+              buttonHGap,
+              const VIcon(
+                svgIcon: VIcons.chevronRightTiny,
+                iconColor: VColors.defaultSurface1,
+              ),
+            ],
+          ),
+          onPressed: () {},
+        ),
+      ),
     );
   }
 }

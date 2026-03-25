@@ -1,3 +1,20 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
@@ -60,10 +77,10 @@ void main() {
     // Create a VContentCard widget
     await tester.pumpWidget(MaterialApp(
       home: VContentCard(
-        child: Text('Test'),
         hasBottomBar: true,
         isDisabled: false,
         onTap: () {},
+        child: const Text('Test'),
       ),
     ));
 
@@ -80,7 +97,7 @@ void main() {
 
     await tester.pumpWidget(MaterialApp(
       home: VContentCard(
-        child: Text('Test'),
+        child: const Text('Test'),
         onTap: () {
           onTapCalled = true;
         },
@@ -141,8 +158,8 @@ void main() {
       theme: ThemeData(brightness: Brightness.dark),
       home: Material(
         child: VContentCard(
-          child: Text('Test'),
           vExt: VAlt(),
+          child: const Text('Test'),
         ),
       ),
     ));
@@ -156,8 +173,8 @@ void main() {
       theme: ThemeData(brightness: Brightness.light),
       home: Material(
         child: VContentCard(
-          child: Text('Test'),
           vExt: VAlt(),
+          child: const Text('Test'),
         ),
       ),
     ));
@@ -173,7 +190,7 @@ void main() {
 
     await tester.pumpWidget(MaterialApp(
       home: VContentCard(
-        child: Text('Test'),
+        child: const Text('Test'),
         onTap: () {}, // To ensure onTap is not null
         onTapCancel: () {
           onTapCancelCalled = false;
@@ -219,4 +236,205 @@ void main() {
   //   // Check if the Divider color is defaultActivePressed
   //   expect(dividerWidget.color, equals(VColors.defaultActivePressed));
   // });
+
+  testWidgets('VContentCard with hasBottomBar and onTap null',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: Scaffold(
+        body: VContentCard(
+          hasBottomBar: true,
+          child: Text('Bottom bar no tap'),
+        ),
+      ),
+    ));
+
+    expect(find.text('Bottom bar no tap'), findsOneWidget);
+  });
+
+  testWidgets('VContentCard pressed with hasBottomBar and onTap',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: VContentCard(
+          hasBottomBar: true,
+          onTap: () {},
+          child: const Text('Press'),
+        ),
+      ),
+    ));
+
+    // Press down to trigger isPressed = true
+    final gesture =
+        await tester.startGesture(tester.getCenter(find.byType(VContentCard)));
+    await tester.pump();
+
+    expect(find.text('Press'), findsOneWidget);
+
+    // Cancel
+    await gesture.moveBy(const Offset(0, 200));
+    await tester.pump();
+
+    await gesture.up();
+    await tester.pump();
+  });
+
+  testWidgets('VContentCard without hasBottomBar', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: VContentCard(
+          hasBottomBar: false,
+          onTap: () {},
+          child: const Text('No bar'),
+        ),
+      ),
+    ));
+
+    expect(find.text('No bar'), findsOneWidget);
+  });
+
+  testWidgets('VContentCard disabled with onTap', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: VContentCard(
+          hasBottomBar: true,
+          isDisabled: true,
+          onTap: () {},
+          child: const Text('Disabled'),
+        ),
+      ),
+    ));
+
+    expect(find.text('Disabled'), findsOneWidget);
+  });
+
+  testWidgets('VContentCard dark mode', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      theme: ThemeData(brightness: Brightness.dark),
+      home: Scaffold(
+        body: VContentCard(
+          onTap: () {},
+          child: const Text('Dark'),
+        ),
+      ),
+    ));
+
+    expect(find.text('Dark'), findsOneWidget);
+  });
+
+  testWidgets('VContentCard alt theme', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: VContentCard(
+          onTap: () {},
+          vExt: VAlt(),
+          child: const Text('Alt'),
+        ),
+      ),
+    ));
+
+    expect(find.text('Alt'), findsOneWidget);
+  });
+
+  // Coverage: VContentCard with hasBottomBar and onTap (bottomBarVisible branches)
+  testWidgets("VContentCard hasBottomBar with onTap",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: VContentCard(
+        hasBottomBar: true,
+        onTap: () {},
+        child: const Text('BottomBar'),
+      ),
+    ));
+    expect(find.text('BottomBar'), findsOneWidget);
+  });
+
+  // Coverage: VContentCard hasBottomBar without onTap
+  testWidgets("VContentCard hasBottomBar without onTap",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: VContentCard(
+        hasBottomBar: true,
+        child: Text('NoTap'),
+      ),
+    ));
+    expect(find.text('NoTap'), findsOneWidget);
+  });
+
+  // Coverage: VContentCard tap interaction (pressed state)
+  testWidgets("VContentCard tap interaction", (WidgetTester tester) async {
+    bool tapped = false;
+    await tester.pumpWidget(MaterialApp(
+      home: VContentCard(
+        hasBottomBar: true,
+        onTap: () {
+          tapped = true;
+        },
+        child: const Text('TapMe'),
+      ),
+    ));
+    await tester.tap(find.text('TapMe'));
+    await tester.pumpAndSettle();
+    expect(tapped, isTrue);
+  });
+
+  // Coverage: bottomBarVisible returns _bottomBarHeight when hasBottomBar is false (lines 123, 126)
+  testWidgets("VContentCard without bottomBar returns _bottomBarHeight",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: VContentCard(
+          hasBottomBar: false,
+          child: Text("NoBar"),
+        ),
+      ),
+    );
+    expect(find.text("NoBar"), findsOneWidget);
+  });
+
+  // Coverage: VContentCard disabled with onTap and hasBottomBar (line 119-120)
+  testWidgets("VContentCard disabled with bottomBar",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: VContentCard(
+          hasBottomBar: true,
+          isDisabled: true,
+          onTap: () {},
+          child: const Text("DisabledBar"),
+        ),
+      ),
+    );
+    expect(find.text("DisabledBar"), findsOneWidget);
+  });
+
+  //! This is ContentCard golden test
+
+  testWidgets('ContentCard golden(snapshot) testing',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      RepaintBoundary(
+        child: MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: 300,
+                height: 200,
+                child: VContentCard(
+                  hasBottomBar: true,
+                  onTap: () {},
+                  child: const Text('Content Card'),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await expectLater(
+      find.byType(VContentCard),
+      matchesGoldenFile('goldens/content_card.png'),
+    );
+  });
 }

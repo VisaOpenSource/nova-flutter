@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -148,6 +148,7 @@ class VSelectStyle extends ThemeExtension<VSelectStyle> {
   }
 }
 
+// ignore: must_be_immutable
 class VSelect extends StatefulWidget {
   VSelect({
     Key? key,
@@ -238,6 +239,7 @@ class _VSelectState extends State<VSelect> {
         widget.style?.backgroundColor ?? defaultStyle.surface1;
     final dropDownBorderColor =
         widget.style?.dropDownBorderColor ?? defaultStyle.border;
+    // ignore: unused_local_variable
     final splashColor =
         widget.style?.splashColor ?? defaultStyle.surfaceLowlight;
     final dropdownColor = widget.style?.dropdownColor ?? defaultStyle.surface3;
@@ -254,7 +256,7 @@ class _VSelectState extends State<VSelect> {
 
     Color? borderColor() {
       if (widget.validate) {
-        return widget.style?.borderErrorColor ?? messageStyle.negativeGraphics;
+        return widget.style?.borderErrorColor ?? messageStyle.errorBorderColor;
       }
       if (widget.isDisabled) {
         return widget.style?.borderColor ?? defaultStyle.disabled;
@@ -300,7 +302,7 @@ class _VSelectState extends State<VSelect> {
 
     Color? iconColor() {
       if (widget.isReadOnly || widget.isDisabled) {
-        return widget.style?.iconColor ?? defaultStyle.disabled;
+        return widget.style?.iconColor ?? defaultStyle.disabledIcon;
       }
       return widget.style?.iconColor ?? defaultStyle.active;
     }

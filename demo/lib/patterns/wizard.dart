@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,9 +22,7 @@ import 'package:flutter/semantics.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
 import 'package:visa_nova_icons_flutter/visa_nova_icons_flutter.dart';
 // Demo app imports
-import 'package:demo/codeviewer/code_segments.dart';
 import 'package:demo/main.dart';
-import 'package:demo/ui/show_code_accordion.dart';
 
 class WizardPage extends StatefulWidget {
   const WizardPage({super.key});

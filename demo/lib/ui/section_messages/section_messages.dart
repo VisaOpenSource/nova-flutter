@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import 'package:demo/codeviewer/code_segments.dart';
 import 'package:demo/main.dart';
 import 'package:demo/ui/show_code_accordion.dart';
 import 'package:demo/utilities.dart';
-import 'package:visa_nova_icons_flutter/visa_nova_icons_flutter.dart';
 
+// ignore: must_be_immutable
 class SectionMessage extends StatefulWidget {
   SectionMessage({
     Key? key,
@@ -55,7 +55,7 @@ class SectionMessage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<SectionMessage> createState() => vSectionMessageSubtleDefault();
+  State<SectionMessage> createState() => VSectionMessageSubtleDefault();
   bool infoMessageDefaultOn,
       warningMessageDefaultOn,
       errorMessageDefaultOn,
@@ -83,14 +83,14 @@ class SectionMessage extends StatefulWidget {
       customSubtleMessageWithButtonOn;
 }
 
-class vSectionMessageSubtleDefault extends State<SectionMessage> {
+class VSectionMessageSubtleDefault extends State<SectionMessage> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _key = GlobalKey();
 
     setPageTitle('Section Message', context);
     return PopScope(
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, result) {
         widget.infoMessageDefaultOn = false;
         widget.warningMessageDefaultOn = false;
         widget.errorMessageDefaultOn = false;
@@ -1241,7 +1241,7 @@ class vSectionMessageSubtleDefault extends State<SectionMessage> {
         smallHeight(),
         VSectionMessage(
           style: VSectionMessageStyle(
-            borderColor: const Color(0xFF000000).withOpacity(0.1),
+            borderColor: const Color(0xFF000000).withValues(alpha: 0.1),
           ),
           hasLink: true,
           link: "Close",
@@ -1296,7 +1296,7 @@ class vSectionMessageSubtleDefault extends State<SectionMessage> {
         smallHeight(),
         VSectionMessage(
           style: VSectionMessageStyle(
-            borderColor: const Color(0xFF000000).withOpacity(0.1),
+            borderColor: const Color(0xFF000000).withValues(alpha: 0.1),
           ),
           hasClose: true,
           hasAction: true,
@@ -1354,7 +1354,7 @@ class vSectionMessageSubtleDefault extends State<SectionMessage> {
         smallHeight(),
         VSectionMessage(
           style: VSectionMessageStyle(
-            borderColor: const Color(0xFF000000).withOpacity(0.1),
+            borderColor: const Color(0xFF000000).withValues(alpha: 0.1),
           ),
           sectionMessageState: SectionMessageState.subtle,
           description:
@@ -1402,7 +1402,7 @@ class vSectionMessageSubtleDefault extends State<SectionMessage> {
         smallHeight(),
         VSectionMessage(
           style: VSectionMessageStyle(
-            borderColor: const Color(0xFF000000).withOpacity(0.1),
+            borderColor: const Color(0xFF000000).withValues(alpha: 0.1),
           ),
           hasLink: true,
           link: "Close",

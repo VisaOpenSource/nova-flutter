@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,14 +25,14 @@ import 'package:demo/utilities.dart';
 import 'package:visa_nova_icons_flutter/visa_nova_icons_flutter.dart';
 // import 'package:url_launcher/url_launcher.dart';
 
-class Links extends StatefulWidget {
-  const Links({Key? key}) : super(key: key);
+class Link extends StatefulWidget {
+  const Link({Key? key}) : super(key: key);
 
   @override
-  State<Links> createState() => _LinksState();
+  State<Link> createState() => _LinkState();
 }
 
-class _LinksState extends State<Links> {
+class _LinkState extends State<Link> {
   bool isDisplayed = false;
   final GlobalKey<ScaffoldState> _key = GlobalKey();
 
@@ -214,7 +214,7 @@ class _LinksState extends State<Links> {
                 ),
                 const Divider(),
                 SemanticHeader(
-                  title: "Link coded as buttons",
+                  title: "Links coded as buttons",
                   style: defaultVTheme.textStyles.headline2.copyWith(
                     fontWeight: VFontWeight.semiBold,
                   ),

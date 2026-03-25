@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -74,7 +74,8 @@ void main() {
       final fullContent = file.readAsStringSync();
       // Skip the first 16 lines (license header)
       final lines = fullContent.split('\n');
-      final content = lines.length > 16 ? lines.skip(16).join('\n') : fullContent;
+      final content =
+          lines.length > 16 ? lines.skip(16).join('\n') : fullContent;
       //print('File content: $content');
       final document = XmlDocument.parse(content);
 

@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -285,8 +285,8 @@ class VSnackBar extends StatefulWidget implements SnackBar {
   /// [ThemeData.snackBarTheme] is used. If that is null, then the default is
   /// inverse surface.
   ///
-  /// If [closeIconColor] is a [MaterialStateColor], then the icon color will be
-  /// be resolved against the set of [MaterialState]s that the action text
+  /// If [closeIconColor] is a [WidgetStateColor], then the icon color will be
+  /// be resolved against the set of [WidgetState]s that the action text
   /// is in, thus allowing for different colors for states such as pressed,
   /// hovered and others.
   @override
@@ -392,21 +392,15 @@ class _VSnackBarState extends State<VSnackBar> {
     // the surrounding theme.
     final Brightness brightness =
         isThemeDark ? Brightness.light : Brightness.dark;
-    final Color themeBackgroundColor = isThemeDark
-        ? colorScheme.onSurface
-        : Color.alphaBlend(
-            colorScheme.onSurface.withOpacity(0.80), colorScheme.surface);
     final ThemeData inverseTheme = theme.copyWith(
       colorScheme: ColorScheme(
         primary: colorScheme.onPrimary,
         secondary: buttonColor,
         surface: colorScheme.onSurface,
-        background: themeBackgroundColor,
         error: colorScheme.onError,
         onPrimary: colorScheme.primary,
         onSecondary: colorScheme.secondary,
         onSurface: colorScheme.surface,
-        onBackground: colorScheme.background,
         onError: colorScheme.error,
         brightness: brightness,
       ),
@@ -505,7 +499,7 @@ class _VSnackBarState extends State<VSnackBar> {
     final double elevation = widget.elevation ?? snackBarTheme.elevation ?? 6.0;
     final Color backgroundColor = widget.backgroundColor ??
         snackBarTheme.backgroundColor ??
-        inverseTheme.colorScheme.background;
+        inverseTheme.colorScheme.surface;
     final ShapeBorder? shape = widget.shape ??
         snackBarTheme.shape ??
         (isFloatingSnackBar

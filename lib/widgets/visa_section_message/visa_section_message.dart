@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -416,8 +416,8 @@ class VSectionMessage extends StatelessWidget {
                             onTap: onClosePressed,
                             child: VIcon(
                               svgIcon: VIcons.closeTiny,
-                              iconColor:
-                                  VColors.defaultActiveSubtle.withOpacity(0.5),
+                              iconColor: VColors.defaultActiveSubtle
+                                  .withValues(alpha: 0.5),
                             ),
                           ),
                         ),

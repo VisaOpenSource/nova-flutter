@@ -1,3 +1,20 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
@@ -457,5 +474,75 @@ void main() {
     );
 
     expect(find.byType(VProgressGaugeSmall), findsNWidgets(1));
+  });
+
+  // Coverage: VProgressGaugeSmall value < 1 (non-success)
+  testWidgets("VProgressGaugeSmall with value < 1",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: VProgressGaugeSmall(value: 0.5),
+        ),
+      ),
+    );
+    expect(find.byType(VProgressGaugeSmall), findsOneWidget);
+  });
+
+  // Coverage: VProgressGaugeSmall value == 1 (success)
+  testWidgets("VProgressGaugeSmall with value == 1 shows checkmark",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: VProgressGaugeSmall(value: 1.0),
+        ),
+      ),
+    );
+    expect(find.byType(VProgressGaugeSmall), findsOneWidget);
+  });
+
+  // Coverage: VProgressGaugeBig value < 1
+  testWidgets("VProgressGaugeBig with value < 1", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: VProgressGaugeBig(value: 0.3),
+        ),
+      ),
+    );
+    expect(find.byType(VProgressGaugeBig), findsOneWidget);
+  });
+
+  // Coverage: VProgressGaugeBig value == 1
+  testWidgets("VProgressGaugeBig with value == 1", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: VProgressGaugeBig(value: 1.0),
+        ),
+      ),
+    );
+    expect(find.byType(VProgressGaugeBig), findsOneWidget);
+  });
+
+  // Coverage: VProgressStyle lerp
+  test('VProgressStyle lerp', () {
+    const a = VProgressStyle(
+      backgroundColor: Colors.red,
+      color: Colors.blue,
+    );
+    const b = VProgressStyle(
+      backgroundColor: Colors.blue,
+      color: Colors.red,
+    );
+    final result = a.lerp(b, 0.5);
+    expect(result, isA<VProgressStyle>());
+  });
+
+  test('VProgressStyle lerp with null returns this', () {
+    const a = VProgressStyle(backgroundColor: Colors.red);
+    final result = a.lerp(null, 0.5);
+    expect(identical(result, a), isTrue);
   });
 }

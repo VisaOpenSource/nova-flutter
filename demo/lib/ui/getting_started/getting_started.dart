@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -59,11 +59,10 @@ import "package:demo/ui/section_messages/section_messages.dart";
 import 'package:demo/ui/tab_bar/tab_bar.dart';
 import 'package:demo/ui/app_bar/app_bar.dart';
 import 'package:demo/ui/content_card/content_card.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 var importCode = """
   visa_nova_flutter:
-    version: ^8.2.0
+    version: ^8.3.1
 """;
 var appLevelThemeCode = """
   void main() {
@@ -162,7 +161,7 @@ class GettingStarted extends StatelessWidget {
   GettingStarted({Key? key}) : super(key: key);
   final GlobalKey<ScaffoldState> _key = GlobalKey();
 
-  List<Page> pages = [
+  final List<Page> pages = [
     Page(
       "Buttons",
       "buttons",
@@ -176,9 +175,9 @@ class GettingStarted extends StatelessWidget {
       "Typography is the visual component of the written word.",
     ),
     Page(
-      "Links",
+      "Link",
       "link",
-      const Links(),
+      const Link(),
       "Link is a text-based element that navigates the user to another page within the application or site, either to a different section within the same page or to a new page.",
     ),
     Page(
@@ -339,7 +338,7 @@ class GettingStarted extends StatelessWidget {
     ),
   ];
 
-  List<Page> patternPages = [
+  final List<Page> patternPages = [
     Page(
       "Application Layout",
       "application-layout",
@@ -382,7 +381,7 @@ class GettingStarted extends StatelessWidget {
       darkTheme: defaultVTheme.primaryThemeDark,
       themeMode: Provider.of<ThemeProvider>(context).themeMode,
       home: PopScope(
-        onPopInvoked: (didPop) {
+        onPopInvokedWithResult: (didPop, result) {
           ScaffoldMessenger.of(context).clearSnackBars();
         },
         child: Scaffold(
@@ -406,7 +405,7 @@ class GettingStarted extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.4,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.222),
+                            color: Colors.white.withValues(alpha: 0.222),
                             gradient: const LinearGradient(
                               begin: Alignment.topRight,
                               end: Alignment.bottomLeft,

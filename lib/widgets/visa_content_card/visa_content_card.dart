@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -117,7 +117,10 @@ class _VContentCardState extends State<VContentCard> {
   }
 
   double bottomBarVisible() {
-    if (widget.hasBottomBar && widget.onTap != null && isPressed && !widget.isDisabled) {
+    if (widget.hasBottomBar &&
+        widget.onTap != null &&
+        isPressed &&
+        !widget.isDisabled) {
       return 4;
     }
     if (widget.hasBottomBar && widget.onTap == null) {
@@ -130,14 +133,21 @@ class _VContentCardState extends State<VContentCard> {
   Widget build(BuildContext context) {
     final dynamic defaultStyle;
     if (widget.vExt == null || widget.vExt is VDef) {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark ? getDefaultColorSchemeDark()! : getDefaultColorScheme()!;
+      defaultStyle = Theme.of(context).brightness == Brightness.dark
+          ? getDefaultColorSchemeDark()!
+          : getDefaultColorScheme()!;
     } else {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark ? getAltColorSchemeDark()! : getAltColorScheme()!;
+      defaultStyle = Theme.of(context).brightness == Brightness.dark
+          ? getAltColorSchemeDark()!
+          : getAltColorScheme()!;
     }
     final borderColor = widget.style?.borderColor ?? defaultStyle.border;
-    final backgroundColor = widget.style?.backgroundColor ?? defaultStyle.surface1;
-    final borderRadius = widget.style?.borderRadius ?? defaultStyle.vContentCardProperties.borderRadius;
-    final elevation = widget.style?.elevation ?? defaultStyle.vContentCardProperties.elevation;
+    final backgroundColor =
+        widget.style?.backgroundColor ?? defaultStyle.surface1;
+    final borderRadius = widget.style?.borderRadius ??
+        defaultStyle.vContentCardProperties.borderRadius;
+    final elevation = widget.style?.elevation ??
+        defaultStyle.vContentCardProperties.elevation;
     Color? bottomBarColor() {
       if (!widget.hasBottomBar) {
         return widget.style?.bottomBarColor ?? defaultStyle.transparent;
@@ -195,8 +205,10 @@ class _VContentCardState extends State<VContentCard> {
             ),
             child: Column(
               mainAxisSize: widget.mainAxisSize ?? MainAxisSize.max,
-              mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.start,
-              crossAxisAlignment: widget.crossAxisAlignment ?? CrossAxisAlignment.center,
+              mainAxisAlignment:
+                  widget.mainAxisAlignment ?? MainAxisAlignment.start,
+              crossAxisAlignment:
+                  widget.crossAxisAlignment ?? CrossAxisAlignment.center,
               children: [
                 Padding(
                   padding: widget.padding ?? const EdgeInsets.all(24),

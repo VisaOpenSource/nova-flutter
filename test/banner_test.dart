@@ -1,3 +1,20 @@
+//
+//              © 2025-2026 Visa
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visa_nova_flutter/visa_nova_flutter.dart';
@@ -368,5 +385,83 @@ void main() {
     expect(modified.boxShadowBlurRadius, 7.0);
     expect(modified.boxShadowOffset, const Offset(1, 1));
     expect(modified.margin, const EdgeInsets.all(10));
+  });
+
+  // Coverage: VBanner warning state
+  testWidgets("Banner warning state renders", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VBanner(
+            visible: true,
+            bannerState: BannerState.warning,
+            description: "Warning banner",
+            hasTitle: true,
+            title: "Warning",
+            hasLink: true,
+            link: "Learn more",
+            onLinkPressed: () {},
+          ),
+        ),
+      ),
+    );
+    expect(find.text("Warning banner"), findsOneWidget);
+    expect(find.text("Warning"), findsOneWidget);
+  });
+
+  // Coverage: VBanner error state
+  testWidgets("Banner error state renders", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VBanner(
+            visible: true,
+            bannerState: BannerState.error,
+            description: "Error banner",
+            hasAction: true,
+          ),
+        ),
+      ),
+    );
+    expect(find.text("Error banner"), findsOneWidget);
+  });
+
+  // Coverage: VBanner with close button
+  testWidgets("Banner with close button renders", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VBanner(
+            visible: true,
+            bannerState: BannerState.success,
+            description: "Closeable banner",
+            hasClose: true,
+          ),
+        ),
+      ),
+    );
+    expect(find.text("Closeable banner"), findsOneWidget);
+  });
+
+  // Coverage: VBannerStyle lerp
+  test('VBannerStyle lerp with matching type', () {
+    const a = VBannerStyle(
+      infoBGColor: Colors.red,
+      warningBGColor: Colors.blue,
+      errorBGColor: Colors.green,
+    );
+    const b = VBannerStyle(
+      infoBGColor: Colors.blue,
+      warningBGColor: Colors.green,
+      errorBGColor: Colors.red,
+    );
+    final result = a.lerp(b, 0.5);
+    expect(result, isA<VBannerStyle>());
+  });
+
+  test('VBannerStyle lerp with null returns this', () {
+    const a = VBannerStyle(infoBGColor: Colors.red);
+    final result = a.lerp(null, 0.5);
+    expect(identical(result, a), isTrue);
   });
 }

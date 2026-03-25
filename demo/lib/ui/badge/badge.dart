@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -148,6 +148,27 @@ class BadgePage extends StatelessWidget {
                 exampleName: 'Neutral_Badge_Without_Background',
                 copyLabel: "Neutral badge",
               ),
+              const SemanticHeader(title: "Neutral icon badge with background"),
+              smallHeight(),
+              const VIconBadgeNeutral(),
+              smallHeight(),
+              const ShowCodeAccordion(
+                codeSegment: CodeSegments.VIconBadgeNeutral,
+                componentName: 'Badge',
+                exampleName: 'Neutral_Icon_Badge_With_Background',
+                copyLabel: "Neutral icon badge",
+              ),
+              const SemanticHeader(
+                  title: "Neutral icon badge without background"),
+              smallHeight(),
+              const VIconBadgeNeutralNoBG(),
+              smallHeight(),
+              const ShowCodeAccordion(
+                codeSegment: CodeSegments.VIconBadgeNeutralNoBG,
+                componentName: 'Badge',
+                exampleName: 'Neutral_Icon_Badge_Without_Background',
+                copyLabel: "Neutral icon badge",
+              ),
               //! Stable
               smallHeight(),
               SemanticHeader(
@@ -199,6 +220,28 @@ class BadgePage extends StatelessWidget {
                 componentName: 'Badge',
                 exampleName: 'Stable_Badge_Without_Background',
                 copyLabel: "Stable badge",
+              ),
+              const SemanticHeader(
+                  title: "Positive icon badge with background"),
+              smallHeight(),
+              const VIconBadgeStable(),
+              smallHeight(),
+              const ShowCodeAccordion(
+                codeSegment: CodeSegments.VIconBadgeStable,
+                componentName: 'Badge',
+                exampleName: 'Positive_Icon_Badge_With_Background',
+                copyLabel: "Positive icon badge",
+              ),
+              const SemanticHeader(
+                  title: "Positive icon badge without background"),
+              smallHeight(),
+              const VIconBadgeStableNoBG(),
+              smallHeight(),
+              const ShowCodeAccordion(
+                codeSegment: CodeSegments.VIconBadgeStableNoBG,
+                componentName: 'Badge',
+                exampleName: 'Positive_Icon_Badge_Without_Background',
+                copyLabel: "Positive icon badge",
               ),
               //! Warning
               smallHeight(),
@@ -252,6 +295,27 @@ class BadgePage extends StatelessWidget {
                 exampleName: 'Warning_Badge_Without_Background',
                 copyLabel: "Warning badge",
               ),
+              const SemanticHeader(title: "Warning icon badge with background"),
+              smallHeight(),
+              const VIconBadgeWarning(),
+              smallHeight(),
+              const ShowCodeAccordion(
+                codeSegment: CodeSegments.VIconBadgeWarning,
+                componentName: 'Badge',
+                exampleName: 'Warning_Icon_Badge_With_Background',
+                copyLabel: "Warning icon badge",
+              ),
+              const SemanticHeader(
+                  title: "Warning icon badge without background"),
+              smallHeight(),
+              const VIconBadgeWarningNoBG(),
+              smallHeight(),
+              const ShowCodeAccordion(
+                codeSegment: CodeSegments.VIconBadgeWarningNoBG,
+                componentName: 'Badge',
+                exampleName: 'Warning_Icon_Badge_Without_Background',
+                copyLabel: "Warning icon badge",
+              ),
               //! Critical
               smallHeight(),
               SemanticHeader(
@@ -304,6 +368,28 @@ class BadgePage extends StatelessWidget {
                 exampleName: 'Critical_Badge_Without_Background',
                 copyLabel: "Critical badge",
               ),
+              const SemanticHeader(
+                  title: "Negative icon badge with background"),
+              smallHeight(),
+              const VIconBadgeCritical(),
+              smallHeight(),
+              const ShowCodeAccordion(
+                codeSegment: CodeSegments.VIconBadgeCritical,
+                componentName: 'Badge',
+                exampleName: 'Negative_Icon_Badge_With_Background',
+                copyLabel: "Negative icon badge",
+              ),
+              const SemanticHeader(
+                  title: "Negative icon badge without background"),
+              smallHeight(),
+              const VIconBadgeCriticalNoBG(),
+              smallHeight(),
+              const ShowCodeAccordion(
+                codeSegment: CodeSegments.VIconBadgeCriticalNoBG,
+                componentName: 'Badge',
+                exampleName: 'Negative_Icon_Badge_Without_Background',
+                copyLabel: "Negative icon badge",
+              ),
               //! Number
               smallHeight(),
               SemanticHeader(
@@ -323,6 +409,17 @@ class BadgePage extends StatelessWidget {
                 exampleName: 'Number_Badge',
                 copyLabel: "Number badge",
               ),
+              const SemanticHeader(
+                  title: "Short number badge without background"),
+              smallHeight(),
+              const VBadgeNumberNoBG(),
+              smallHeight(),
+              const ShowCodeAccordion(
+                codeSegment: CodeSegments.VBadgeNumberNoBG,
+                componentName: 'Badge',
+                exampleName: 'Number_Badge_Without_Background',
+                copyLabel: "Number badge",
+              ),
               const SemanticHeader(title: "Small indicator badge"),
               smallHeight(),
               const VBadgeNumberEllipse(),
@@ -340,6 +437,146 @@ class BadgePage extends StatelessWidget {
     );
   }
 }
+
+// BEGIN VIconBadgeNeutral
+class VIconBadgeNeutral extends StatelessWidget {
+  const VIconBadgeNeutral({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VBadge(
+      badgeState: BadgeState.neutral,
+      hasIcon: true,
+      hasLabel: false,
+    );
+  }
+}
+// END
+
+// BEGIN VIconBadgeNeutralNoBG
+class VIconBadgeNeutralNoBG extends StatelessWidget {
+  const VIconBadgeNeutralNoBG({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VBadge(
+      badgeState: BadgeState.neutral,
+      hasIcon: true,
+      hasLabel: false,
+      hasBG: false,
+    );
+  }
+}
+// END
+
+// BEGIN VIconBadgeStable
+class VIconBadgeStable extends StatelessWidget {
+  const VIconBadgeStable({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VBadge(
+      badgeState: BadgeState.stable,
+      hasIcon: true,
+      hasLabel: false,
+    );
+  }
+}
+// END
+
+// BEGIN VIconBadgeStableNoBG
+class VIconBadgeStableNoBG extends StatelessWidget {
+  const VIconBadgeStableNoBG({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VBadge(
+      badgeState: BadgeState.stable,
+      hasIcon: true,
+      hasLabel: false,
+      hasBG: false,
+    );
+  }
+}
+// END
+
+// BEGIN VIconBadgeWarning
+class VIconBadgeWarning extends StatelessWidget {
+  const VIconBadgeWarning({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VBadge(
+      badgeState: BadgeState.warning,
+      hasIcon: true,
+      hasLabel: false,
+    );
+  }
+}
+// END
+
+// BEGIN VIconBadgeWarningNoBG
+class VIconBadgeWarningNoBG extends StatelessWidget {
+  const VIconBadgeWarningNoBG({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VBadge(
+      badgeState: BadgeState.warning,
+      hasIcon: true,
+      hasLabel: false,
+      hasBG: false,
+    );
+  }
+}
+// END
+
+// BEGIN VIconBadgeCritical
+class VIconBadgeCritical extends StatelessWidget {
+  const VIconBadgeCritical({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VBadge(
+      badgeState: BadgeState.critical,
+      hasIcon: true,
+      hasLabel: false,
+    );
+  }
+}
+// END
+
+// BEGIN VIconBadgeCriticalNoBG
+class VIconBadgeCriticalNoBG extends StatelessWidget {
+  const VIconBadgeCriticalNoBG({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VBadge(
+      badgeState: BadgeState.critical,
+      hasIcon: true,
+      hasLabel: false,
+      hasBG: false,
+    );
+  }
+}
+// END
 
 // BEGIN VBadgeSubtleNoIcon
 class VBadgeSubtleNoIcon extends StatelessWidget {
@@ -725,6 +962,54 @@ class VBadgeCriticalEllipse extends StatelessWidget {
       badgeState: BadgeState.critical,
       hasIcon: false,
       hasEllipse: true,
+    );
+  }
+}
+// END
+
+// BEGIN VBadgeNumberNoBG
+class VBadgeNumberNoBG extends StatelessWidget {
+  const VBadgeNumberNoBG({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MergeSemantics(
+      child: Badge(
+        backgroundColor: Colors.transparent,
+        label: Container(
+          width: 18,
+          height: 18,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            border: Border.all(color: VColors.negativeText, width: 1),
+            borderRadius: BorderRadius.circular(
+                9), // Half of width/height for perfect circle
+          ),
+          child: Center(
+            child: Text(
+              "9",
+              style: defaultVTheme.textStyles.uiLabelActive.copyWith(
+                color: VColors.negativeText,
+                height: 1.0,
+              ),
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+          child: Semantics(
+            label: "notifications",
+            child: const VIcon(
+              svgIcon: VIcons.notificationsLow,
+              iconColor: VColors.defaultActive,
+              iconWidth: 24,
+              iconHeight: 24,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

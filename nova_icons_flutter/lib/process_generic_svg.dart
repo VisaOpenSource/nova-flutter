@@ -1,5 +1,5 @@
 //
-//              © 2025 Visa
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -57,7 +57,8 @@ void main() {
     final fullContent = File(file.path).readAsStringSync();
     // Skip the first 16 lines (license header)
     final lines = fullContent.split('\n');
-    final contentWithoutLicense = lines.length > 16 ? lines.skip(16).join('\n') : fullContent;
+    final contentWithoutLicense =
+        lines.length > 16 ? lines.skip(16).join('\n') : fullContent;
     final content = contentWithoutLicense.replaceAll('\n', '');
 
     output.writeln('static const $camelCaseName$suffix = \'$content\';');

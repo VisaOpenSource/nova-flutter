@@ -1,6 +1,6 @@
 <!--
  *
- *              © 2025 Visa
+ *              © 2025-2026 Visa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ To add the dependency manually to your project, import it in pubspec.yaml under 
 
 ```yaml
 dependencies:
-  visa_nova_flutter: ^8.2.0
+  visa_nova_flutter: ^8.3.1
   visa_nova_icons_flutter: ^4.0.3
 ```
 
@@ -117,7 +117,7 @@ class MyVisaIconWidget extends StatelessWidget {
 
 ### Use the components
 
-After adding Nova icons, you’re ready to use Flutter components by copying and pasting the example code into your application. Check out [Button](https://design.visa.com/components/button) to give it a try.
+After adding Nova icons, you’re ready to use Flutter components by copying and pasting the example code into your application. Check out [Button](https://design.visa.com/components/button/?code_library=flutter) to give it a try.
 
 ## <a name="why-nova-flutter"></a>Why Nova Flutter?
 

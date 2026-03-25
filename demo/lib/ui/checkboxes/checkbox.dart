@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -40,6 +40,7 @@ class Checkboxes extends StatefulWidget {
 }
 
 class _CheckboxesState extends State<Checkboxes> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late bool? _parentValue1, _parentValue2;
   late List<String> _children1, _children2;
   late List<bool> _childrenValue1, _childrenValue2;
@@ -125,8 +126,8 @@ class _CheckboxesState extends State<Checkboxes> {
   void initState() {
     super.initState();
 
-    _parentValue1 = false;
-    _parentValue2 = false;
+    _parentValue1 = null;
+    _parentValue2 = null;
 
     _children1 = [
       'L2 label 1',
@@ -147,22 +148,30 @@ class _CheckboxesState extends State<Checkboxes> {
     * manage their states. This generates and assigns the
     * _childrenValue = [false, false, false, false].
     * */
-    _childrenValue1 = List.generate(_children1.length, (index) => false);
-    _childrenValue2 = List.generate(_children2.length, (index) => false);
+    _childrenValue1 = [
+      true,
+      false,
+      true,
+      false
+    ]; // L2 label 1 and L2 label 3 preselected
+    _childrenValue2 = [
+      true,
+      false,
+      true,
+      false
+    ]; // L2 label 1 and L2 label 3 preselected
   }
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _key = GlobalKey();
-
     setPageTitle('Checkbox', context);
     return PopScope(
-        onPopInvoked: (didPop) {
+        onPopInvokedWithResult: (didPop, result) {
           ScaffoldMessenger.of(context).clearSnackBars();
         },
         child: Scaffold(
-          key: _key,
-          appBar: CustomAppBar(globalKey: _key, title: "Checkbox"),
+          key: _scaffoldKey,
+          appBar: CustomAppBar(globalKey: _scaffoldKey, title: "Checkbox"),
           drawer: const MyDrawer(pageTitle: "Checkbox"),
           body: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
@@ -227,13 +236,13 @@ class _CheckboxesState extends State<Checkboxes> {
                               : VColors.defaultText)),
                   const ExampleWidget(
                     title: "Checkbox group",
-                    subtitle: "Group label",
+                    subtitle: "Group label (required)",
                     child: VCheckboxMultipleSelect(),
                     codeSegment: CodeSegments.VCheckboxMultipleSelect,
                   ),
                   const ExampleWidget(
                     title: "Single select checkbox group with descriptions",
-                    subtitle: "Group label",
+                    subtitle: "Group label (required)",
                     child: VCheckboxWithSubtitleStateful(),
                     codeSegment: CodeSegments.VCheckboxWithSubtitleStateful,
                   ),
@@ -246,11 +255,6 @@ class _CheckboxesState extends State<Checkboxes> {
                     title: "Error indeterminate checkbox group",
                     child: visaCheckboxSetValidation(),
                     codeSegment: CodeSegments.visaCheckboxSetValidation,
-                  ),
-                  const ExampleWidget(
-                    title: "Error nested indeterminate checkbox group",
-                    child: VNestedIndeterminateCheckboxes(),
-                    codeSegment: CodeSegments.visaNestedIndeterminateCheckboxes,
                   ),
                   const Divider(),
 
@@ -284,21 +288,22 @@ class _CheckboxesState extends State<Checkboxes> {
   }
 
 // BEGIN visaCheckboxSetValidation
-  ListView visaCheckboxSetValidation() {
-    return ListView(
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+  Widget visaCheckboxSetValidation() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 12, 0, 5),
-          child: Text('Group label', style: defaultVTheme.textStyles.uiLabel),
+          padding: const EdgeInsets.fromLTRB(0, 12, 0, 2),
+          child: Text('Group label (required)',
+              style: defaultVTheme.textStyles.uiLabel
+                  .copyWith(color: displayError ? VColors.negativeText : null)),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
           child: Text(
-            'Select one or more options',
-            style: defaultVTheme.textStyles.uiLabel
+            'Select two or more options',
+            style: defaultVTheme.textStyles.uiLabelSmall
                 .copyWith(color: displayError ? VColors.negativeText : null),
           ),
         ),
@@ -307,38 +312,39 @@ class _CheckboxesState extends State<Checkboxes> {
           label: 'L1 label 1',
           value: _parentValue2,
           valueChanged: (value) {
-            if (value != null) {
-              // Checked/Unchecked
-              _checkAll2(value);
-            } else {
-              // Tristate
-              _checkAll2(true);
-            }
+            // Only toggle the parent checkbox, do NOT auto-check children
+            setState(() {
+              _parentValue2 = _parentValue2 == null ? true : null;
+            });
           },
           checkboxType: CheckboxType.parent,
           style: VCheckboxStyle(
             borderColor:
                 displayError ? VColors.negativeGraphics : VColors.defaultActive,
+            fillColor:
+                displayError ? VColors.negativeGraphics : VColors.defaultActive,
           ),
         ),
-        ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          itemCount: _children2.length,
-          itemBuilder: (context, index) => VNestedCheckboxTile(
-            style: VCheckboxStyle(
-              borderColor: displayError
-                  ? VColors.negativeGraphics
-                  : VColors.defaultActive,
-            ),
-            label: _children2[index],
-            value: _childrenValue2[index],
-            valueChanged: (value) {
-              _manageTristate2(index, value);
-            },
-            checkboxType: CheckboxType.child,
-          ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(
+              _children2.length,
+              (index) => VNestedCheckboxTile(
+                    style: VCheckboxStyle(
+                      borderColor: displayError
+                          ? VColors.negativeGraphics
+                          : VColors.defaultActive,
+                      fillColor: displayError
+                          ? VColors.negativeGraphics
+                          : VColors.defaultActive,
+                    ),
+                    label: _children2[index],
+                    value: _childrenValue2[index],
+                    valueChanged: (value) {
+                      _manageTristate2(index, value);
+                    },
+                    checkboxType: CheckboxType.child,
+                  )),
         ),
         const SizedBox(
           height: 5,
@@ -346,20 +352,21 @@ class _CheckboxesState extends State<Checkboxes> {
         ExcludeSemantics(
           child: Visibility(
             visible: displayError,
-            child: Text.rich(
-                TextSpan(style: defaultVTheme.textStyles.uiLabel, children: [
-              const WidgetSpan(
-                  child: VIcon(
-                // errorIcon18 is different from errorIcon, using in validation only
-                svgIcon: VIcons.errorTiny,
-                iconColor: VColors.negativeGraphics,
-              )),
-              const WidgetSpan(
-                  child: Padding(padding: EdgeInsets.only(left: 5))),
-              TextSpan(
-                  text: pizzaError,
-                  style: const TextStyle(color: VColors.negativeText))
-            ])),
+            child: Text.rich(TextSpan(
+                style: defaultVTheme.textStyles.uiLabelSmall,
+                children: const [
+                  WidgetSpan(
+                      child: VIcon(
+                    // errorIcon18 is different from errorIcon, using in validation only
+                    svgIcon: VIcons.errorTiny,
+                    iconColor: VColors.negativeGraphics,
+                  )),
+                  WidgetSpan(child: Padding(padding: EdgeInsets.only(left: 5))),
+                  TextSpan(
+                      text:
+                          "This is required text that describes the error in more detail.",
+                      style: TextStyle(color: VColors.negativeText))
+                ])),
           ),
         ),
         const SizedBox(
@@ -367,7 +374,7 @@ class _CheckboxesState extends State<Checkboxes> {
         ),
         VButton(
           onPressed: () async {
-            if (_parentValue2 != false) {
+            if (_parentValue2 == true) {
               setState(() {
                 displayError = false;
               });
@@ -375,7 +382,9 @@ class _CheckboxesState extends State<Checkboxes> {
               setState(() {
                 displayError = true;
               });
-              SemanticsService.announce(pizzaError, TextDirection.ltr);
+              SemanticsService.announce(
+                  "This is required text that describes the error in more detail.",
+                  TextDirection.ltr);
             }
           },
           child: const Text("Submit"),
@@ -386,11 +395,10 @@ class _CheckboxesState extends State<Checkboxes> {
 // END
 
 // BEGIN visaCheckboxSetIndeterminate
-  ListView visaCheckboxSetIndeterminate() {
-    return ListView(
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+  Widget visaCheckboxSetIndeterminate() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 24, 0, 5),
@@ -404,29 +412,25 @@ class _CheckboxesState extends State<Checkboxes> {
           label: 'L1 label 1',
           value: _parentValue1,
           valueChanged: (value) {
-            if (value != null) {
-              // Checked/Unchecked
-              _checkAll1(value);
-            } else {
-              // Tristate
-              _checkAll1(true);
-            }
+            // Only toggle the parent checkbox, do NOT auto-check children
+            setState(() {
+              _parentValue1 = _parentValue1 == null ? true : null;
+            });
           },
           checkboxType: CheckboxType.parent,
         ),
-        ListView.builder(
-          padding: EdgeInsets.zero,
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: _children1.length,
-          itemBuilder: (context, index) => VNestedCheckboxTile(
-            label: _children1[index],
-            value: _childrenValue1[index],
-            valueChanged: (value) {
-              _manageTristate1(index, value);
-            },
-            checkboxType: CheckboxType.child,
-          ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(
+              _children1.length,
+              (index) => VNestedCheckboxTile(
+                    label: _children1[index],
+                    value: _childrenValue1[index],
+                    valueChanged: (value) {
+                      _manageTristate1(index, value);
+                    },
+                    checkboxType: CheckboxType.child,
+                  )),
         ),
       ],
     );
@@ -532,7 +536,7 @@ class _VNestedIndeterminateCheckboxesState
                   style: defaultVTheme.textStyles.buttonMedium
                       .copyWith(color: VColors.defaultSurface1)),
               onPressed: () async {
-                print('${nestedCheckboxController.getAllSelectedItems()}');
+                debugPrint('${nestedCheckboxController.getAllSelectedItems()}');
                 if (selected.isEmpty) {
                   setState(() {
                     isError = true;
@@ -593,10 +597,17 @@ class VCheckboxIndeterminateDisabled extends StatelessWidget {
 // END
 
 // BEGIN VCheckboxIndeterminate
-class VCheckboxIndeterminate extends StatelessWidget {
+class VCheckboxIndeterminate extends StatefulWidget {
   const VCheckboxIndeterminate({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<VCheckboxIndeterminate> createState() => _VCheckboxIndeterminateState();
+}
+
+class _VCheckboxIndeterminateState extends State<VCheckboxIndeterminate> {
+  bool? _isChecked; // Start with dash (no fill)
 
   @override
   Widget build(BuildContext context) {
@@ -604,7 +615,13 @@ class VCheckboxIndeterminate extends StatelessWidget {
       title: "Label",
       titleStyle: defaultVTheme.textStyles.uiLabelLarge,
       tristate: true,
-      isChecked: null,
+      isChecked: _isChecked,
+      onChanged: (value) {
+        setState(() {
+          // Toggle between null (dash, no fill) and true (checked with fill)
+          _isChecked = _isChecked == null ? true : null;
+        });
+      },
     );
   }
 }
@@ -635,11 +652,12 @@ class _VCheckboxMultipleSelectState extends State<VCheckboxMultipleSelect> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ListView.builder(
+        ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.zero,
           shrinkWrap: true,
           itemCount: dataList.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 5),
           itemBuilder: (context, index) => VCheckboxTile(
             isChecked: selectedOptions.contains(dataList[index]),
             onChanged: (value) {
@@ -652,11 +670,6 @@ class _VCheckboxMultipleSelectState extends State<VCheckboxMultipleSelect> {
             title: dataList[index]["title"],
           ),
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-            'Selected options: ${selectedOptions.map((object) => object["title"]).toList()}')
       ],
     );
   }
@@ -729,10 +742,6 @@ class _VCheckboxWithSubtitleStateful
             );
           },
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text('Selected option: $selectedOption')
       ],
     );
   }
@@ -821,8 +830,9 @@ class _VTrailingCheckboxWithSecondaryAndSubtitleState
       "controlAffinity": ListTileControlAffinity.trailing,
       "secondary": const VIcon(
         svgIcon: VIcons.globalHigh,
-        iconWidth: 32,
-        iconHeight: 32,
+        iconColor: VColors.defaultActive,
+        iconWidth: 40,
+        iconHeight: 40,
       )
     },
     {
@@ -832,8 +842,9 @@ class _VTrailingCheckboxWithSecondaryAndSubtitleState
       "controlAffinity": ListTileControlAffinity.trailing,
       "secondary": const VIcon(
         svgIcon: VIcons.globalHigh,
-        iconWidth: 32,
-        iconHeight: 32,
+        iconColor: VColors.defaultActive,
+        iconWidth: 40,
+        iconHeight: 40,
       )
     },
     {
@@ -843,8 +854,9 @@ class _VTrailingCheckboxWithSecondaryAndSubtitleState
       "controlAffinity": ListTileControlAffinity.trailing,
       "secondary": const VIcon(
         svgIcon: VIcons.globalHigh,
-        iconWidth: 32,
-        iconHeight: 32,
+        iconColor: VColors.defaultActive,
+        iconWidth: 40,
+        iconHeight: 40,
       )
     }
   ];

@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -108,14 +108,14 @@ abstract interface class ChipAttributes {
   /// This only has an effect on widgets that respect the [DefaultTextStyle],
   /// such as [Text].
   ///
-  /// If [TextStyle.color] is a [MaterialStateProperty<Color>], [MaterialStateProperty.resolve]
-  /// is used for the following [MaterialState]s:
+  /// If [TextStyle.color] is a [MaterialStateProperty<Color>], [WidgetStateProperty.resolve]
+  /// is used for the following [WidgetState]s:
   ///
-  ///  * [MaterialState.disabled].
-  ///  * [MaterialState.selected].
-  ///  * [MaterialState.hovered].
-  ///  * [MaterialState.focused].
-  ///  * [MaterialState.pressed].
+  ///  * [WidgetState.disabled].
+  ///  * [WidgetState.selected].
+  ///  * [WidgetState.hovered].
+  ///  * [WidgetState.focused].
+  ///  * [WidgetState.pressed].
   TextStyle? get labelStyle;
 
   /// The color and weight of the chip's outline.
@@ -124,15 +124,15 @@ abstract interface class ChipAttributes {
   /// border side resolves to null, the default is the border side of [shape].
   ///
   /// This value is combined with [shape] to create a shape decorated with an
-  /// outline. If it is a [MaterialStateBorderSide],
-  /// [MaterialStateProperty.resolve] is used for the following
-  /// [MaterialState]s:
+  /// outline. If it is a [WidgetStateBorderSide],
+  /// [WidgetStateProperty.resolve] is used for the following
+  /// [WidgetState]s:
   ///
-  ///  * [MaterialState.disabled].
-  ///  * [MaterialState.selected].
-  ///  * [MaterialState.hovered].
-  ///  * [MaterialState.focused].
-  ///  * [MaterialState.pressed].
+  ///  * [WidgetState.disabled].
+  ///  * [WidgetState.selected].
+  ///  * [WidgetState.hovered].
+  ///  * [WidgetState.focused].
+  ///  * [WidgetState.pressed].
   BorderSide? get side;
 
   /// The [OutlinedBorder] to draw around the chip.
@@ -141,15 +141,15 @@ abstract interface class ChipAttributes {
   /// shape resolves to null, the default is [StadiumBorder].
   ///
   /// This shape is combined with [side] to create a shape decorated with an
-  /// outline. If it is a [MaterialStateOutlinedBorder],
-  /// [MaterialStateProperty.resolve] is used for the following
-  /// [MaterialState]s:
+  /// outline. If it is a [WidgetStateOutlinedBorder],
+  /// [WidgetStateProperty.resolve] is used for the following
+  /// [WidgetState]s:
   ///
-  ///  * [MaterialState.disabled].
-  ///  * [MaterialState.selected].
-  ///  * [MaterialState.hovered].
-  ///  * [MaterialState.focused].
-  ///  * [MaterialState.pressed].
+  ///  * [WidgetState.disabled].
+  ///  * [WidgetState.selected].
+  ///  * [WidgetState.hovered].
+  ///  * [WidgetState.focused].
+  ///  * [WidgetState.pressed].
   OutlinedBorder? get shape;
 
   /// {@macro flutter.material.Material.clipBehavior}
@@ -163,12 +163,12 @@ abstract interface class ChipAttributes {
   /// {@macro flutter.widgets.Focus.autofocus}
   bool get autofocus;
 
-  /// The color that fills the chip, in all [MaterialState]s.
+  /// The color that fills the chip, in all [WidgetState]s.
   ///
   /// Resolves in the following states:
-  ///  * [MaterialState.selected].
-  ///  * [MaterialState.disabled].
-  MaterialStateProperty<Color?>? get color;
+  ///  * [WidgetState.selected].
+  ///  * [WidgetState.disabled].
+  WidgetStateProperty<Color?>? get color;
 
   /// Color to be used for the unselected, enabled chip's background.
   ///
@@ -626,7 +626,7 @@ class Chip extends StatelessWidget
   @override
   final bool autofocus;
   @override
-  final MaterialStateProperty<Color?>? color;
+  final WidgetStateProperty<Color?>? color;
   @override
   final Color? backgroundColor;
   @override
@@ -828,7 +828,7 @@ class VRawChip extends StatefulWidget
   @override
   final bool autofocus;
   @override
-  final MaterialStateProperty<Color?>? color;
+  final WidgetStateProperty<Color?>? color;
   @override
   final Color? backgroundColor;
   @override
@@ -902,8 +902,8 @@ class _VRawChipState extends State<VRawChip>
   void initState() {
     assert(widget.onSelected == null || widget.onPressed == null);
     super.initState();
-    setMaterialState(MaterialState.disabled, !widget.isEnabled);
-    setMaterialState(MaterialState.selected, widget.selected);
+    setMaterialState(WidgetState.disabled, !widget.isEnabled);
+    setMaterialState(WidgetState.selected, widget.selected);
     selectController = AnimationController(
       duration: _kSelectDuration,
       value: widget.selected ? 1.0 : 0.0,
@@ -981,7 +981,7 @@ class _VRawChipState extends State<VRawChip>
     if (!canTap) {
       return;
     }
-    setMaterialState(MaterialState.pressed, true);
+    setMaterialState(WidgetState.pressed, true);
     setState(() {
       _isTapping = true;
     });
@@ -991,7 +991,7 @@ class _VRawChipState extends State<VRawChip>
     if (!canTap) {
       return;
     }
-    setMaterialState(MaterialState.pressed, false);
+    setMaterialState(WidgetState.pressed, false);
     setState(() {
       _isTapping = false;
     });
@@ -1001,7 +1001,7 @@ class _VRawChipState extends State<VRawChip>
     if (!canTap) {
       return;
     }
-    setMaterialState(MaterialState.pressed, false);
+    setMaterialState(WidgetState.pressed, false);
     setState(() {
       _isTapping = false;
     });
@@ -1012,30 +1012,29 @@ class _VRawChipState extends State<VRawChip>
 
   OutlinedBorder _getShape(
       ThemeData theme, ChipThemeData chipTheme, ChipThemeData chipDefaults) {
-    final BorderSide? resolvedSide =
-        MaterialStateProperty.resolveAs<BorderSide?>(
-                widget.side, materialStates) ??
-            MaterialStateProperty.resolveAs<BorderSide?>(
-                chipTheme.side, materialStates) ??
-            MaterialStateProperty.resolveAs<BorderSide?>(
-                chipDefaults.side, materialStates);
+    final BorderSide? resolvedSide = WidgetStateProperty.resolveAs<BorderSide?>(
+            widget.side, materialStates) ??
+        WidgetStateProperty.resolveAs<BorderSide?>(
+            chipTheme.side, materialStates) ??
+        WidgetStateProperty.resolveAs<BorderSide?>(
+            chipDefaults.side, materialStates);
     final OutlinedBorder resolvedShape =
-        MaterialStateProperty.resolveAs<OutlinedBorder?>(
+        WidgetStateProperty.resolveAs<OutlinedBorder?>(
                 widget.shape, materialStates) ??
-            MaterialStateProperty.resolveAs<OutlinedBorder?>(
+            WidgetStateProperty.resolveAs<OutlinedBorder?>(
                 chipTheme.shape, materialStates) ??
-            MaterialStateProperty.resolveAs<OutlinedBorder?>(
+            WidgetStateProperty.resolveAs<OutlinedBorder?>(
                 chipDefaults.shape, materialStates) ??
             const StadiumBorder();
     return resolvedShape.copyWith(side: resolvedSide);
   }
 
   Color? resolveColor({
-    MaterialStateProperty<Color?>? color,
+    WidgetStateProperty<Color?>? color,
     Color? selectedColor,
     Color? backgroundColor,
     Color? disabledColor,
-    MaterialStateProperty<Color?>? defaultColor,
+    WidgetStateProperty<Color?>? defaultColor,
   }) {
     return _IndividualOverrides(
           color: color,
@@ -1101,7 +1100,7 @@ class _VRawChipState extends State<VRawChip>
     super.didUpdateWidget(oldWidget);
     if (oldWidget.isEnabled != widget.isEnabled) {
       setState(() {
-        setMaterialState(MaterialState.disabled, !widget.isEnabled);
+        setMaterialState(WidgetState.disabled, !widget.isEnabled);
         if (widget.isEnabled) {
           enableController.forward();
         } else {
@@ -1121,7 +1120,7 @@ class _VRawChipState extends State<VRawChip>
     }
     if (oldWidget.selected != widget.selected) {
       setState(() {
-        setMaterialState(MaterialState.selected, widget.selected);
+        setMaterialState(WidgetState.selected, widget.selected);
         if (widget.selected) {
           selectController.forward();
         } else {
@@ -1203,7 +1202,7 @@ class _VRawChipState extends State<VRawChip>
     final EdgeInsetsGeometry defaultLabelPadding = EdgeInsets.lerp(
       const EdgeInsets.symmetric(horizontal: 8.0),
       const EdgeInsets.symmetric(horizontal: 4.0),
-      clampDouble(MediaQuery.textScaleFactorOf(context) - 1.0, 0.0, 1.0),
+      clampDouble(MediaQuery.textScalerOf(context).scale(1.0) - 1.0, 0.0, 1.0),
     )!;
 
     final ThemeData theme = Theme.of(context);
@@ -1256,7 +1255,7 @@ class _VRawChipState extends State<VRawChip>
         widget.iconTheme ?? chipTheme.iconTheme ?? chipDefaults.iconTheme;
 
     final TextStyle effectiveLabelStyle = labelStyle.merge(widget.labelStyle);
-    final Color? resolvedLabelColor = MaterialStateProperty.resolveAs<Color?>(
+    final Color? resolvedLabelColor = WidgetStateProperty.resolveAs<Color?>(
         effectiveLabelStyle.color, materialStates);
     final TextStyle resolvedLabelStyle =
         effectiveLabelStyle.copyWith(color: resolvedLabelColor);
@@ -1274,14 +1273,14 @@ class _VRawChipState extends State<VRawChip>
       child: InkWell(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
-        onFocusChange: updateMaterialState(MaterialState.focused),
+        onFocusChange: updateMaterialState(WidgetState.focused),
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         canRequestFocus: widget.isEnabled,
         onTap: canTap ? _handleTap : null,
         onTapDown: canTap ? _handleTapDown : null,
         onTapCancel: canTap ? _handleTapCancel : null,
-        onHover: canTap ? updateMaterialState(MaterialState.hovered) : null,
+        onHover: canTap ? updateMaterialState(WidgetState.hovered) : null,
         customBorder: resolvedShape,
         child: AnimatedBuilder(
           animation: Listenable.merge(
@@ -1372,7 +1371,7 @@ class _VRawChipState extends State<VRawChip>
   }
 }
 
-class _IndividualOverrides extends MaterialStateProperty<Color?> {
+class _IndividualOverrides extends WidgetStateProperty<Color?> {
   _IndividualOverrides({
     this.color,
     this.backgroundColor,
@@ -1380,24 +1379,24 @@ class _IndividualOverrides extends MaterialStateProperty<Color?> {
     this.disabledColor,
   });
 
-  final MaterialStateProperty<Color?>? color;
+  final WidgetStateProperty<Color?>? color;
   final Color? backgroundColor;
   final Color? selectedColor;
   final Color? disabledColor;
 
   @override
-  Color? resolve(Set<MaterialState> states) {
+  Color? resolve(Set<WidgetState> states) {
     if (color != null) {
       return color!.resolve(states);
     }
-    if (states.contains(MaterialState.selected) &&
-        states.contains(MaterialState.disabled)) {
+    if (states.contains(WidgetState.selected) &&
+        states.contains(WidgetState.disabled)) {
       return selectedColor;
     }
-    if (states.contains(MaterialState.disabled)) {
+    if (states.contains(WidgetState.disabled)) {
       return disabledColor;
     }
-    if (states.contains(MaterialState.selected)) {
+    if (states.contains(WidgetState.selected)) {
       return selectedColor;
     }
     return backgroundColor;
@@ -2129,7 +2128,7 @@ class _RenderChip extends RenderBox
       return;
     }
     final Color disabledColor = _disabledColor;
-    final int disabledColorAlpha = disabledColor.alpha;
+    final int disabledColorAlpha = (disabledColor.a * 255).round();
     if (needsCompositing) {
       context.pushLayer(
           OpacityLayer(alpha: disabledColorAlpha), paintWithOverlay, offset);
@@ -2152,7 +2151,7 @@ class _RenderChip extends RenderBox
     if (child == null) {
       return;
     }
-    final int disabledColorAlpha = _disabledColor.alpha;
+    final int disabledColorAlpha = (_disabledColor.a * 255).round();
     if (!enableAnimation.isCompleted) {
       if (needsCompositing) {
         context.pushLayer(
@@ -2331,7 +2330,7 @@ class _ChipDefaultsM3 extends ChipThemeData {
   TextStyle? get labelStyle => _textTheme.labelLarge;
 
   @override
-  MaterialStateProperty<Color?>? get color =>
+  WidgetStateProperty<Color?>? get color =>
       null; // Subclasses override this getter
 
   @override
@@ -2349,7 +2348,7 @@ class _ChipDefaultsM3 extends ChipThemeData {
   @override
   BorderSide? get side => isEnabled
       ? BorderSide(color: _colors.outline)
-      : BorderSide(color: _colors.onSurface.withOpacity(0.12));
+      : BorderSide(color: _colors.onSurface.withValues(alpha: 0.12));
 
   @override
   IconThemeData? get iconTheme => IconThemeData(
@@ -2368,7 +2367,8 @@ class _ChipDefaultsM3 extends ChipThemeData {
   EdgeInsetsGeometry? get labelPadding => EdgeInsets.lerp(
         const EdgeInsets.symmetric(horizontal: 8.0),
         const EdgeInsets.symmetric(horizontal: 4.0),
-        clampDouble(MediaQuery.textScaleFactorOf(context) - 1.0, 0.0, 1.0),
+        clampDouble(
+            MediaQuery.textScalerOf(context).scale(1.0) - 1.0, 0.0, 1.0),
       )!;
 }
 

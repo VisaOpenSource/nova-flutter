@@ -1,5 +1,5 @@
-// 
-//              © 2025 Visa
+//
+//              © 2025-2026 Visa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,9 +25,21 @@ class VSwitchStyle extends ThemeExtension<VSwitchStyle> {
     this.tagColor,
     this.tagBorderColor,
     this.borderColor,
+    this.trackDisabledOff,
+    this.trackDisabledOn,
+    this.thumbDisabled,
+    this.borderDisabledOff,
+    this.borderDisabledOn,
+    this.thumbBorderDisabled,
   });
 
   final Color? switchColor, tagColor, tagBorderColor, borderColor;
+  final Color? trackDisabledOff; // Track color when disabled and off
+  final Color? trackDisabledOn; // Track color when disabled and on
+  final Color? thumbDisabled; // Thumb color when disabled
+  final Color? borderDisabledOff; // Border color when disabled and off
+  final Color? borderDisabledOn; // Border color when disabled and on
+  final Color? thumbBorderDisabled; // Thumb border color when disabled
 
   @override
   VSwitchStyle copyWith({
@@ -35,12 +47,24 @@ class VSwitchStyle extends ThemeExtension<VSwitchStyle> {
     tagColor,
     tagBorderColor,
     borderColor,
+    trackDisabledOff,
+    trackDisabledOn,
+    thumbDisabled,
+    borderDisabledOff,
+    borderDisabledOn,
+    thumbBorderDisabled,
   }) =>
       VSwitchStyle(
         switchColor: switchColor ?? this.switchColor,
         tagColor: tagColor ?? this.tagColor,
         tagBorderColor: tagBorderColor ?? this.tagBorderColor,
         borderColor: borderColor ?? this.borderColor,
+        trackDisabledOff: trackDisabledOff ?? this.trackDisabledOff,
+        trackDisabledOn: trackDisabledOn ?? this.trackDisabledOn,
+        thumbDisabled: thumbDisabled ?? this.thumbDisabled,
+        borderDisabledOff: borderDisabledOff ?? this.borderDisabledOff,
+        borderDisabledOn: borderDisabledOn ?? this.borderDisabledOn,
+        thumbBorderDisabled: thumbBorderDisabled ?? this.thumbBorderDisabled,
       );
 
   @override
@@ -54,6 +78,14 @@ class VSwitchStyle extends ThemeExtension<VSwitchStyle> {
       tagColor: Color.lerp(tagColor, other.tagColor, t),
       tagBorderColor: Color.lerp(tagBorderColor, other.tagBorderColor, t),
       borderColor: Color.lerp(borderColor, other.borderColor, t),
+      trackDisabledOff: Color.lerp(trackDisabledOff, other.trackDisabledOff, t),
+      trackDisabledOn: Color.lerp(trackDisabledOn, other.trackDisabledOn, t),
+      thumbDisabled: Color.lerp(thumbDisabled, other.thumbDisabled, t),
+      borderDisabledOff:
+          Color.lerp(borderDisabledOff, other.borderDisabledOff, t),
+      borderDisabledOn: Color.lerp(borderDisabledOn, other.borderDisabledOn, t),
+      thumbBorderDisabled:
+          Color.lerp(thumbBorderDisabled, other.thumbBorderDisabled, t),
     );
   }
 }
@@ -97,16 +129,27 @@ class _VSwitchState extends State<VSwitch> {
   @override
   Widget build(BuildContext context) {
     final dynamic defaultStyle;
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     if (widget.vExt == null || widget.vExt is VDef) {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark
-          ? getDefaultColorSchemeDark()!
-          : getDefaultColorScheme()!;
+      defaultStyle =
+          isDark ? getDefaultColorSchemeDark()! : getDefaultColorScheme()!;
     } else {
-      defaultStyle = Theme.of(context).brightness == Brightness.dark
-          ? getAltColorSchemeDark()!
-          : getAltColorScheme()!;
+      defaultStyle = isDark ? getAltColorSchemeDark()! : getAltColorScheme()!;
     }
-    final tagColor = widget.style?.tagColor ?? defaultStyle.surface1;
+
+    // Get theme-aware toggle colors
+    final toggleTrackDisabledOff = isDark
+        ? VColors.toggleTrackDisabledOffDark
+        : VColors.toggleTrackDisabledOff;
+    final toggleTrackDisabledOn = isDark
+        ? VColors.toggleTrackDisabledOnDark
+        : VColors.toggleTrackDisabledOn;
+    final toggleThumbDisabled =
+        isDark ? VColors.toggleThumbDisabledDark : VColors.toggleThumbDisabled;
+
+    final tagColor = widget.isDisabled
+        ? (widget.style?.thumbDisabled ?? toggleThumbDisabled)
+        : (widget.style?.tagColor ?? defaultStyle.surface1);
 
     Color? switchStateColor() {
       if (isPressed && !widget.switchValue) {
@@ -116,13 +159,13 @@ class _VSwitchState extends State<VSwitch> {
         return widget.style?.switchColor ?? defaultStyle.activePressed;
       }
       if (widget.isDisabled && widget.switchValue) {
-        return widget.style?.switchColor ?? defaultStyle.disabled;
+        return widget.style?.trackDisabledOn ?? toggleTrackDisabledOn;
       }
       if (widget.isDisabled && !widget.switchValue) {
-        return widget.style?.switchColor ?? defaultStyle.surface3;
+        return widget.style?.trackDisabledOff ?? toggleTrackDisabledOff;
       }
       if (widget.isDisabled) {
-        return widget.style?.switchColor ?? defaultStyle.disabled;
+        return widget.style?.trackDisabledOff ?? toggleTrackDisabledOff;
       }
       if (widget.switchValue) {
         return widget.style?.switchColor ?? defaultStyle.active;
@@ -138,15 +181,13 @@ class _VSwitchState extends State<VSwitch> {
         return widget.style?.borderColor ?? defaultStyle.active;
       }
       if (widget.isDisabled && !widget.switchValue) {
-        return widget.style?.borderColor ??
-            defaultStyle.subtle.withOpacity(0.2);
+        return widget.style?.borderDisabledOff ?? toggleTrackDisabledOff;
       }
       if (widget.isDisabled && widget.switchValue) {
-        return widget.style?.borderColor ??
-            defaultStyle.disabled.withOpacity(0.2);
+        return widget.style?.borderDisabledOn ?? toggleTrackDisabledOn;
       }
       if (widget.isDisabled) {
-        return widget.style?.borderColor ?? defaultStyle.disabled;
+        return widget.style?.borderDisabledOff ?? toggleTrackDisabledOff;
       }
       if (widget.switchValue) {
         return widget.style?.borderColor ?? defaultStyle.active;
@@ -162,14 +203,13 @@ class _VSwitchState extends State<VSwitch> {
         return widget.style?.tagBorderColor ?? defaultStyle.active;
       }
       if (widget.isDisabled && !widget.switchValue) {
-        return widget.style?.tagBorderColor ??
-            defaultStyle.subtle.withOpacity(0.2);
+        return widget.style?.thumbBorderDisabled ?? toggleThumbDisabled;
       }
       if (widget.isDisabled && widget.switchValue) {
-        return widget.style?.tagBorderColor ?? defaultStyle.surface1;
+        return widget.style?.thumbBorderDisabled ?? toggleThumbDisabled;
       }
       if (widget.isDisabled) {
-        return widget.style?.tagBorderColor ?? defaultStyle.disabled;
+        return widget.style?.thumbBorderDisabled ?? toggleThumbDisabled;
       }
       if (!widget.switchValue) {
         return widget.style?.tagBorderColor ?? defaultStyle.subtle;
